@@ -20,8 +20,11 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+<<<<<<< HEAD
         'avatar',
         'steamid'
+=======
+>>>>>>> e29ec604d0b31c01e2513288726156f0656c6b85
     ];
 
     /**
