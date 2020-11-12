@@ -2,10 +2,6 @@
 node_modules/
 npm-debug.log
 yarn-error.log
-.editorconfig
-.env.example
-.gitattributes
-.styleci.yml
 
 # Laravel 4 specific
 bootstrap/compiled.php
