@@ -39,6 +39,9 @@ class Profile extends Model
         return $banInfo;
     }
 
+    /**
+     * @return array|mixed
+     */
     public function getRecentlyPlayedGames(){
         $this->steamid = Auth::user()->steamid;
         $recentlyPlayedGames = Http::get('http://api.steampowered.com/IPlayerService/GetRecentlyPlayedGames/v0001/?key=3FE725B04637FA6637A3BA1684CFEEF9&steamid='. $this->steamid .'&format=json')->json();

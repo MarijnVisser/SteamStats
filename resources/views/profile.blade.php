@@ -98,6 +98,7 @@
           @endif
 
         <!--    Ban information     -->
+
         <p>Vac ban: @if($banInfo['VACBanned'] == false) None @else {{$banInfo['NumberOfVACBans']}} Ban(s)  ({{ $banInfo['DaysSinceLastBan'] }} Days ago) @endif</p>
         <p>Community ban: @if($banInfo['CommunityBanned'] == false) None @else Banned @endif</p>
         <p>Game bans: @if($banInfo['NumberOfGameBans'] == false) None @else {{$banInfo['NumberOfGameBans']}} @endif</p>
@@ -106,23 +107,21 @@
 
         <!--    Recently Played information     -->
 
-{{--        {{dd($recentlyPlayedGames)}}--}}
-        {{$recentlyPlayedGames[0]['appid']}}
-        {{$recentlyPlayedGames[0]['name']}}
+        <?php
+
+        foreach ($recentlyPlayedGames as $recentlyPlayedGame){
+
+            print_r($recentlyPlayedGame['appid']. '<br>');
+
+        }
+
+        ?>
+
+{{--        {{$recentlyPlayedGames[0]['appid']}}--}}
+{{--        {{$recentlyPlayedGames['name']}}--}}
 
 
 
-                @foreach($recentlyPlayedGames as $recentlyPlayedGame)
-{{--                    {{print_r($recentlyPlayedGame)}}--}}
-<!--                    --><?php //$test = json_encode($recentlyPlayedGame)?>
-                     <br>
-
-
-
-                @endforeach
-
-{{--                {{$recentlyPlayedGame}} <br>--}}
-{{--                {{$recentlyPlayedGame}} <br>--}}
 
     </body>
 </html>
