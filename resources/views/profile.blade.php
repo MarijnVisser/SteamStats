@@ -22,10 +22,9 @@
         @if(!empty($gameInfo))
             <p>Currently playing: {{$data['gameextrainfo']}}</p>
             <p>Game id: {{$data['gameid']}}</p>
-          @endif
+        @endif
 
         <!--    Ban information     -->
-
         <p>Vac ban: @if($banInfo['VACBanned'] == false) None @else {{$banInfo['NumberOfVACBans']}} Ban(s)  ({{ $banInfo['DaysSinceLastBan'] }} Days ago) @endif</p>
         <p>Community ban: @if($banInfo['CommunityBanned'] == false) None @else Banned @endif</p>
         <p>Game bans: @if($banInfo['NumberOfGameBans'] == false) None @else {{$banInfo['NumberOfGameBans']}} @endif</p>
@@ -33,20 +32,11 @@
 
 
         <!--    Recently Played information     -->
-
-        <?php
-
-        foreach ($recentlyPlayedGames as $recentlyPlayedGame){
-
-            print_r($recentlyPlayedGame['appid']. '<br>');
-
-        }
-
-        ?>
-
-{{--        {{$recentlyPlayedGames[0]['appid']}}--}}
-{{--        {{$recentlyPlayedGames['name']}}--}}
-
-
+        @foreach ($recentlyPlayedGames as $recentlyPlayedGame)
+            <p>Appid: {{ $recentlyPlayedGame['appid'] }}</p>
+            <p>Name: {{ !empty($recentlyPlayedGame['name']) ? $recentlyPlayedGame['name'] : "No name found" }}</p>
+            <p>Last 2 weeks: {{  round($recentlyPlayedGame['playtime_2weeks'] / 60, 1) . " Hours" }}</p>
+            <p>Overall playtime: {{ round($recentlyPlayedGame['playtime_forever'] / 60, 1) . " Hours" }}</p>
+        @endforeach
 
 @endsection
