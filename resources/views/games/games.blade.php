@@ -14,9 +14,9 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($games as $game)                        
+                        @foreach ($games as $game)
                             <tr>
-                                <th>{{$game->appid}}</th> 
+                                <th>{{$game->appid}}</th>
                                 <td><a href="{{route('game', ['id' => $game->appid])}}">{{$game->name}}</a></td>
                             </tr>
                         @endforeach
