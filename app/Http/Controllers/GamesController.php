@@ -4,22 +4,23 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use App\Models\Game as gameModel;
+use App\Models\Game;
 
 class GamesController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
     public function index()
     {
+
         $games = DB::table('games')
-                    ->select('appid','name')
-                    ->orderBy('appid', 'asc')
-                    ->paginate(15);
-            
+            ->select('appid','name')
+            ->orderBy('appid', 'asc')
+            ->paginate(15);
+
         return view('games.games')->with('games', $games);
     }
 
@@ -42,7 +43,7 @@ class GamesController extends Controller
     public function store(Request $request)
     {
         $games = new gameModel();
-        $games = $games->getGames(); 
+        $games = $games->getGames();
 
         set_time_limit(0);
 

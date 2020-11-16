@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Http;
 
 class Game extends Model
 {
@@ -18,10 +19,9 @@ class Game extends Model
 
     public function getGames(){
 
-        $url = "https://api.steampowered.com/ISteamApps/GetAppList/v2/";
-        $json = file_get_contents($url);
-        $json_data = json_decode($json, true);
-        return $this->games = $json_data["applist"]["apps"];
+        $url = http::get("https://api.steampowered.com/ISteamApps/GetAppList/v2/")->json();
+
+        return $this->games = $url["applist"]["apps"];
 
     }
 }
