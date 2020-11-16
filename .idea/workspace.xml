@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c4b62f6b-3370-43cf-b138-5a7dda03b453" name="Default Changelist" comment="" />
+    <list default="true" id="c4b62f6b-3370-43cf-b138-5a7dda03b453" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/SteamStats.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/SteamStats.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -9,7 +14,12 @@
   </component>
   <component name="ComposerSettings" doNotAsk="true" synchronizationState="SYNCHRONIZE">
     <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
-    <execution />
+    <execution>
+      <executable path="composer" />
+    </execution>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="PhpWorkspaceProjectConfiguration">
     <include_path>
@@ -149,7 +159,9 @@
       <option name="presentableId" value="Default" />
       <updated>1605123824108</updated>
       <workItem from="1605123832614" duration="9220000" />
-      <workItem from="1605168129942" duration="16787000" />
+      <workItem from="1605168129942" duration="17847000" />
+      <workItem from="1605458550751" duration="2434000" />
+      <workItem from="1605514719064" duration="3349000" />
     </task>
     <servers />
   </component>
@@ -165,6 +177,10 @@
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
     <state x="2610" y="274" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1605173925986" />
+    <state x="2656" y="432" key="ComposerInitDialogKey" timestamp="1605517782746">
+      <screen x="1920" y="0" width="1920" height="1040" />
+    </state>
+    <state x="2656" y="432" key="ComposerInitDialogKey/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1605517782746" />
     <state x="2660" y="274" key="FileChooserDialogImpl" timestamp="1605127497388">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
