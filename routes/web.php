@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\GamesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,9 +20,3 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-Route::get('/get_games', [GamesController::class, 'store']);
-
-Route::get('/games', [GamesController::class, 'index']);
-
-Route::get('/game/{id}', [GamesController::class, 'show'])->name('game');
