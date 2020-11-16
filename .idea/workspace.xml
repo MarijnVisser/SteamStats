@@ -2,10 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c4b62f6b-3370-43cf-b138-5a7dda03b453" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/SteamStats.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/SteamStats.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -161,7 +158,7 @@
       <workItem from="1605123832614" duration="9220000" />
       <workItem from="1605168129942" duration="17847000" />
       <workItem from="1605458550751" duration="2434000" />
-      <workItem from="1605514719064" duration="3349000" />
+      <workItem from="1605514719064" duration="3966000" />
     </task>
     <servers />
   </component>
