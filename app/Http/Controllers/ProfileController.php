@@ -28,7 +28,10 @@ class ProfileController extends Controller
         $recentlyPlayedGames = new profile;
         $recentlyPlayedGames = $recentlyPlayedGames->getRecentlyPlayedGames();
 
-        return view('profile', ['data'=>$data['response']['players'][0], 'banInfo'=>$banInfo['players'][0], 'recentlyPlayedGames'=>$recentlyPlayedGames['response']['games']]);
+        $playerLevel = new profile;
+        $playerLevel = $playerLevel->getPlayerLevel();
+
+        return view('profile', ['data'=>$data['response']['players'][0], 'banInfo'=>$banInfo['players'][0], 'recentlyPlayedGames'=>$recentlyPlayedGames['response']['games'], 'playerLevel'=>$playerLevel['response']]);
     }
 
     /**
