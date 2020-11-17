@@ -21,6 +21,12 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
 
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <style>
+        body{
+            background-color: #343a40;
+            color: white;
+        }
+    </style>
 </head>
 <body>
     <div id="app">
@@ -69,7 +75,8 @@
                                     </li>
                                 </ul>
                             </li>
-                        </ul>                    @else
+                        </ul>
+                    @else
                         <a href='{{ url('/auth/steam') }}'><img src='https://steamcommunity-a.akamaihd.net/public/images/signinthroughsteam/sits_02.png'></a>
                     @endif
                 </div>

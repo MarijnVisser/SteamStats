@@ -12,6 +12,7 @@ npm-debug.log
 yarn-error.log
 /vendor/
 node_modules/
+.idea/workspace.xml
 
 
 # Laravel 4 specific
