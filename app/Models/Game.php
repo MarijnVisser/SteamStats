@@ -22,6 +22,6 @@ class Game extends Model
         $url = http::get("https://api.steampowered.com/ISteamApps/GetAppList/v2/")->json();
 
         return $this->games = $url["applist"]["apps"];
-
+    //https://store.steampowered.com/api/appdetails?appids=
     }
 }
