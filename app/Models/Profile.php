@@ -48,4 +48,14 @@ class Profile extends Model
 
         return $recentlyPlayedGames;
     }
+
+    public function getPlayerLevel(){
+        $this->steamid = Auth::user()->steamid;
+        $playerLevel = Http::get("https://api.steampowered.com/IPlayerService/GetBadges/v1/?key=3FE725B04637FA6637A3BA1684CFEEF9&steamid=".$this->steamid)->json();
+
+        return $playerLevel;
+    }
+
+//     WISHLIST API CALL   https://store.steampowered.com/wishlist/profiles/76561198088141566/wishlistdata/?p=0
+
 }

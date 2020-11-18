@@ -12,13 +12,17 @@
         ?>
 
         <!--    Profile information    -->
+{{--        @dd($playerLevel)--}}
         <img src="{{$data['avatarfull']}}"><br>
         <a href="{{$data['profileurl']}}">Name: {{$data['personaname']}}</a>
+        <p>Steam level: {{ $playerLevel['player_level'] }}</p>
+        <p>{{ $playerLevel['player_xp_needed_to_level_up'] . " / ".  $playerLevel['player_xp_needed_current_level'] . " XP to next level "}}</p>
+        <progress id="file" max="{{$playerLevel['player_xp_needed_current_level']}}" value="{{ $playerLevel['player_xp_needed_to_level_up']}}"> </progress>
+        <p>{{"Total XP: " .  $playerLevel['player_xp'] }}</p>
         <p>Steamid: {{$data['steamid']}}</p>
         <p>Last logoff: {{ gmdate('D: d M Y', $lastLogoff) }}</p>
-        <p>Account created: {{ gmdate('D: d M Y', $timeCreated) }}</p>
+        <p>Account age: {{ date('y') - gmdate('y', $timeCreated) }} years</p>
         <p>Country: {{$data['loccountrycode']}}</p>
-
         @if(!empty($gameInfo))
             <p>Currently playing: {{$data['gameextrainfo']}}</p>
             <p>Game id: {{$data['gameid']}}</p>
@@ -33,6 +37,8 @@
 
         <!--    Recently Played information     -->
         @foreach ($recentlyPlayedGames as $recentlyPlayedGame)
+            <img src="http://media.steampowered.com/steamcommunity/public/images/apps/{{ $recentlyPlayedGame['appid'] }}/{{ !empty($recentlyPlayedGame['img_logo_url']) ? $recentlyPlayedGame['img_logo_url'] : "No img"}}.jpg">
+            <img src="http://media.steampowered.com/steamcommunity/public/images/apps/{{ $recentlyPlayedGame['appid'] }}/{{ !empty($recentlyPlayedGame['img_icon_url']) ? $recentlyPlayedGame['img_icon_url'] : "No img"}}.jpg">
             <p>Appid: {{ $recentlyPlayedGame['appid'] }}</p>
             <p>Name: {{ !empty($recentlyPlayedGame['name']) ? $recentlyPlayedGame['name'] : "No name found" }}</p>
             <p>Last 2 weeks: {{  round($recentlyPlayedGame['playtime_2weeks'] / 60, 1) . " Hours" }}</p>
