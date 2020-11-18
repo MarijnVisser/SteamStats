@@ -2,8 +2,10 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProfileController;
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\GamesController;
+use Illuminate\Support\Facades\Route;
+use Symfony\Component\Console\Input\Input;
+use App\Models\Game;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,9 +32,11 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Route::get('/profile', [ProfileController::class, 'index']);
 
-
 Route::get('/get_games', [GamesController::class, 'store']);
 
 Route::get('/games', [GamesController::class, 'index']);
 
+Route::get('/search', [GamesController::class, 'search']);
+
 Route::get('/game/{id}', [GamesController::class, 'show'])->name('game');
+
