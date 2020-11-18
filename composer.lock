@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "5e3adb0ace9eeed4c5610ed74967a616",
+    "content-hash": "1ea3930b159734f00f51094fd357ef9a",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -888,6 +888,65 @@
                 "source": "https://github.com/guzzle/psr7/tree/1.7.0"
             },
             "time": "2020-09-30T07:37:11+00:00"
+        },
+        {
+            "name": "invisnik/laravel-steam-auth",
+            "version": "v4.3.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/invisnik/laravel-steam-auth.git",
+                "reference": "16bcd8b92b1ec9eb568ce968465896002945d3b2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/invisnik/laravel-steam-auth/zipball/16bcd8b92b1ec9eb568ce968465896002945d3b2",
+                "reference": "16bcd8b92b1ec9eb568ce968465896002945d3b2",
+                "shasum": ""
+            },
+            "require": {
+                "guzzlehttp/guzzle": "^6.3|^7.0.1",
+                "illuminate/http": "^5.8|^6.0|^7.0|^8.0",
+                "illuminate/routing": "^5.8|^6.0|^7.0|^8.0",
+                "illuminate/support": "^5.8|^6.0|^7.0|^8.0",
+                "php": "^7.2"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^7.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Invisnik\\LaravelSteamAuth\\SteamServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Invisnik\\LaravelSteamAuth\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Nikita Brytkov",
+                    "email": "invis.nik@gmail.com"
+                }
+            ],
+            "description": "Laravel Steam Auth",
+            "keywords": [
+                "auth",
+                "laravel",
+                "steam"
+            ],
+            "support": {
+                "issues": "https://github.com/invisnik/laravel-steam-auth/issues",
+                "source": "https://github.com/invisnik/laravel-steam-auth/tree/master"
+            },
+            "time": "2020-09-09T08:22:59+00:00"
         },
         {
             "name": "laravel/framework",
