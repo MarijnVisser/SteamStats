@@ -18,7 +18,7 @@ class Game extends Model
 
     public function getGames(){
 
-        $url = "https://api.steampowered.com/ISteamApps/GetAppList/v2/";
+        $url = "http://api.steampowered.com/ISteamApps/GetAppList/v0002/";
         $json = file_get_contents($url);
         $json_data = json_decode($json, true);
         return $this->games = $json_data["applist"]["apps"];

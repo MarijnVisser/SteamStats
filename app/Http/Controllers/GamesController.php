@@ -19,8 +19,32 @@ class GamesController extends Controller
                     ->select('appid','name')
                     ->orderBy('appid', 'asc')
                     ->paginate(15);
-            
+        
         return view('games.games')->with('games', $games);
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+      * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function search(Request $request)
+    {
+        $search =  $request->input('q');
+        if($search!=""){
+            $games = gameModel::where(function ($query) use ($search){
+                $query->where('appid', 'like', '%'.$search.'%')
+                    ->orWhere('name', 'like', '%'.$search.'%');
+            })
+            ->orderBy('name')
+            ->paginate(15);
+            $games->appends(['q' => $search]);
+        }
+        else{
+            $games = gameModel::paginate(15);
+        }
+        return View('games.games')->with('games',$games);
     }
 
     /**
