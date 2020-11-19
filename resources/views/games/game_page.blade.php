@@ -3,11 +3,9 @@
 @section('content')
 	<div class="container mt-5">
 		<div class="row mb-3">
-			<div class="col-md-1 d-flex justify-content-center align-items-center col-0">
-				<img src="https://cdn.cloudflare.steamstatic.com/steamcommunity/public/images/apps/730/69f7ebe2735c366c65c0b33dae00e12dc40edbe4.jpg" class="img-fluid">
-			</div>
+
 			<div class="col-md-11 col-12">
-				<h1>Counter-Strike: Global Offensive</h1>
+				<h1>{{ $game['name'] }}</h1>
 			</div>
 		</div>
 		<div class="row">
@@ -15,24 +13,25 @@
 				<table class="table table-hover table-bordered table-dark">
 					<tbody>
 						<tr>
+                            @dd($game)
 							<td>App ID</td>
-							<td>730</td>
+							<td>{{ $game['steam_appid'] }}</td>
 						</tr>
 						<tr>
 							<td>App Type</td>
-							<td>Game</td>
-						</tr>
-						<tr>
-							<td>Developer</td>
-							<td>Valve</td>
+							<td>{{ $game['type'] }}</td>
 						</tr>
 						<tr>
 							<td>Publisher</td>
-							<td>Valve</td>
+							<td>{{ $game['publishers'][0] }}</td>
+						</tr>
+						<tr>
+							<td>Developer</td>
+							<td>{{ $game['developers'][0] }}</td>
 						</tr>
 						<tr>
 							<td>Supported Systems</td>
-							<td>Windows macOS Linux</td>
+							<td>@if($game['platforms']['windows'] == true){{ "Windows " }}@endif @if($game['platforms']['mac'] == true){{ "Mac" }}@endif @if($game['platforms']['linux'] == true){{ "Linux" }}@endif</td>
 						</tr>
 						<tr>
 							<td>Last Record Update</td>
@@ -44,13 +43,13 @@
 						</tr>
 						<tr>
 							<td>Release Date</td>
-							<td>21 August 2012 – 17:00:00 UTC (8 years ago)</td>
+							<td>@if($game['release_date']['coming_soon'] == false) {{$game['release_date']['date']}} @else {{ "Coming soon" }}@endif</td>
 						</tr>
 					</tbody>
 				</table>
 			</div>
 			<div class="col-md-4">
-				<img src="https://cdn.cloudflare.steamstatic.com/steam/apps/730/header.jpg?t=1603843910" class="img-fluid">
+				<img src="{{ $game['header_image'] }}" class="img-fluid">
 				<div class="row mt-3">
 					<div class="col-md-6">
 						<div class="alert alert-dark text-center" role="alert">
@@ -65,7 +64,7 @@
 						</div>
 					</div>
 				</div>
-				<p class="text-white">Counter-Strike: Global Offensive (CS: GO) expands upon the team-based action gameplay that it pioneered when it was launched 19 years ago. CS: GO features new maps, characters, weapons, and game modes, and delivers updated versions of the classic CS content (de_dust2, etc.).</p>
+				<p class="text-white">{{ $game['detailed_description'] }}</p>
 			</div>
 		</div>
 		<hr class="my-5">

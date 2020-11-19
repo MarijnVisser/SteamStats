@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Game as gameModel;
+use PhpParser\Node\Stmt\DeclareDeclare;
 
 class GamesController extends Controller
 {
@@ -77,15 +78,28 @@ class GamesController extends Controller
         }
     }
 
+
     /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Game $game
-     * @return \Illuminate\Http\Response
+     * @param Request $id
+     * @param $request
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
-    public function show()
-    {
-        return view('games.game_page');
+    public function show(Request $request){
+
+////        dd($request->id);
+//        if($request->id>0){
+//            $game = gameModel::where('id', $request->id)->first();
+//
+//            return view('games.game_page')->with('game', $game);
+//        }
+//
+//        $request->session()->put('appid', $id);
+
+        $game = new gameModel();
+        $game->id = $request->id;
+        $game = $game->getGame($game['id']);
+
+        return view('games.game_page')->with('game', $game);
     }
 
     /**

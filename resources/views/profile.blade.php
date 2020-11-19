@@ -17,7 +17,7 @@
         <a href="{{$data['profileurl']}}">Name: {{$data['personaname']}}</a>
         <p>Steam level: {{ $playerLevel['player_level'] }}</p>
         <p>{{ $playerLevel['player_xp_needed_to_level_up'] . " / ".  $playerLevel['player_xp_needed_current_level'] . " XP to next level "}}</p>
-        <progress id="file" max="{{$playerLevel['player_xp_needed_current_level']}}" value="{{ $playerLevel['player_xp_needed_to_level_up']}}"> </progress>
+        <progress id="file" max="{{$playerLevel['player_xp_needed_current_level']}}" value="{{ $playerLevel['player_xp_needed_current_level'] - $playerLevel['player_xp_needed_to_level_up'] }}"> </progress>
         <p>{{"Total XP: " .  $playerLevel['player_xp'] }}</p>
         <p>Steamid: {{$data['steamid']}}</p>
         <p>Last logoff: {{ gmdate('D: d M Y', $lastLogoff) }}</p>
