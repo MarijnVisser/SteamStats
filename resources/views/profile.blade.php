@@ -2,7 +2,33 @@
 
 @section('content')
 
+<script>
+
+var currentPlayerLevel = "<?=$gamedata['playerLevel']['player_level']?>";
+
+function showLevel(currentPlayerLevel)
+{ 
+    var divLevel = document.getElementById("divLevel");
+    divLevel.classList.add("friendPlayerLevel");
+
+	if(currentPlayerLevel < 100)
+	{
+		var level_1 = Math.floor(currentPlayerLevel / 10) * 10; //level 35 becomes 30
+		divLevel.classList.add("lvl_" + level_1);
+	}
+	else
+	{
+		var level_1 = Math.floor(currentPlayerLevel % 100 / 10) * 10; // level 235 becomes 30
+		var level_2 = Math.floor(currentPlayerLevel / 100) * 100; // level 235 becomes 200
+		divLevel.classList.add("lvl_" + level_2);
+		divLevel.classList.add("lvl_plus_" + level_1);
+	}
+
+}
+</script>
+
 <h1>Profile</h1>
+<!-- <button onclick="showLevel(currentPlayerLevel)">kkr mooie button</button> -->
 
 <?php
 $lastLogoff = $gamedata['data']['lastlogoff'] ?? '';
@@ -26,7 +52,7 @@ $gameID = $gamedata['data']['gameid'] ?? '';
             @else
             <p class="userPageInfo">Currently not ingame</p>
             @endif
-            <p class="userPageInfo">Steam level: {{ $gamedata['playerLevel']['player_level'] }}</p>
+            <span class="userPageInfo">Level: <div id="divLevel" class="friendPlayerLevelNum" >{{ $gamedata['playerLevel']['player_level'] }}</div></span>
             <p class="userPageInfo">{{"Total XP: " .  $gamedata['playerLevel']['player_xp'] }}</p>
             <p class="userPageInfo">{{ $gamedata['playerLevel']['player_xp_needed_to_level_up'] . " / ".  $gamedata['playerLevel']['player_xp_needed_current_level'] . " XP to next level "}}</p>
             <p class="userPageInfo">Country: {{$gamedata['data']['loccountrycode']}}</p>
@@ -40,9 +66,10 @@ $gameID = $gamedata['data']['gameid'] ?? '';
             <p class="userPageInfo border border-dark">Steamid: {{$gamedata['data']['steamid']}}</p>
         </div>
     </div>
-    <div class="card-group">
+    @if(!empty($gamedata['recentlyPlayedGames']))
+    <div class="card-group row">
     @foreach ($gamedata['recentlyPlayedGames'] as $recentlyPlayedGame)
-        <div class="card profileCards">
+        <div class="card profileCards col-md-3 p-0">
             @if(!empty($recentlyPlayedGame['img_logo_url']))
                 <img class="card-img-top" src="http://media.steampowered.com/steamcommunity/public/images/apps/{{ $recentlyPlayedGame['appid'] }}/{{ $recentlyPlayedGame['img_logo_url'] }}.jpg">
             @else
@@ -56,8 +83,8 @@ $gameID = $gamedata['data']['gameid'] ?? '';
             </div>
         </div>
         @endforeach
-        
     </div>
+    @endif
 </div>
 
 
@@ -95,5 +122,6 @@ $gameID = $gamedata['data']['gameid'] ?? '';
 <p>Last 2 weeks: {{ round($recentlyPlayedGame['playtime_2weeks'] / 60, 1) . " Hours" }}</p>
 <p>Overall playtime: {{ round($recentlyPlayedGame['playtime_forever'] / 60, 1) . " Hours" }}</p>
 @endforeach
+<script>showLevel(currentPlayerLevel)</script>
 
 @endsection

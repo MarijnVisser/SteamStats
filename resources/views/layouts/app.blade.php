@@ -13,6 +13,7 @@
     <script src="{{ asset('js/app.js') }}" defer></script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="{{ asset('js/bootstrap/bootstrap.bundle.min.js')}}"></script>
+    <script src="{{ asset('js/steamLevelIcons/steamLevelIcons.js')}}"></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -21,7 +22,8 @@
     <!-- Styles -->
    <link href="{{ asset('css/bootstrap/bootstrap.min.css')}}"> 
    <link href="{{ asset('css/bootstrap/bootstrap-grid.min.css')}}"> 
-   <link href="{{ asset('css/bootstrap/bootstrap-reboot.min.css')}}"> 
+   <link href="{{ asset('css/bootstrap/bootstrap-reboot.min.css')}}">
+   <link href="{{ asset('css/steamLevelIcons/steamLevelIcons.css')}}"  rel="stylesheet">
 
 
     
@@ -93,5 +95,7 @@
             @yield('content')
         </main>
     </div>
+    <script></script>
 </body>
+
 </html>
