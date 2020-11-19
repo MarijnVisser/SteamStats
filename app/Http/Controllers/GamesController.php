@@ -36,7 +36,7 @@ class GamesController extends Controller
         if($search!=""){
             $games = gameModel::where(function ($query) use ($search){
                 $query->where('appid', 'like', '%'.$search.'%')
-                    ->orWhere('name', 'like', '%'.$search.'%');
+                    ->orWhere('name', 'like', '% '.$search.'%');
             })
             ->orderBy('name')
             ->paginate(15);
