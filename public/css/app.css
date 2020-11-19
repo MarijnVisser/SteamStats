@@ -10913,3 +10913,11 @@ a.text-dark:focus {
   font-size: 20px;
   margin-bottom: 2px;
 }
+
+.profileCards{
+  background-color: gray;
+}
+
+.noImageFound{
+  height: 83px;
+}
