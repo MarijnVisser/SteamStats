@@ -516,12 +516,17 @@ eval("// removed by extract-text-webpack-plugin//# sourceURL=[module]\n//# sourc
 /***/ (function(module, exports, __webpack_require__) {
 
 <<<<<<< HEAD
+__webpack_require__(/*! D:\School Leerjaar 3\AO\SteamStats\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! D:\School Leerjaar 3\AO\SteamStats\resources\sass\app.scss */"./resources/sass/app.scss");
+=======
+<<<<<<< HEAD
 __webpack_require__(/*! C:\Users\Pwinga\OneDrive\Documents\Level 4 Web Developer\Year 3\Programming\SteamStats\resources\js\app.js */"./resources/js/app.js");
 module.exports = __webpack_require__(/*! C:\Users\Pwinga\OneDrive\Documents\Level 4 Web Developer\Year 3\Programming\SteamStats\resources\sass\app.scss */"./resources/sass/app.scss");
 =======
 __webpack_require__(/*! E:\School\AO\Jaar 3\SteamStats\resources\js\app.js */"./resources/js/app.js");
 module.exports = __webpack_require__(/*! E:\School\AO\Jaar 3\SteamStats\resources\sass\app.scss */"./resources/sass/app.scss");
 >>>>>>> e29ec604d0b31c01e2513288726156f0656c6b85
+>>>>>>> 2bda79a60be649d99d654ad2bf5f829c2f616045
 
 
 /***/ })

@@ -10903,3 +10903,21 @@ a.text-dark:focus {
   }
 }
 
+#profilelink{
+  color: inherit;
+  font-size: 40px;
+  margin-bottom: 10px;
+}
+
+.userPageInfo{
+  font-size: 20px;
+  margin-bottom: 2px;
+}
+
+.profileCards{
+  background-color: gray;
+}
+
+.noImageFound{
+  height: 83px;
+}
