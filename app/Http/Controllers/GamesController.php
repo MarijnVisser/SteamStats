@@ -36,7 +36,7 @@ class GamesController extends Controller
         $search =  $request->input('q');
         if($search!=""){
             $games = gameModel::where(function ($query) use ($search){
-                $query->where('appid', 'like', '%'.$search.'%')
+                $query->where('appid', 'like', $search)
                     ->orWhere('name', 'like', '%'.$search.'%');
             })
             ->orderBy('name')
@@ -99,7 +99,11 @@ class GamesController extends Controller
         $game->id = $request->id;
         $game = $game->getGame($game['id']);
 
-        return view('games.game_page')->with('game', $game);
+//        dd($game);
+        if(!empty($game['data']))
+            return view('games.game_page')->with('game', $game['data']);
+        else
+            return $this->index();
     }
 
     /**

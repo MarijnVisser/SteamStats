@@ -36,8 +36,7 @@ class Game extends Model
 
 
         $url = http::get("https://store.steampowered.com/api/appdetails?appids=".$appid)->json();
-//        dd($url[$appid]);
-        return $url[$appid]['data'];
+        return $url[$appid];
     }
 
 }
