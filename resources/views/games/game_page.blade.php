@@ -1,38 +1,62 @@
 @extends('layouts.app')
 
 @section('content')
+{{--    @dd($game)--}}
+{{--   !empty($recentlyPlayedGame['name']) ? $recentlyPlayedGame['name'] : "No name found" }}    --}}
+
+@if(!empty($game['background']))
+        <div>
+            <img src="{{ $game['background'] }}" style="position: absolute;top:0;width: 100%;height: 100%;z-index: -1; -webkit-mask-image:-webkit-gradient(linear, left top, left bottom, from(rgba(0,0,0,1)), to(rgba(0,0,0,0)));mask-image: linear-gradient(to bottom, rgba(0,0,0,1), rgba(0,0,0,0));">
+        </div>
+@endif
+{{--    @dd($game)--}}
 	<div class="container mt-5">
 		<div class="row mb-3">
-			<div class="col-md-1 d-flex justify-content-center align-items-center col-0">
-				<img src="https://cdn.cloudflare.steamstatic.com/steamcommunity/public/images/apps/730/69f7ebe2735c366c65c0b33dae00e12dc40edbe4.jpg" class="img-fluid">
+
+			<div class="col-md-12 col-12">
+				<h1 class="float-left">{{ $game['name'] }}</h1>
+                <a class="btn btn-info float-right" href="steam://install/{{$game['steam_appid']}}">Install</a>
 			</div>
-			<div class="col-md-11 col-12">
-				<h1>Counter-Strike: Global Offensive</h1>
-			</div>
+
 		</div>
 		<div class="row">
 			<div class="col-md-8">
-				<table class="table table-hover table-bordered table-dark">
+				<table class="table table-hover table-bordered table-dark" style="background-color: #282e39;">
 					<tbody>
 						<tr>
+
 							<td>App ID</td>
-							<td>730</td>
+							<td>{{ $game['steam_appid'] }}</td>
 						</tr>
 						<tr>
 							<td>App Type</td>
-							<td>Game</td>
-						</tr>
-						<tr>
-							<td>Developer</td>
-							<td>Valve</td>
+							<td>{{ $game['type'] }}</td>
 						</tr>
 						<tr>
 							<td>Publisher</td>
-							<td>Valve</td>
+							<td>
+                                <?php
+                                    if(!empty($game['publishers']))
+                                        foreach($game['publishers'] as $publisher)
+                                            echo $publisher;
+							        else
+							            echo "None";
+                                ?>
+                            </td>
+						</tr>
+						<tr>
+							<td>Developer</td>
+							<td><?php
+                                if(!empty($game['developers']))
+                                    foreach($game['developers'] as $developer)
+                                        echo $developer;
+                                else
+                                    echo "None";
+                                ?></td>
 						</tr>
 						<tr>
 							<td>Supported Systems</td>
-							<td>Windows macOS Linux</td>
+							<td>@if($game['platforms']['windows'] == true){{ "Windows " }}@endif @if($game['platforms']['mac'] == true){{ "Mac" }}@endif @if($game['platforms']['linux'] == true){{ "Linux" }}@endif</td>
 						</tr>
 						<tr>
 							<td>Last Record Update</td>
@@ -44,13 +68,14 @@
 						</tr>
 						<tr>
 							<td>Release Date</td>
-							<td>21 August 2012 – 17:00:00 UTC (8 years ago)</td>
+							<td>@if($game['release_date']['coming_soon'] == false) {{$game['release_date']['date']}} @else {{ "Coming soon" }}@endif</td>
 						</tr>
 					</tbody>
 				</table>
 			</div>
+
 			<div class="col-md-4">
-				<img src="https://cdn.cloudflare.steamstatic.com/steam/apps/730/header.jpg?t=1603843910" class="img-fluid">
+				<img src="{{ $game['header_image'] }}" class="img-fluid">
 				<div class="row mt-3">
 					<div class="col-md-6">
 						<div class="alert alert-dark text-center" role="alert">
@@ -65,27 +90,33 @@
 						</div>
 					</div>
 				</div>
-				<p class="text-white">Counter-Strike: Global Offensive (CS: GO) expands upon the team-based action gameplay that it pioneered when it was launched 19 years ago. CS: GO features new maps, characters, weapons, and game modes, and delivers updated versions of the classic CS content (de_dust2, etc.).</p>
+				<p class="text-white">{{ strip_tags($game['short_description']) }}</p>
 			</div>
 		</div>
-		<hr class="my-5">
+        <h4>Packages</h4>
+        @if(!empty($game['packages']))
+            @foreach($game['packages'] as $packages)
+                <iframe src="https://store.steampowered.com/widget/{{$game['steam_appid']}}/{{$packages}}" frameborder="0" width="729" height="190"></iframe>
+            @endforeach
+        @endif
+
+        <hr class="my-5">
 		<div class="row">
+            <h4>Packages</h4>
 			<div class="col-md-12">
 				<div class="row">
-					<div class="col-md-2">
+
+
+                    <div class="col-md-2">
 						<div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
 							<a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">Home</a>
 							<a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">Profile</a>
-							<a class="nav-link" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false">Messages</a>
-							<a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false">Settings</a>
 						</div>
 					</div>
 					<div class="col-md-10">
 						<div class="tab-content" id="v-pills-tabContent">
-							<div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab"><p class="text-white">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam in nunc non nisi lacinia tempus id quis ligula. Ut porta tempor neque id faucibus. Vivamus quis porttitor ex. Quisque non enim hendrerit leo commodo pellentesque. Nullam blandit luctus lacus non ultrices. Donec quis posuere tortor. Phasellus orci arcu, dignissim quis gravida non, pulvinar id libero. Quisque porta metus eu ipsum tempus consequat. Vivamus finibus egestas turpis vitae ornare. Donec mattis massa enim, vitae gravida nisi faucibus ut. Curabitur libero lectus, pellentesque eget tempor aliquet, ultricies sit amet eros.</p></div>
-							<div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab"><p class="text-white">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam in nunc non nisi lacinia tempus id quis ligula. Ut porta tempor neque id faucibus. Vivamus quis porttitor ex. Quisque non enim hendrerit leo commodo pellentesque. Nullam blandit luctus lacus non ultrices. Donec quis posuere tortor. Phasellus orci arcu, dignissim quis gravida non, pulvinar id libero. Quisque porta metus eu ipsum tempus consequat. Vivamus finibus egestas turpis vitae ornare. Donec mattis massa enim, vitae gravida nisi faucibus ut. Curabitur libero lectus, pellentesque eget tempor aliquet, ultricies sit amet eros.</p></div>
-							<div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab"><p class="text-white">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam in nunc non nisi lacinia tempus id quis ligula. Ut porta tempor neque id faucibus. Vivamus quis porttitor ex. Quisque non enim hendrerit leo commodo pellentesque. Nullam blandit luctus lacus non ultrices. Donec quis posuere tortor. Phasellus orci arcu, dignissim quis gravida non, pulvinar id libero. Quisque porta metus eu ipsum tempus consequat. Vivamus finibus egestas turpis vitae ornare. Donec mattis massa enim, vitae gravida nisi faucibus ut. Curabitur libero lectus, pellentesque eget tempor aliquet, ultricies sit amet eros.</p></div>
-							<div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab"><p class="text-white">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam in nunc non nisi lacinia tempus id quis ligula. Ut porta tempor neque id faucibus. Vivamus quis porttitor ex. Quisque non enim hendrerit leo commodo pellentesque. Nullam blandit luctus lacus non ultrices. Donec quis posuere tortor. Phasellus orci arcu, dignissim quis gravida non, pulvinar id libero. Quisque porta metus eu ipsum tempus consequat. Vivamus finibus egestas turpis vitae ornare. Donec mattis massa enim, vitae gravida nisi faucibus ut. Curabitur libero lectus, pellentesque eget tempor aliquet, ultricies sit amet eros.</p></div>
+                            <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab"><p>dfgdhghjghjghj</p></div>
+                            <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-home-tab"><p>tryurtyeytryrty</p></div>
 						</div>
 					</div>
 				</div>
