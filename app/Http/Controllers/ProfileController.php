@@ -35,6 +35,10 @@ class ProfileController extends Controller
         $playerLevel = new profile;
         $playerLevel = $playerLevel->getPlayerLevel();
 
+        $profileBackground = new profile;
+        $profileBackground = $profileBackground->getProfileBackground();
+
+
         $gamedata = [];
 
         if (!empty($data['response'])) {
@@ -48,6 +52,9 @@ class ProfileController extends Controller
         }
         if (!empty($playerLevel['response'])) {
             $gamedata['playerLevel'] = $playerLevel['response'];
+        }
+        if (!empty($profileBackground['response'])) {
+            $gamedata['profileBackground'] = $profileBackground['response']['profile_background'];
         }
 
         return view('profile', ['gamedata'=>$gamedata]);
