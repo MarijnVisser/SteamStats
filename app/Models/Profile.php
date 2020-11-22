@@ -56,6 +56,14 @@ class Profile extends Model
         return $playerLevel;
     }
 
+    public function getProfileBackground(){
+        $this->steamid = Auth::user()->steamid;
+        $profileBackground = Http::get("https://api.steampowered.com/IPlayerService/GetProfileBackground/v1/?key=3FE725B04637FA6637A3BA1684CFEEF9&steamid=".$this->steamid)->json();
+
+        return $profileBackground;
+
+    }
+
 //     WISHLIST API CALL   https://store.steampowered.com/wishlist/profiles/76561198088141566/wishlistdata/?p=0
 
 }
