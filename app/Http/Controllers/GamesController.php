@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Game as gameModel;
+use App\Models\Genre as genreModel;
 use PhpParser\Node\Stmt\DeclareDeclare;
 
 class GamesController extends Controller
@@ -72,9 +73,36 @@ class GamesController extends Controller
 
         set_time_limit(0);
 
-        foreach ($games as $game) {
+        foreach($games as $game){
+            
+            sleep(0.1);
 
-            gameModel::firstOrCreate(['appid' => $game['appid']], ['appid' => $game['appid'], 'name' => $game['name']]);
+            $id = strval($game['appid']);
+
+            $gameExists = gameModel::where('appid', $id)->first();
+
+            if($gameExists === null){
+
+                $gameInfo = new gameModel();
+                $gameInfo = $gameInfo->getGame($id);
+
+                $price = $gameInfo['data']['price_overview']['final'] ?? 0;
+
+                if(!empty($gameInfo)){
+                    if($gameInfo['success'] == true){
+                        gameModel::firstOrCreate(['appid' => $game['appid']],['appid' => $game['appid'],'name' => $game['name'],'price' => $price]);
+                    }
+                }
+                
+                if(!empty($gameInfo['data']['genres'])){
+                    foreach($gameInfo['data']['genres'] as $genre){
+            
+                        genreModel::firstOrCreate(['id' => $genre['id']], ['name' => $genre['description']]);
+
+                        DB::table('genres_games')->upsert(['game_id' => $id, 'genre_id' => $genre['id']], ['game_id', 'genre_id']);
+                    }
+                }
+            }
         }
     }
 
@@ -86,20 +114,10 @@ class GamesController extends Controller
      */
     public function show(Request $request){
 
-////        dd($request->id);
-//        if($request->id>0){
-//            $game = gameModel::where('id', $request->id)->first();
-//
-//            return view('games.game_page')->with('game', $game);
-//        }
-//
-//        $request->session()->put('appid', $id);
-
         $game = new gameModel();
         $game->id = $request->id;
         $game = $game->getGame($game['id']);
 
-//        dd($game);
         if(!empty($game['data']))
             return view('games.game_page')->with('game', $game['data']);
         else
