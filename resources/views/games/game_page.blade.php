@@ -5,9 +5,7 @@
 {{--   !empty($recentlyPlayedGame['name']) ? $recentlyPlayedGame['name'] : "No name found" }}    --}}
 
 @if(!empty($game['background']))
-        <div>
-            <img src="{{ $game['background'] }}" style="position: absolute;top:0;width: 100%;height: 100%;z-index: -1; -webkit-mask-image:-webkit-gradient(linear, left top, left bottom, from(rgba(0,0,0,1)), to(rgba(0,0,0,0)));mask-image: linear-gradient(to bottom, rgba(0,0,0,1), rgba(0,0,0,0));">
-        </div>
+    <img src="{{ $game['background'] }}" style="position: absolute;top:0;width: 100%;height: 100%;z-index: -1; -webkit-mask-image:-webkit-gradient(linear, left top, left bottom, from(rgba(0,0,0,1)), to(rgba(0,0,0,0)));mask-image: linear-gradient(to bottom, rgba(0,0,0,1), rgba(0,0,0,0));">
 @endif
 {{--    @dd($game)--}}
 	<div class="container mt-5">
@@ -15,7 +13,7 @@
 
 			<div class="col-md-12 col-12">
 				<h1 class="float-left">{{ $game['name'] }}</h1>
-                <a class="btn btn-info float-right" href="steam://install/{{$game['steam_appid']}}">Install</a>
+                <a class="btn btn-info float-right" href="steam://install/{{$game['steam_appid']}}">Install</a><a class="btn btn-outline-info float-right mr-2" href="steam://launch/{{$game['steam_appid']}}">Launch</a>
 			</div>
 
 		</div>
@@ -36,23 +34,25 @@
 							<td>Publisher</td>
 							<td>
                                 <?php
-                                    if(!empty($game['publishers']))
+                                    if(!empty($game['publishers'])){
                                         foreach($game['publishers'] as $publisher)
-                                            echo $publisher;
-							        else
-							            echo "None";
+                                            echo $publisher,", ";
+                                    } else
+                                        echo "None";
                                 ?>
                             </td>
 						</tr>
 						<tr>
 							<td>Developer</td>
-							<td><?php
-                                if(!empty($game['developers']))
-                                    foreach($game['developers'] as $developer)
-                                        echo $developer;
-                                else
-                                    echo "None";
-                                ?></td>
+							<td>
+                                <?php
+                                    if(!empty($game['developers'])){
+                                            foreach($game['developers'] as $developer)
+                                                echo $developer,", ";
+                                    } else
+                                        echo "None";
+                                ?>
+                            </td>
 						</tr>
 						<tr>
 							<td>Supported Systems</td>
@@ -111,12 +111,20 @@
 						<div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
 							<a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">Home</a>
 							<a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">Profile</a>
+							<a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-contact" role="tab" aria-controls="v-pills-profile" aria-selected="false">Contact</a>
+							<a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-help" role="tab" aria-controls="v-pills-profile" aria-selected="false">Help</a>
 						</div>
 					</div>
 					<div class="col-md-10">
 						<div class="tab-content" id="v-pills-tabContent">
-                            <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab"><p>dfgdhghjghjghj</p></div>
-                            <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-home-tab"><p>tryurtyeytryrty</p></div>
+                            <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab"><p>Lorem Ipsum is simply dummy text of the pr make but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem
+                                    Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p></div>
+                            <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-home-tab"><p>Lorem Ipsum is simply dummy text of the pr make but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem
+                                    Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p></div>
+                            <div class="tab-pane fade" id="v-pills-contact" role="tabpanel" aria-labelledby="v-pills-home-tab"><p>Lorem Ipsum is simply dummy text of the pr make but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem
+                                    Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p></div>
+                            <div class="tab-pane fade" id="v-pills-help" role="tabpanel" aria-labelledby="v-pills-home-tab"><p>Lorem Ipsum is simply dummy text of the pr make but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem
+                                    Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p></div>
 						</div>
 					</div>
 				</div>
