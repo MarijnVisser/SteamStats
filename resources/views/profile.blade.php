@@ -1,6 +1,4 @@
 @extends('layouts.app')
-
-
 @section('content')
 
 <script>
@@ -56,19 +54,19 @@ $gameID = $gamedata['data']['gameid'] ?? '';
                 <p class="userPageInfo">{{ $gamedata['playerLevel']['player_xp_needed_to_level_up'] . " / ".  $gamedata['playerLevel']['player_xp_needed_current_level'] . " XP to next level "}}</p>
                 <p class="userPageInfo">Country: {{$gamedata['data']['loccountrycode']}}</p>
             </div>
-            <div class="col-md-4 pt-3">
-                <p class="userPageInfo border border-dark">Vac ban: @if($gamedata['banInfo']['VACBanned'] == false) None @else {{$gamedata['banInfo']['NumberOfVACBans']}} Ban(s) ({{ $gamedata['banInfo']['DaysSinceLastBan'] }} Days ago) @endif</p>
-                <p class="userPageInfo border border-dark">Community ban: @if($gamedata['banInfo']['CommunityBanned'] == false) None @else Banned @endif</p>
-                <p class="userPageInfo border border-dark">Game bans: @if($gamedata['banInfo']['NumberOfGameBans'] == false) None @else {{$gamedata['banInfo']['NumberOfGameBans']}} @endif</p>
-                <p class="userPageInfo border border-dark">Trade ban: @if($gamedata['banInfo']['EconomyBan'] == 'none') None @else {{$gamedata['banInfo']['EconomyBan']}} @endif</p>
-                <p class="userPageInfo border border-dark">Account age: {{ date('y') - gmdate('y', $timeCreated) }} years</p>
-                <p class="userPageInfo border border-dark">Steamid: {{$gamedata['data']['steamid']}}</p>
+            <div class="col-md-4 pt-2">
+                <p class="userPageInfo border border-dark p-1">Vac ban: @if($gamedata['banInfo']['VACBanned'] == false) None @else {{$gamedata['banInfo']['NumberOfVACBans']}} Ban(s) ({{ $gamedata['banInfo']['DaysSinceLastBan'] }} Days ago) @endif</p>
+                <p class="userPageInfo border border-dark p-1">Community ban: @if($gamedata['banInfo']['CommunityBanned'] == false) None @else Banned @endif</p>
+                <p class="userPageInfo border border-dark p-1">Game bans: @if($gamedata['banInfo']['NumberOfGameBans'] == false) None @else {{$gamedata['banInfo']['NumberOfGameBans']}} @endif</p>
+                <p class="userPageInfo border border-dark p-1">Trade ban: @if($gamedata['banInfo']['EconomyBan'] == 'none') None @else {{$gamedata['banInfo']['EconomyBan']}} @endif</p>
+                <p class="userPageInfo border border-dark p-1">Account age: {{ date('y') - gmdate('y', $timeCreated) }} years</p>
+                <p class="userPageInfo border border-dark p-1">Steamid: {{$gamedata['data']['steamid']}}</p>
             </div>
         </div>
         @if(!empty($gamedata['recentlyPlayedGames']))
-            <div class="card-group row">
+            <div class="card-group row mt-1">
                 @foreach ($gamedata['recentlyPlayedGames'] as $recentlyPlayedGame)
-                    <div class="card profileCards col-md-3 p-0">
+                    <div class="card profileCards col-md-3 p-0 m-1">
                         @if(!empty($recentlyPlayedGame['img_logo_url']))
                             <img class="card-img-top"
                                  src="http://media.steampowered.com/steamcommunity/public/images/apps/{{ $recentlyPlayedGame['appid'] }}/{{ $recentlyPlayedGame['img_logo_url'] }}.jpg">

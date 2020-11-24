@@ -17,6 +17,7 @@ class Profile extends Model
     ];
 
     public $steamid;
+    public $customid;
 
     /**
      * @return mixed
@@ -62,6 +63,13 @@ class Profile extends Model
 
         return $profileBackground;
 
+    }
+
+    public function resolveCustomURL(){
+        $this->customid = "colorfulcat";
+        $resolvedurl = Http::get("https://api.steampowered.com/ISteamUser/ResolveVanityURL/v1/?key=122A8E9CFFA3C7CDE537F464AF8ACCC4&vanityurl=".$this->customid)->json();
+
+        return $resolvedurl;
     }
 
 //     WISHLIST API CALL   https://store.steampowered.com/wishlist/profiles/76561198088141566/wishlistdata/?p=0
