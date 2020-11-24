@@ -217,7 +217,9 @@
                 </div>
 			</div>
 		</div>
+
 		<hr class="my-5">
+
 		<div class="row">
 			<div class="col-md-10">
 				<h2>Reviews</h2>
@@ -232,58 +234,66 @@
                 @endif
 			</div>
 		</div>
-		<div class="row mt-5">
-			<div class="col-md-12">
-				<div class="card" style="background-color: #282e39">
-				    <div class="card-body ">
-				        <div class="row mb-3 mt-md-0">
-				            <div class="col-md-1 d-none d-md-block">
-				                <img src="https://image.ibb.co/jw55Ex/def_face.jpg" class="img img-rounded img-fluid" />
-				            </div>
-				            <div class="col-md-11">
-				                <p>
-				                    <a class="float-left" href="https://maniruzzaman-akash.blogspot.com/p/contact.html"><strong>Maniruzzaman Akash</strong></a>
-				                    <span class="float-right"><i class="text-warning far fa-star"></i></span>
-				                    <span class="float-right"><i class="text-warning fas fa-star"></i></span>
-				                    <span class="float-right"><i class="text-warning fas fa-star"></i></span>
-				                    <span class="float-right"><i class="text-warning fas fa-star"></i></span>
-				                    <span class="float-right"><i class="text-warning fas fa-star"></i></span>
-				                </p>
-				                <div class="clearfix"></div>
-				                <p>
-				                    Lorem Ipsum is simply dummy text of the pr make but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum
-				                    passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-				                </p>
-				                <p>
-				                    <a class="float-right btn btn-outline-primary"> <i class="fa fa-reply"></i>Reply</a>
-				                </p>
-				            </div>
-				        </div>
-				        <div class="card card-inner" style="background-color: #282e39">
-				            <div class="card-body">
-				                <div class="row">
-				                    <div class="col-md-1 d-none d-md-block">
-				                        <img src="https://image.ibb.co/jw55Ex/def_face.jpg" class="img img-rounded img-fluid" />
-				                    </div>
-				                    <div class="col-md-11">
-				                        <p>
-				                            <a href="https://maniruzzaman-akash.blogspot.com/p/contact.html"><strong>Maniruzzaman Akash</strong></a>
-				                        </p>
-				                        <p>
-				                            Lorem Ipsum is simply dummy text of the pr make but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem
-				                            Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-				                        </p>
-				                        <p>
-				                            <a class="float-right btn btn-outline-primary"> <i class="fa fa-reply"></i>Reply</a>
-				                        </p>
-				                    </div>
-				                </div>
-				            </div>
-				        </div>
-				    </div>
+		@if(!empty($reviews))
+			<div class="row mt-5">
+				<div class="col-md-12">
+					@foreach ($reviews as $review)
+<div class="card" style="background-color: #282e39">
+    <div class="card-body ">
+        <div class="row mb-3 mt-md-0">
+            <div class="col-md-1 d-none d-md-block">
+            	{{ $review['steamid'] }}
+            	{{ $review['stars'] }}
+            	{{ $review['review'] }}
+
+                <!-- <img src="https://image.ibb.co/jw55Ex/def_face.jpg" class="img img-rounded img-fluid" /> -->
+            </div>
+            <div class="col-md-11">
+                <!-- <p>
+                    <a class="float-left" href="https://maniruzzaman-akash.blogspot.com/p/contact.html"><strong>Maniruzzaman Akash</strong></a>
+                    <span class="float-right"><i class="text-warning far fa-star"></i></span>
+                    <span class="float-right"><i class="text-warning fas fa-star"></i></span>
+                    <span class="float-right"><i class="text-warning fas fa-star"></i></span>
+                    <span class="float-right"><i class="text-warning fas fa-star"></i></span>
+                    <span class="float-right"><i class="text-warning fas fa-star"></i></span>
+                </p>
+                <div class="clearfix"></div>
+                <p>
+                    Lorem Ipsum is simply dummy text of the pr make but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum
+                    passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+                </p>
+                <p>
+                    <a class="float-right btn btn-outline-primary"> <i class="fa fa-reply"></i>Reply</a>
+                </p> -->
+            </div>
+        </div>
+        <!-- <div class="card card-inner" style="background-color: #282e39">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-1 d-none d-md-block">
+                        <img src="https://image.ibb.co/jw55Ex/def_face.jpg" class="img img-rounded img-fluid" />
+                    </div>
+                    <div class="col-md-11">
+                        <p>
+                            <a href="https://maniruzzaman-akash.blogspot.com/p/contact.html"><strong>Maniruzzaman Akash</strong></a>
+                        </p>
+                        <p>
+                            Lorem Ipsum is simply dummy text of the pr make but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem
+                            Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+                        </p>
+                        <p>
+                            <a class="float-right btn btn-outline-primary"> <i class="fa fa-reply"></i>Reply</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div> -->
+    </div>
+</div>
+					@endforeach
 				</div>
 			</div>
-		</div>
+		@endif
 	</div>
 @endsection
 

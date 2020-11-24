@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Game as gameModel;
 use App\Models\Genre as genreModel;
+use App\Models\Review as reviewModel;
 use PhpParser\Node\Stmt\DeclareDeclare;
 
 class GamesController extends Controller
@@ -129,8 +130,10 @@ class GamesController extends Controller
         $game->id = $request->id;
         $game = $game->getGame($game['id']);
 
+        $reviews = reviewModel::where('appid', $game['data']['steam_appid'])->get();
+
         if(!empty($game['data']))
-            return view('games.game_page')->with('game', $game['data']);
+            return view('games.game_page')->with('game', $game['data'])->with('reviews', $reviews);
         else
             return $this->index();
     }
