@@ -8,6 +8,29 @@
     <img src="{{ $game['background'] }}" style="position: absolute;top:0;width: 100%;height: 100%;z-index: -1; -webkit-mask-image:-webkit-gradient(linear, left top, left bottom, from(rgba(0,0,0,1)), to(rgba(0,0,0,0)));mask-image: linear-gradient(to bottom, rgba(0,0,0,1), rgba(0,0,0,0));">
 @endif
 {{--    @dd($game)--}}
+
+
+@if ($errors->any())
+    <script type="text/javascript">
+		$('#reviewmodal').modal('show');
+    </script>
+@endif
+
+@if(session('success'))
+	<div class="alert alert-success text-center" role="alert">
+		{{session('success')}}
+	</div>
+@endif
+
+@if(session('error_steam_id'))
+	<div class="alert alert-danger text-center" role="alert">
+		{{session('error_steam_id')}}
+	</div>
+@endif
+
+
+
+
 	<div class="container mt-5">
 		<div class="row mb-3">
 			<div class="col-md-12 col-12">
@@ -194,103 +217,142 @@
                 </div>
 			</div>
 		</div>
+
 		<hr class="my-5">
+
 		<div class="row">
 			<div class="col-md-10">
 				<h2>Reviews</h2>
 			</div>
 			<div class="col-md-2">
-				<button type="button" class="btn btn-primary w-100" data-toggle="modal" data-target="#reviewmodal">
-				    Leave review
-				</button>
+				@auth
+					<button type="button" class="btn btn-primary w-100" data-toggle="modal" data-target="#reviewmodal">
+					    Leave review
+					</button>
+				@else
+                    <a href='{{ url('/auth/steam') }}'><img src='https://steamcommunity-a.akamaihd.net/public/images/signinthroughsteam/sits_02.png'></a>
+                @endif
 			</div>
 		</div>
-		<div class="row mt-5">
-			<div class="col-md-12">
-				<div class="card" style="background-color: #282e39">
-				    <div class="card-body ">
-				        <div class="row mb-3 mt-md-0">
-				            <div class="col-md-1 d-none d-md-block">
-				                <img src="https://image.ibb.co/jw55Ex/def_face.jpg" class="img img-rounded img-fluid" />
-				            </div>
-				            <div class="col-md-11">
-				                <p>
-				                    <a class="float-left" href="https://maniruzzaman-akash.blogspot.com/p/contact.html"><strong>Maniruzzaman Akash</strong></a>
-				                    <span class="float-right"><i class="text-warning fa fa-star"></i></span>
-				                    <span class="float-right"><i class="text-warning fa fa-star"></i></span>
-				                    <span class="float-right"><i class="text-warning fa fa-star"></i></span>
-				                    <span class="float-right"><i class="text-warning fa fa-star"></i></span>
-				                </p>
-				                <div class="clearfix"></div>
-				                <p>
-				                    Lorem Ipsum is simply dummy text of the pr make but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum
-				                    passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-				                </p>
-				                <p>
-				                    <a class="float-right btn btn-outline-primary"> <i class="fa fa-reply"></i>Reply</a>
-				                </p>
-				            </div>
-				        </div>
-				        <div class="card card-inner" style="background-color: #282e39">
-				            <div class="card-body">
-				                <div class="row">
-				                    <div class="col-md-1 d-none d-md-block">
-				                        <img src="https://image.ibb.co/jw55Ex/def_face.jpg" class="img img-rounded img-fluid" />
-				                    </div>
-				                    <div class="col-md-11">
-				                        <p>
-				                            <a href="https://maniruzzaman-akash.blogspot.com/p/contact.html"><strong>Maniruzzaman Akash</strong></a>
-				                        </p>
-				                        <p>
-				                            Lorem Ipsum is simply dummy text of the pr make but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem
-				                            Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-				                        </p>
-				                        <p>
-				                            <a class="float-right btn btn-outline-primary"> <i class="fa fa-reply"></i>Reply</a>
-				                        </p>
-				                    </div>
-				                </div>
-				            </div>
-				        </div>
-				    </div>
+		@if(!empty($reviews))
+			<div class="row mt-5">
+				<div class="col-md-12">
+					@foreach ($reviews as $review)
+<div class="card" style="background-color: #282e39">
+    <div class="card-body ">
+        <div class="row mb-3 mt-md-0">
+            <div class="col-md-1 d-none d-md-block">
+            	{{ $review['steamid'] }}
+            	{{ $review['stars'] }}
+            	{{ $review['review'] }}
+
+                <!-- <img src="https://image.ibb.co/jw55Ex/def_face.jpg" class="img img-rounded img-fluid" /> -->
+            </div>
+            <div class="col-md-11">
+                <!-- <p>
+                    <a class="float-left" href="https://maniruzzaman-akash.blogspot.com/p/contact.html"><strong>Maniruzzaman Akash</strong></a>
+                    <span class="float-right"><i class="text-warning far fa-star"></i></span>
+                    <span class="float-right"><i class="text-warning fas fa-star"></i></span>
+                    <span class="float-right"><i class="text-warning fas fa-star"></i></span>
+                    <span class="float-right"><i class="text-warning fas fa-star"></i></span>
+                    <span class="float-right"><i class="text-warning fas fa-star"></i></span>
+                </p>
+                <div class="clearfix"></div>
+                <p>
+                    Lorem Ipsum is simply dummy text of the pr make but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum
+                    passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+                </p>
+                <p>
+                    <a class="float-right btn btn-outline-primary"> <i class="fa fa-reply"></i>Reply</a>
+                </p> -->
+            </div>
+        </div>
+        <!-- <div class="card card-inner" style="background-color: #282e39">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-1 d-none d-md-block">
+                        <img src="https://image.ibb.co/jw55Ex/def_face.jpg" class="img img-rounded img-fluid" />
+                    </div>
+                    <div class="col-md-11">
+                        <p>
+                            <a href="https://maniruzzaman-akash.blogspot.com/p/contact.html"><strong>Maniruzzaman Akash</strong></a>
+                        </p>
+                        <p>
+                            Lorem Ipsum is simply dummy text of the pr make but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem
+                            Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+                        </p>
+                        <p>
+                            <a class="float-right btn btn-outline-primary"> <i class="fa fa-reply"></i>Reply</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div> -->
+    </div>
+</div>
+					@endforeach
 				</div>
 			</div>
-		</div>
+		@endif
 	</div>
 @endsection
 
-<!-- Modal -->
-<div class="modal fade" id="reviewmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content" style="background-color: #282e39">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle">Leave review</h5>
-                <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-				<form action="">
-				    <div class="form-group">
-				        <label for="exampleFormControlSelect1">Rating</label>
-				        <select class="form-control" id="exampleFormControlSelect1">
-				            <option>1</option>
-				            <option>2</option>
-				            <option>3</option>
-				            <option>4</option>
-				            <option>5</option>
-				        </select>
-				    </div>
-				    <div class="form-group">
-				        <label for="exampleFormControlTextarea1">Review</label>
-				        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-				    </div>
-            </div>
-            <div class="modal-footer">
-                <button type="submit" class="btn btn-primary float-right">Submit</button>
-                </form>
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            </div>
-        </div>
-    </div>
-</div>
+@auth
+	<!-- Modal -->
+	<div class="modal fade" id="reviewmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+	    <div class="modal-dialog modal-dialog-centered" role="document">
+	        <div class="modal-content" style="background-color: #282e39">
+	            <div class="modal-header">
+	                <h5 class="modal-title" id="exampleModalLongTitle">Leave review</h5>
+	                <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+	                    <span aria-hidden="true">&times;</span>
+	                </button>
+	            </div>
+	            <div class="modal-body">
+					@if ($errors->any())
+					    <div class="alert alert-danger">
+					        <ul>
+					            @foreach ($errors->all() as $error)
+					                <li>{{ $error }}</li>
+					            @endforeach
+					        </ul>
+					    </div>
+					@endif
+					<form action="{{ route('createreview') }}" method="post">
+
+						{{ csrf_field() }}
+
+						<div class="form-group">
+							<div class="row">
+								<div class="col-2">
+									<label>Avatar<img src="{{ Auth::user()->avatar }}" class="img-fluid"></label>
+								</div>
+								<div class="col-10">
+									<label class="w-100">Username<input type="text" class="form-control" placeholder="Steam name" name="steamname" value="{{ Auth::user()->name }}" readonly="true">
+									<input type="text" class="form-control" placeholder="Steam ID" name="steamid" value="{{ Auth::user()->steamid }}" hidden="true"></label>
+								</div>
+							</div>
+						</div>
+					    <div class="form-group">
+					        <label>Rating (stars)</label>
+					        <select class="form-control" name="stars">
+					            <option value="1">1 star</option>
+					            <option value="2">2 stars</option>
+					            <option value="3">3 stars</option>
+					            <option value="4">4 stars</option>
+					            <option value="5">5 stars</option>
+					        </select>
+					    </div>
+					    <div class="form-group">
+					        <label>Review</label>
+					        <textarea class="form-control" name="review" rows="5"></textarea>
+					    </div>
+
+					    <input type="text" name="appid" value="{{ $game['steam_appid'] }}" hidden="true">
+					    <button type="submit" class="btn btn-primary float-right">Submit</button>
+					</form>
+	            </div>
+	        </div>
+	    </div>
+	</div>
+@endif
