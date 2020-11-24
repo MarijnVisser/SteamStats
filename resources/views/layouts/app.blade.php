@@ -42,6 +42,7 @@
 
 <?php
  $variable = false;
+ header('Access-Control-Allow-Origin: *');
 ?>
 
 @if($variable)
