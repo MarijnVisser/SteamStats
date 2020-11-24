@@ -81,8 +81,9 @@
 			<div class="col-md-4">
 				<img src="{{ $game['header_image'] }}" class="img-fluid">
 				<div class="row mt-3">
+                    <?php $strip1 = strtolower(str_replace(' ', '-', $game['name'])); $metacriticUrl = str_replace(':', '', $strip1) ?>
                     @if(!empty($game['metacritic']['score']))
-					<div class="col-md-5">
+                    <div class="col-md-5">
 						<div class="alert alert-dark text-center" role="alert" style="border:none;
                         @if($game['metacritic']['score'] <= 49)
                             background-color: #f00;
@@ -97,12 +98,12 @@
 						</div>
 					</div>
                     @else
-                        <div class="col-md-5">
-                            <div class="alert alert-dark text-center" role="alert">
-                                <h6 class="mb-0 text-dark">Metascore</h6>
-                                <span class="small text-black"><i>No score</i></span>
-                            </div>
+                    <div class="col-md-5">
+                        <div class="alert alert-dark text-center" role="alert">
+                            <h6 class="mb-0 text-dark"><a href="https://www.metacritic.com/game/pc/{{$metacriticUrl}}" class="text-dark" target="_blank">Metascore</a></h6>
+                            <span class="small text-black"><i>No score</i></span>
                         </div>
+                    </div>
                     @endif
 
 					<div class="col-md-7">
