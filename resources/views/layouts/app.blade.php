@@ -27,7 +27,7 @@
    <link href="{{ asset('css/bootstrap/bootstrap-reboot.min.css')}}">
    <link href="{{ asset('css/steamLevelIcons/steamLevelIcons.css')}}"  rel="stylesheet">
 
-    
+
 
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <style>
