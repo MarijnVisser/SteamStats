@@ -3,6 +3,10 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+<<<<<<< HEAD
+    
+=======
+>>>>>>> 072ff3c432fc51b2c85f1351a8693b3eb3b550f5
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -38,8 +42,68 @@
     </style>
 </head>
 <body>
+
+
+<?php 
+ $variable = false;     
+?>
+
+@if($variable)
+<?php
+    Auth::logout();
+?>
+@endif
+
+<script type="text/javascript">
+
+const csrfToken = document.head.querySelector("[name~=csrf-token][content]").content;
+
+
+
+
+let inactivityTime = function () {
+  let time;
+  window.onload = resetTimer;
+  document.onmousemove = resetTimer;
+  document.onkeypress = resetTimer;
+  function logout() {
+    myFunction()
+  }
+  function resetTimer() {
+    clearTimeout(time);
+    time = setTimeout(logout, 600000)
+  }
+};
+inactivityTime();
+console.log('logout timer is in operation!');
+
+function myFunction() {
+    
+  var r = confirm("You've been away for a while");
+  if (r == true) {
+    alert("Thank you for the confirmation");
+  } else {
+        fetch("http://127.0.0.1:8000/logout", {
+            headers:{
+                "Content-Type": "application/json",
+                "Accept": "application/json",
+                "X-Requested-With": "XMLHttpRequest",
+                "X-CSRF-Token": csrfToken 
+            },
+            credentials: "same-origin",
+            method: 'POST'
+        });
+        location.reload();
+  }
+}
+console.log(csrfToken);
+
+</script>
+<?php 
+
+?>
     <div id="app">
-        <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #21262f">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <a href="{{ url('/') }}"><img src="{{asset('img/SteamStats_Logo_Transparent.png')}}" alt="Logo" style="width: 200px"></a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
