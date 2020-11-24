@@ -28,8 +28,8 @@
                 <table class="table">
                     <thead>
                         <tr>
-                        <th scope="col">appid</th>
-                        <th scope="col">name</th>
+                            <th scope="col">appid</th>
+                            <th scope="col">name</th>
                         </tr>
                     </thead>
                     <tbody>
