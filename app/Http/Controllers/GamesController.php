@@ -86,22 +86,33 @@ class GamesController extends Controller
                 $gameInfo = new gameModel();
                 $gameInfo = $gameInfo->getGame($id);
 
-                $price = $gameInfo['data']['price_overview']['final'] ?? 0;
-
                 if(!empty($gameInfo)){
-                    if($gameInfo['success'] == true){
-                        gameModel::firstOrCreate(['appid' => $game['appid']],['appid' => $game['appid'],'name' => $game['name'],'price' => $price]);
+                    if($gameInfo['data']['release_date']['coming_soon'] == true){
+                        $price = "Coming Soon";
                     }
-                }
-                
-                if(!empty($gameInfo['data']['genres'])){
-                    foreach($gameInfo['data']['genres'] as $genre){
-            
-                        genreModel::firstOrCreate(['id' => $genre['id']], ['name' => $genre['description']]);
+                    elseif($gameInfo['data']['is_free'] == true){
+                        $price = "Free to Play";
+                    }
+                    elseif(!empty($gameInfo['data']['price_overview'])){
+                        $price = $gameInfo['data']['price_overview']['final_formatted'];
+                    }
 
-                        DB::table('genres_games')->upsert(['game_id' => $id, 'genre_id' => $genre['id']], ['game_id', 'genre_id']);
-                    }
-                }
+                    if($gameInfo['success'] == true){
+                        if($gameInfo['data']['type'] == 'game'){
+                            
+                            gameModel::updateOrCreate(['appid' => $game['appid']],['appid' => $game['appid'],'name' => $game['name'],'price' => $price, 'image' => $gameInfo['data']['header_image']]);
+
+                            if(!empty($gameInfo['data']['genres'])){
+                                foreach($gameInfo['data']['genres'] as $genre){
+                        
+                                    genreModel::firstOrCreate(['id' => $genre['id']], ['name' => $genre['description']]);
+            
+                                    DB::table('genres_games')->insert(['game_id' => $game['appid'], 'genre_id' => $genre['id']]);
+                                }
+                            }
+                        }
+                    }    
+                }      
             }
         }
     }

@@ -21,12 +21,6 @@ class GenresGames extends Migration
             $table->foreign('game_id')->references('appid')->on('games')->onDelete('cascade');
             $table->foreign('genre_id')->references('id')->on('genres')->onDelete('cascade');
 
-            // $table 
-            // ->join('games', 'games.appid', '=', 'genres_games.game_id')
-            // ->join('genres', 'genres.id', '=', 'genres_games.genre_id')
-            // ->select('genres_games.*', 'games.name', 'genres.name')
-            // ->get();
-
         });
     }
 

@@ -16,7 +16,8 @@ class Games extends Migration
         Schema::create('games', function (Blueprint $table) {
             $table->id('appid');
             $table->string('name', 255);
-            $table->integer('price')->default(0);
+            $table->string('price')->default('0,00€');
+            $table->string('image', 255)->default("no image");
             $table->timestamps();
         });
     }

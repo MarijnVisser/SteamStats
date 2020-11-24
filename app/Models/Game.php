@@ -23,7 +23,8 @@ class Game extends Model
     protected $fillable = [
         'appid',
         'name',
-        'price'
+        'price',
+        'image'
     ];
 
     public $incrementing = false;
