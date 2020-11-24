@@ -3,10 +3,6 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-<<<<<<< HEAD
-    
-=======
->>>>>>> 072ff3c432fc51b2c85f1351a8693b3eb3b550f5
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -44,8 +40,8 @@
 <body>
 
 
-<?php 
- $variable = false;     
+<?php
+ $variable = false;
 ?>
 
 @if($variable)
@@ -78,7 +74,7 @@ inactivityTime();
 console.log('logout timer is in operation!');
 
 function myFunction() {
-    
+
   var r = confirm("You've been away for a while");
   if (r == true) {
     alert("Thank you for the confirmation");
@@ -88,7 +84,7 @@ function myFunction() {
                 "Content-Type": "application/json",
                 "Accept": "application/json",
                 "X-Requested-With": "XMLHttpRequest",
-                "X-CSRF-Token": csrfToken 
+                "X-CSRF-Token": csrfToken
             },
             credentials: "same-origin",
             method: 'POST'
@@ -99,7 +95,7 @@ function myFunction() {
 console.log(csrfToken);
 
 </script>
-<?php 
+<?php
 
 ?>
     <div id="app">
