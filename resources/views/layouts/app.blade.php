@@ -13,30 +13,32 @@
     <script src="{{ asset('js/app.js') }}" defer></script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="{{ asset('js/bootstrap/bootstrap.bundle.min.js')}}"></script>
+    <script src="{{ asset('js/steamLevelIcons/steamLevelIcons.js')}}"></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
     <!-- Styles -->
-   <link href="{{ asset('css/bootstrap/bootstrap.min.css')}}"> 
-   <link href="{{ asset('css/bootstrap/bootstrap-grid.min.css')}}"> 
-   <link href="{{ asset('css/bootstrap/bootstrap-reboot.min.css')}}"> 
+   <link href="{{ asset('css/bootstrap/bootstrap.min.css')}}">
+   <link href="{{ asset('css/bootstrap/bootstrap-grid.min.css')}}">
+   <link href="{{ asset('css/bootstrap/bootstrap-reboot.min.css')}}">
+   <link href="{{ asset('css/steamLevelIcons/steamLevelIcons.css')}}"  rel="stylesheet">
 
 
-    
+
 
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <style>
         body{
-            background-color: #343a40;
+            background-color: #282e39;
             color: white;
         }
     </style>
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #21262f">
             <a href="{{ url('/') }}"><img src="{{asset('img/SteamStats_Logo_Transparent.png')}}" alt="Logo" style="width: 200px"></a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -89,9 +91,11 @@
             @endif
         </nav>
 
-        <main class="py-4">
+        <main class="">
             @yield('content')
         </main>
     </div>
+    <script></script>
 </body>
+
 </html>

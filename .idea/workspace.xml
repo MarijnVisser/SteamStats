@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c4b62f6b-3370-43cf-b138-5a7dda03b453" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/games/game_page.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/games/game_page.blade.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -141,6 +141,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../SteamStats2" />
+    <property name="settings.editor.selected.configurable" value="preferences.updates" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RunManager">
@@ -166,7 +167,17 @@
       <workItem from="1605514719064" duration="9183000" />
       <workItem from="1605605704267" duration="2464000" />
       <workItem from="1605616423301" duration="2534000" />
-      <workItem from="1605623781351" duration="5693000" />
+      <workItem from="1605623781351" duration="8215000" />
+      <workItem from="1605686743667" duration="5526000" />
+      <workItem from="1605705489096" duration="1201000" />
+      <workItem from="1605775521185" duration="7409000" />
+      <workItem from="1605814285605" duration="333000" />
+      <workItem from="1605818134089" duration="826000" />
+      <workItem from="1605899428596" duration="57000" />
+      <workItem from="1605967502205" duration="16108000" />
+      <workItem from="1606046542609" duration="5732000" />
+      <workItem from="1606119142258" duration="15621000" />
+      <workItem from="1606205336848" duration="1445000" />
     </task>
     <servers />
   </component>
@@ -199,6 +210,10 @@
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
     <state x="2714" y="443" key="NewPhpFileDialog/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1605130607956" />
+    <state x="461" y="164" key="SettingsEditor" timestamp="1605899481218">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="461" y="164" key="SettingsEditor/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1605899481218" />
     <state x="2305" y="0" width="1551" height="1028" key="dock-window-1" timestamp="1605176523311">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
@@ -209,15 +224,24 @@
     </state>
     <state x="1920" y="0" width="1424" height="1028" maximized="true" key="dock-window-2/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1605127327168" />
     <state x="1920" y="0" width="1424" height="1028" maximized="true" key="dock-window-2/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1605127587662" />
+    <state x="2587" y="52" width="585" height="936" key="find.popup" timestamp="1605814529909">
+      <screen x="1920" y="0" width="1920" height="1040" />
+    </state>
+    <state x="2587" y="52" width="585" height="936" key="find.popup/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1605814529909" />
+    <state x="2597" y="291" key="refactoring.ChangeSignatureDialog" timestamp="1605778888337">
+      <screen x="1920" y="0" width="1920" height="1040" />
+    </state>
+    <state x="2597" y="291" key="refactoring.ChangeSignatureDialog/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1605778888337" />
     <state x="438" y="168" key="run.anything.popup" timestamp="1605617106094">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="438" y="168" key="run.anything.popup/0.0.1366.728@0.0.1366.728" timestamp="1605617106094" />
     <state x="2536" y="240" key="run.anything.popup/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1605528768055" />
-    <state x="2543" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1605626771748">
+    <state x="2543" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1605980329530">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
     <state x="443" y="158" width="672" height="475" key="search.everywhere.popup/0.0.1366.728@0.0.1366.728" timestamp="1605617807543" />
-    <state x="2543" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1605626771748" />
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1605818241627" />
+    <state x="2543" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1605980329530" />
   </component>
 </project>
