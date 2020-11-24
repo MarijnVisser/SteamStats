@@ -3,7 +3,10 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+<<<<<<< HEAD
     
+=======
+>>>>>>> 072ff3c432fc51b2c85f1351a8693b3eb3b550f5
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -11,22 +14,29 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Scripts -->
-    <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
     <script src="{{ asset('js/app.js') }}" defer></script>
-    <script src="{{ asset('js/main.js') }}" type="text/javascript" defer></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="{{ asset('js/bootstrap/bootstrap.bundle.min.js')}}"></script>
+    <script src="{{ asset('js/steamLevelIcons/steamLevelIcons.js')}}"></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+
 
     <!-- Styles -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+   <link href="{{ asset('css/bootstrap/bootstrap.min.css')}}">
+   <link href="{{ asset('css/bootstrap/bootstrap-grid.min.css')}}">
+   <link href="{{ asset('css/bootstrap/bootstrap-reboot.min.css')}}">
+   <link href="{{ asset('css/steamLevelIcons/steamLevelIcons.css')}}"  rel="stylesheet">
+
+
 
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <style>
         body{
-            background-color: #343a40;
+            background-color: #282e39;
             color: white;
         }
     </style>
@@ -146,13 +156,11 @@ console.log(csrfToken);
             @endif
         </nav>
 
-        <main class="py-4">
+        <main class="">
             @yield('content')
         </main>
     </div>
-
-    
+    <script></script>
 </body>
+
 </html>
-
-

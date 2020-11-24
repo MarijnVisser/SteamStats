@@ -6,11 +6,30 @@
     <div class="row mt-3">
         <div class="col-md-12">
             <div class="row">
-                <table class="table text-white">
+                <div class="container">
+                    <form action="/search" method="get" role="search">
+                        {{ csrf_field() }}
+                        <div class="input-group">
+                            <input type="text" class="form-control" name="q"
+                                placeholder="Search games"> <span class="input-group-btn">
+                                <button type="submit" class="btn btn-default">
+                                    <span class="glyphicon glyphicon-search"></span>
+                                </button>
+                            </span>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-3">
+        <div class="col-md-12">
+            <div class="row">
+                <table class="table">
                     <thead>
                         <tr>
-                        <th scope="col">appid</th>
-                        <th scope="col">name</th>
+                            <th scope="col">appid</th>
+                            <th scope="col">name</th>
                         </tr>
                     </thead>
                     <tbody>

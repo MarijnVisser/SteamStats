@@ -35,7 +35,29 @@ class ProfileController extends Controller
         $playerLevel = new profile;
         $playerLevel = $playerLevel->getPlayerLevel();
 
-        return view('profile', ['data'=>$data['response']['players'][0], 'banInfo'=>$banInfo['players'][0], 'recentlyPlayedGames'=>$recentlyPlayedGames['response']['games'], 'playerLevel'=>$playerLevel['response']]);
+        $profileBackground = new profile;
+        $profileBackground = $profileBackground->getProfileBackground();
+
+
+        $gamedata = [];
+
+        if (!empty($data['response'])) {
+            $gamedata['data'] = $data['response']['players'][0];
+        }
+        if (!empty($banInfo)) {
+            $gamedata['banInfo'] = $banInfo['players'][0];
+        }
+        if (!empty($recentlyPlayedGames['response'])) {
+            $gamedata['recentlyPlayedGames'] = $recentlyPlayedGames['response']['games'];
+        }
+        if (!empty($playerLevel['response'])) {
+            $gamedata['playerLevel'] = $playerLevel['response'];
+        }
+        if (!empty($profileBackground['response'])) {
+            $gamedata['profileBackground'] = $profileBackground['response']['profile_background'];
+        }
+
+        return view('profile', ['gamedata'=>$gamedata]);
     }
 
     /**

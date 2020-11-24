@@ -10,18 +10,41 @@ class Game extends Model
 {
     use HasFactory;
 
+    public function Genre()
+    {
+        return $this->belongsToMany('App\Models\Genre');
+    }
+
+    protected $table = "games";
+
     protected $guarded = [];
 
     protected $fillable = [
         'appid',
-        'name'
+        'name',
+        'price',
+        'image'
     ];
+
+    public $incrementing = false;
 
     public function getGames(){
 
         $url = http::get("https://api.steampowered.com/ISteamApps/GetAppList/v2/")->json();
 
         return $this->games = $url["applist"]["apps"];
-    //https://store.steampowered.com/api/appdetails?appids=
+
     }
+
+    public function getGame($appid){
+
+        $url = http::get("https://store.steampowered.com/api/appdetails?appids=".$appid)->json();
+
+        if(!empty($url)){
+            if($url[$appid]['success'] == true){
+                return $url[$appid];
+            }
+        }
+    }
+
 }

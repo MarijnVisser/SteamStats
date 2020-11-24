@@ -2,16 +2,23 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Game as gameModel;
+use App\Models\Genre as genreModel;
+use App\Models\Review as reviewModel;
+use PhpParser\Node\Stmt\DeclareDeclare;
 
 class GamesController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
+     * @return Application|Factory|View|\Illuminate\Http\Response
      */
     public function index()
     {
@@ -22,6 +29,30 @@ class GamesController extends Controller
             ->paginate(15);
 
         return view('games.games')->with('games', $games);
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+      * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function search(Request $request)
+    {
+        $search =  $request->input('q');
+        if($search!=""){
+            $games = gameModel::where(function ($query) use ($search){
+                $query->where('appid', 'like', $search)
+                    ->orWhere('name', 'like', '%'.$search.'%');
+            })
+            ->orderBy('name')
+            ->paginate(15);
+            $games->appends(['q' => $search]);
+        }
+        else{
+            $games = gameModel::paginate(15);
+        }
+        return View('games.games')->with('games',$games);
     }
 
     /**
@@ -47,21 +78,71 @@ class GamesController extends Controller
 
         set_time_limit(0);
 
-        foreach ($games as $game) {
+        foreach($games as $game){
 
-            gameModel::firstOrCreate(['appid' => $game['appid']], ['appid' => $game['appid'], 'name' => $game['name']]);
+            sleep(0.1);
+
+            $id = strval($game['appid']);
+
+            $gameExists = gameModel::where('appid', $id)->first();
+
+            if($gameExists === null){
+
+                $gameInfo = new gameModel();
+                $gameInfo = $gameInfo->getGame($id);
+
+                if(!empty($gameInfo)){
+                    if($gameInfo['data']['release_date']['coming_soon'] == true){
+                        $price = "Coming Soon";
+                    }
+                    elseif($gameInfo['data']['is_free'] == true){
+                        $price = "Free to Play";
+                    }
+                    elseif(!empty($gameInfo['data']['price_overview'])){
+                        $price = $gameInfo['data']['price_overview']['final_formatted'];
+                    }
+
+                    if($gameInfo['success'] == true){
+                        if($gameInfo['data']['type'] == 'game'){
+
+                            gameModel::updateOrCreate(['appid' => $game['appid']],['appid' => $game['appid'],'name' => $game['name'],'price' => $price, 'image' => $gameInfo['data']['header_image']]);
+
+                            if(!empty($gameInfo['data']['genres'])){
+                                foreach($gameInfo['data']['genres'] as $genre){
+
+                                    genreModel::firstOrCreate(['id' => $genre['id']], ['name' => $genre['description']]);
+
+                                    DB::table('genres_games')->insert(['game_id' => $game['appid'], 'genre_id' => $genre['id']]);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 
+
     /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Game $game
-     * @return \Illuminate\Http\Response
+     * @param Request $id
+     * @param $request
+     * @return Application|Factory|View|RedirectResponse
      */
-    public function show()
-    {
-        return view('games.game_page');
+    public function show(Request $request){
+
+        $game = new gameModel();
+        $game->id = $request->id;
+        $game = $game->getGame($game['id']);
+
+//        dd($game);
+
+
+        if(!empty($game['data'])) {
+            $reviews = reviewModel::where('appid', $game['data']['steam_appid'])->get();
+            return view('games.game_page')->with('game', $game['data'])->with('reviews', $reviews);
+        }
+        else
+            return redirect()->back();
     }
 
     /**
