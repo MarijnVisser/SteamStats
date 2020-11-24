@@ -295,64 +295,65 @@
 			</div>
 		@endif
 	</div>
-@endsection
 
 @auth
-	<!-- Modal -->
-	<div class="modal fade" id="reviewmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-	    <div class="modal-dialog modal-dialog-centered" role="document">
-	        <div class="modal-content" style="background-color: #282e39">
-	            <div class="modal-header">
-	                <h5 class="modal-title" id="exampleModalLongTitle">Leave review</h5>
-	                <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
-	                    <span aria-hidden="true">&times;</span>
-	                </button>
-	            </div>
-	            <div class="modal-body">
-					@if ($errors->any())
-					    <div class="alert alert-danger">
-					        <ul>
-					            @foreach ($errors->all() as $error)
-					                <li>{{ $error }}</li>
-					            @endforeach
-					        </ul>
-					    </div>
-					@endif
-					<form action="{{ route('createreview') }}" method="post">
+    <!-- Modal -->
+    <div class="modal fade" id="reviewmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content" style="background-color: #282e39">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Leave review</h5>
+                    <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+                    <form action="{{ route('createreview') }}" method="post">
 
-						{{ csrf_field() }}
+                        {{ csrf_field() }}
 
-						<div class="form-group">
-							<div class="row">
-								<div class="col-2">
-									<label>Avatar<img src="{{ Auth::user()->avatar }}" class="img-fluid"></label>
-								</div>
-								<div class="col-10">
-									<label class="w-100">Username<input type="text" class="form-control" placeholder="Steam name" name="steamname" value="{{ Auth::user()->name }}" readonly="true">
-									<input type="text" class="form-control" placeholder="Steam ID" name="steamid" value="{{ Auth::user()->steamid }}" hidden="true"></label>
-								</div>
-							</div>
-						</div>
-					    <div class="form-group">
-					        <label>Rating (stars)</label>
-					        <select class="form-control" name="stars">
-					            <option value="1">1 star</option>
-					            <option value="2">2 stars</option>
-					            <option value="3">3 stars</option>
-					            <option value="4">4 stars</option>
-					            <option value="5">5 stars</option>
-					        </select>
-					    </div>
-					    <div class="form-group">
-					        <label>Review</label>
-					        <textarea class="form-control" name="review" rows="5"></textarea>
-					    </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-2">
+                                    <label>Avatar<img src="{{ Auth::user()->avatar }}" class="img-fluid"></label>
+                                </div>
+                                <div class="col-10">
+                                    <label class="w-100">Username<input type="text" class="form-control" placeholder="Steam name" name="steamname" value="{{ Auth::user()->name }}" readonly="true">
+                                        <input type="text" class="form-control" placeholder="Steam ID" name="steamid" value="{{ Auth::user()->steamid }}" hidden="true"></label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Rating (stars)</label>
+                            <select class="form-control" name="stars">
+                                <option value="1">1 star</option>
+                                <option value="2">2 stars</option>
+                                <option value="3">3 stars</option>
+                                <option value="4">4 stars</option>
+                                <option value="5">5 stars</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Review</label>
+                            <textarea class="form-control" name="review" rows="5"></textarea>
+                        </div>
 
-					    <input type="text" name="appid" value="{{ $game['steam_appid'] }}" hidden="true">
-					    <button type="submit" class="btn btn-primary float-right">Submit</button>
-					</form>
-	            </div>
-	        </div>
-	    </div>
-	</div>
+                        <input type="text" name="appid" value="{{ $game['steam_appid'] }}" hidden="true">
+                        <button type="submit" class="btn btn-primary float-right">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 @endif
+@endsection
+
