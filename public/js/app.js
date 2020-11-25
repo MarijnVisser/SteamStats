@@ -516,7 +516,7 @@ eval("// removed by extract-text-webpack-plugin//# sourceURL=[module]\n//# sourc
 /***/ (function(module, exports, __webpack_require__) {
 
 
-__webpack_require__("./resources/js/app.js");
+// __webpack_require__("./resources/js/app.js");
 module.exports = __webpack_require__("./resources/sass/app.scss");
 
 

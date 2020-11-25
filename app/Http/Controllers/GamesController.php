@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\DB;
 use App\Models\Game as gameModel;
 use App\Models\Genre as genreModel;
 use App\Models\Review as reviewModel;
+use App\Models\User as userModel;
 use PhpParser\Node\Stmt\DeclareDeclare;
 
 class GamesController extends Controller
@@ -138,7 +139,13 @@ class GamesController extends Controller
 
 
         if(!empty($game['data'])) {
-            $reviews = reviewModel::where('appid', $game['data']['steam_appid'])->get();
+            $reviews = reviewModel::where('appid', $game['data']['steam_appid'])->orderBy('id', 'DESC')->get();
+
+            foreach ($reviews as $review) {
+                $review['steam'] = userModel::where('steamid', $review['steamid'])->get();
+                unset($review['steamid']);
+            }
+
             return view('games.game_page')->with('game', $game['data'])->with('reviews', $reviews);
         }
         else
