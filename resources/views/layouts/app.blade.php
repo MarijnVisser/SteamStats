@@ -10,7 +10,7 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
+    
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="{{ asset('js/bootstrap/bootstrap.bundle.min.js')}}"></script>
     <script src="{{ asset('js/steamLevelIcons/steamLevelIcons.js')}}"></script>
@@ -26,81 +26,22 @@
    <link href="{{ asset('css/bootstrap/bootstrap-grid.min.css')}}">
    <link href="{{ asset('css/bootstrap/bootstrap-reboot.min.css')}}">
    <link href="{{ asset('css/steamLevelIcons/steamLevelIcons.css')}}"  rel="stylesheet">
+   <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
 
-
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <style>
-        body{
-            background-color: #282e39;
-            color: white;
-        }
-    </style>
+<style>
+    body{
+        background-color: #282e39;
+        color: white;
+    }
+</style>
 </head>
 <body>
 
+<input id="authenticated" type="hidden" value="{{ auth()->check() }}">
 
-<?php
- $variable = false;
- header('Access-Control-Allow-Origin: *');
-?>
-
-@if($variable)
-<?php
-    Auth::logout();
-?>
-@endif
-
-<script type="text/javascript">
-
-const csrfToken = document.head.querySelector("[name~=csrf-token][content]").content;
-
-
-
-
-let inactivityTime = function () {
-  let time;
-  window.onload = resetTimer;
-  document.onmousemove = resetTimer;
-  document.onkeypress = resetTimer;
-  function logout() {
-    myFunction()
-  }
-  function resetTimer() {
-    clearTimeout(time);
-    time = setTimeout(logout, 600000)
-  }
-};
-inactivityTime();
-console.log('logout timer is in operation!');
-
-function myFunction() {
-
-  var r = confirm("You've been away for a while");
-  if (r == true) {
-    alert("Thank you for the confirmation");
-  } else {
-        fetch("http://127.0.0.1:8000/logout", {
-            headers:{
-                "Content-Type": "application/json",
-                "Accept": "application/json",
-                "X-Requested-With": "XMLHttpRequest",
-                "X-CSRF-Token": csrfToken
-            },
-            credentials: "same-origin",
-            method: 'POST'
-        });
-        location.reload();
-  }
-}
-console.log(csrfToken);
-
-</script>
-<?php
-
-?>
     <div id="app">
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #21262f>
             <a href="{{ url('/') }}"><img src="{{asset('img/SteamStats_Logo_Transparent.png')}}" alt="Logo" style="width: 200px"></a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -157,7 +98,8 @@ console.log(csrfToken);
             @yield('content')
         </main>
     </div>
-    <script></script>
+    {{-- don't touch me ! --}}
+    <script src="{{ asset('js/main.js')}}"></script>
 </body>
 
 </html>
