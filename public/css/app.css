@@ -10912,10 +10912,11 @@ a.text-dark:focus {
 .userPageInfo{
   font-size: 20px;
   margin-bottom: 2px;
+  
 }
 
 .profileCards{
-  background-color: #5e5e5e;
+  background-color: #272c36;
 }
 
 .noImageFound{
@@ -10927,6 +10928,26 @@ a.text-dark:focus {
 }
 
 .profileBackground{
-  background-color: #5e5e5e;
+  background-color: #272c36;
+  opacity: 0.9;
 }
 
+
+.userPageInfoSpan{
+  font-size: 15px;
+  color: lightgray;
+
+}
+
+.avatarBorder{
+  position: absolute;
+  top: 0;
+  z-index: 2;
+
+}
+
+.avatar{
+  position: absolute;
+  top: 19px;
+  left: 34px;
+}

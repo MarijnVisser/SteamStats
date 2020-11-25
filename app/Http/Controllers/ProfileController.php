@@ -41,6 +41,10 @@ class ProfileController extends Controller
         $resolvedurl = new profile;
         $resolvedurl = $resolvedurl->resolveCustomURL();
 
+        $customFrame = new profile;
+        $customFrame = $customFrame->getAvatarFrame();
+
+
 
 
         $gamedata = [];
@@ -59,6 +63,9 @@ class ProfileController extends Controller
         }
         if (!empty($profileBackground['response'])) {
             $gamedata['profileBackground'] = $profileBackground['response']['profile_background'];
+        }
+        if(!empty($customFrame['response'])) {
+            $gamedata['customAvatarFrame'] = $customFrame['response']['avatar_frame'];
         }
 
         return view('profile', ['gamedata'=>$gamedata]);

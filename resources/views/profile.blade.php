@@ -37,20 +37,21 @@ $gameID = $gamedata['data']['gameid'] ?? '';
     <div class="container pt-3">
         <div class="row profileBackground">
             <div class="col-md-3 py-3">
-                <img class="img-fluid w-100" src="{{$gamedata['data']['avatarfull']}}">
+                <img class="img-fluid avatarBorder" src="https://steamcdn-a.akamaihd.net/steamcommunity/public/images/{{$gamedata['customAvatarFrame']['image_small']}}">
+                <img class="img-fluid avatar" src="{{$gamedata['data']['avatarfull']}}">
             </div>
             <div class="col-md-5">
-                <a id="profilelink" href="{{$gamedata['data']['profileurl']}}">{{$gamedata['data']['personaname']}}</a>
+                <a id="profilelink" href="{{$gamedata['data']['profileurl']}}">{{$gamedata['data']['personaname']}}</a><br>
+                <span class="userPageInfoSpan m-0">Level: <div id="divLevel" class="friendPlayerLevelNum">{{ $gamedata['playerLevel']['player_level'] }}</div> | Country: {{$gamedata['data']['loccountrycode']}}</span>
                 @if(!empty($gameInfo))
-                <p class="userPageInfo">Currently playing: {{$gamedata['data']['gameextrainfo']}}</p>
-                <p class="userPageInfo">Game id: {{$gamedata['data']['gameid']}}</p>
+                <p class="userPageInfo">Currently playing: {{$gamedata['data']['gameextrainfo']}} <i class="fab fa-steam-symbol"></i></p>
+                <p class="userPageInfo" hidden>Game id: {{$gamedata['data']['gameid']}}</p>
                 @else
                 <p class="userPageInfo">Currently not ingame</p>
                 @endif
-                <span class="userPageInfo">Level: <div id="divLevel" class="friendPlayerLevelNum">{{ $gamedata['playerLevel']['player_level'] }}</div></span>
+                <hr>
                 <p class="userPageInfo">{{"Total XP: " .  $gamedata['playerLevel']['player_xp'] }}</p>
                 <p class="userPageInfo">{{ $gamedata['playerLevel']['player_xp_needed_to_level_up'] . " / ".  $gamedata['playerLevel']['player_xp_needed_current_level'] . " XP to next level "}}</p>
-                <p class="userPageInfo">Country: {{$gamedata['data']['loccountrycode']}}</p>
             </div>
             <div class="col-md-4 pt-2">
                 <p class="userPageInfo border border-dark p-1">Vac ban: @if($gamedata['banInfo']['VACBanned'] == false) None @else {{$gamedata['banInfo']['NumberOfVACBans']}} Ban(s) ({{ $gamedata['banInfo']['DaysSinceLastBan'] }} Days ago) @endif</p>
