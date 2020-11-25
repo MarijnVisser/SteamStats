@@ -37,3 +37,15 @@ function LogoutFunction() {
     alert("you were automatically logged out");
 location.reload();
 }
+
+
+if ($(".alert-success")) {
+  $(".alert-success").delay(4000).slideUp(200, function() {
+      $(this).alert('close');
+  });
+}
+if ($(".alert-danger")) {
+  $(".alert-danger").delay(4000).slideUp(200, function() {
+      $(this).alert('close');
+  });
+}
