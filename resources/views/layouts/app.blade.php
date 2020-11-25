@@ -3,10 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-<<<<<<< HEAD
     
-=======
->>>>>>> 072ff3c432fc51b2c85f1351a8693b3eb3b550f5
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -14,7 +11,7 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="{{ asset('js/app.js')}}"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="{{ asset('js/bootstrap/bootstrap.bundle.min.js')}}"></script>
     <script src="{{ asset('js/steamLevelIcons/steamLevelIcons.js')}}"></script>
@@ -42,24 +39,15 @@
     </style>
 </head>
 <body>
-
-
-<?php 
- $variable = false;     
-?>
-
-@if($variable)
-<?php
-    Auth::logout();
-?>
-@endif
+<input id="authenticated" type="hidden" value="{{ auth()->check() }}">
 
 <script type="text/javascript">
 
 const csrfToken = document.head.querySelector("[name~=csrf-token][content]").content;
 
+let authenticated = $('#authenticated').val();
 
-
+console.log(authenticated);
 
 let inactivityTime = function () {
   let time;
@@ -67,36 +55,37 @@ let inactivityTime = function () {
   document.onmousemove = resetTimer;
   document.onkeypress = resetTimer;
   function logout() {
-    myFunction()
+    LogoutFunction()
   }
   function resetTimer() {
     clearTimeout(time);
-    time = setTimeout(logout, 600000)
+    time = setTimeout(logout, 2000)
   }
 };
-inactivityTime();
-console.log('logout timer is in operation!');
-
-function myFunction() {
-    
-  var r = confirm("You've been away for a while");
-  if (r == true) {
-    alert("Thank you for the confirmation");
-  } else {
-        fetch("http://127.0.0.1:8000/logout", {
-            headers:{
-                "Content-Type": "application/json",
-                "Accept": "application/json",
-                "X-Requested-With": "XMLHttpRequest",
-                "X-CSRF-Token": csrfToken 
-            },
-            credentials: "same-origin",
-            method: 'POST'
-        });
-        location.reload();
-  }
+if(authenticated == 1){
+    console.log('Auto logout in operation');
+    inactivityTime();
 }
+else{
+    console.log("false");
+}
+
 console.log(csrfToken);
+
+function LogoutFunction() {
+    fetch("http://127.0.0.1:8000/logout", {
+    headers:{
+        "Content-Type": "application/json",
+        "Accept": "application/json",
+        "X-Requested-With": "XMLHttpRequest",
+        "X-CSRF-Token": csrfToken 
+    },
+        credentials: "same-origin",
+        method: 'POST'
+    });
+    alert("you were automatically logged out");
+location.reload();
+}
 
 </script>
 <?php 
