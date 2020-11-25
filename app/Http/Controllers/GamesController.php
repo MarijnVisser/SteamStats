@@ -27,9 +27,8 @@ class GamesController extends Controller
     {
 
         $games = DB::table('games')
-            ->select('appid','name', 'price', 'image')
+            ->select('appid','name', 'price_formatted', 'image')
             ->orderBy('price', 'desc')
-            ->where('price', 'like', '%€%')
             ->paginate(15);
 
         $genres = DB::table('genres')
