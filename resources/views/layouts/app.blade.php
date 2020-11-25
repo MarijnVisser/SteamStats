@@ -40,6 +40,7 @@
 
 <input id="authenticated" type="hidden" value="{{ auth()->check() }}">
 
+<<<<<<< HEAD
 <div id="app">
     <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #21262f">
         <a href="{{ url('/') }}"><img src="{{asset('img/SteamStats_Logo_Transparent.png')}}" alt="Logo" style="width: 200px"></a>
@@ -79,6 +80,47 @@
                                         @csrf
                                         <a href="{{ route('logout') }}"
                                            onclick="event.preventDefault();
+=======
+    <div id="app">
+        <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #21262f">
+            <a href="{{ url('/') }}"><img src="{{asset('img/SteamStats_Logo_Transparent.png')}}" alt="Logo" style="width: 200px"></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item ">
+                        <a class="nav-link" href=""></a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="{{ url('/games') }}">Games</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Placeholder</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Placeholder</a>
+                    </li>
+                </ul>
+            </div>
+            @if (Route::has('login'))
+
+                <div class="hidden absolute top-0 right-0 px-5 py-2 sm:block">
+
+                    @auth
+
+                        <ul class="navbar-nav mr-auto">
+                            <li class="dropdown">
+                                <a href="" class='dropdown-toggle' data-toggle='dropdown' style="color:white"><img class='img-rounded' src='{{ Auth::user()->avatar }}' style="border: 1px solid white;border-radius: 10%; width: 35px;  vertical-align: middle;">&nbsp;<b style="color: white">{{ Auth::user()->name }}</b><b class='caret'></b></a>
+                                <span class="dropdown-arrow" style="color: white;text-decoration: none"></span>
+                                <ul class="dropdown-menu" style="margin-top: 10px;z-index: 999">
+                                    <li><a href="{{ url('/profile') }}" style="padding: .5rem 1.5rem;font-size: 14px;color: #4a5568">Profile</a></li>
+                                    <li>
+                                        <form method="POST" action="{{ route('logout') }}" style="padding: .5rem 1.5rem;font-size: 14px;color: #4a5568">
+                                            @csrf
+                                            <a href="{{ route('logout') }}"
+                                               onclick="event.preventDefault();
+>>>>>>> cd6a820c1b687e5ff8f2696000bc573309122a1c
                                                                 this.closest('form').submit();" style="padding: 0">
                                             {{ __('Logout') }}
                                         </a>
