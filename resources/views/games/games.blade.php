@@ -48,7 +48,7 @@
                                 <td><img src="{{$game->image}}" alt="{{$game->name}}" style="width: 100px"></td>
                                 <td>{{$game->appid}}</td>
                                 <td><a href="{{route('game', ['id' => $game->appid])}}">{{$game->name}}</a></td>
-                                <td>{{$game->price}}</td>
+                                <td>{{$game->price_formatted}}</td>
                             </tr>
                         @endforeach
                     </tbody>

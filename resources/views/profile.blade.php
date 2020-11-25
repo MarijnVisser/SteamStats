@@ -37,7 +37,9 @@ $gameID = $gamedata['data']['gameid'] ?? '';
     <div class="container pt-3">
         <div class="row profileBackground">
             <div class="col-md-3 py-3">
-                <img class="img-fluid avatarBorder" src="https://steamcdn-a.akamaihd.net/steamcommunity/public/images/{{$gamedata['customAvatarFrame']['image_small']}}">
+                @if(!empty($gamedata['customAvatarFrame']['image_small']))
+                    <img class="img-fluid avatarBorder" src="https://steamcdn-a.akamaihd.net/steamcommunity/public/images/{{$gamedata['customAvatarFrame']['image_small']}}">
+                @endif
                 <img class="img-fluid avatar" src="{{$gamedata['data']['avatarfull']}}">
             </div>
             <div class="col-md-5">
