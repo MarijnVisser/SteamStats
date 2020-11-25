@@ -20,8 +20,6 @@
 
     }
 </script>
-
-<h1>Profile</h1>
 <!-- <button onclick="showLevel(currentPlayerLevel)">kkr mooie button</button> -->
 
 <?php
@@ -37,7 +35,7 @@ $gameID = $gamedata['data']['gameid'] ?? '';
     <img src="https://steamcdn-a.akamaihd.net/steamcommunity/public/images/{{$gamedata['profileBackground']['image_large']}}" style="position: absolute;top:0;width: 100%;height: 100%;z-index: -1; -webkit-mask-image:-webkit-gradient(linear, left top, left bottom, from(rgba(0,0,0,1)), to(rgba(0,0,0,0)));mask-image: linear-gradient(to bottom, rgba(0,0,0,1), rgba(0,0,0,0));">
 @endif
     <div class="container pt-3">
-        <div class="row bg-secondary">
+        <div class="row profileBackground">
             <div class="col-md-3 py-3">
                 <img class="img-fluid w-100" src="{{$gamedata['data']['avatarfull']}}">
             </div>
