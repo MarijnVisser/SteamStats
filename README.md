@@ -1,7 +1,7 @@
 <<<<<<< HEAD
-=======
 <<<<<<< HEAD
->>>>>>> 2bda79a60be649d99d654ad2bf5f829c2f616045
+=======
+>>>>>>> 072ff3c432fc51b2c85f1351a8693b3eb3b550f5
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
 
 <p align="center">
@@ -65,8 +65,12 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
 <<<<<<< HEAD
 =======
-=======
 # SteamStats
 An application used for showing steam data about games and user information.
 >>>>>>> e29ec604d0b31c01e2513288726156f0656c6b85
->>>>>>> 2bda79a60be649d99d654ad2bf5f829c2f616045
+=======
+
+# SteamStats
+An application used for showing steam data about games and user information.
+
+>>>>>>> 072ff3c432fc51b2c85f1351a8693b3eb3b550f5

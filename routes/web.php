@@ -3,9 +3,11 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\GamesController;
+use App\Http\Controllers\ReviewController;
 use Illuminate\Support\Facades\Route;
 use Symfony\Component\Console\Input\Input;
 use App\Models\Game;
+use Illuminate\View\Middleware\ShareErrorsFromSession;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,3 +42,4 @@ Route::get('/search', [GamesController::class, 'search']);
 
 Route::get('/game/{id}', [GamesController::class, 'show'])->name('game');
 
+Route::post('/createreview', [ReviewController::class, 'store'])->name('createreview');
