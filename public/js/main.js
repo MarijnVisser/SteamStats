@@ -29,13 +29,14 @@ function LogoutFunction() {
         "Content-Type": "application/json",
         "Accept": "application/json",
         "X-Requested-With": "XMLHttpRequest",
-        "X-CSRF-Token": csrfToken 
+        "X-CSRF-Token": csrfToken
     },
         credentials: "same-origin",
         method: 'POST'
     });
-    alert("you were automatically logged out");
-location.reload();
+    location.reload();
+    alert("Timeout: idle. You were automatically logged out!");
+
 }
 
 
