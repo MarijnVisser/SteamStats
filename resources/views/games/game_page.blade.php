@@ -148,7 +148,7 @@
             <div class="col-md-8 ">
                 <h4>Packages</h4>
                 @foreach($game['packages'] as $packages)
-                    <iframe src="https://store.steampowered.com/widget/{{$game['steam_appid']}}/{{$packages}}" frameborder="0" width="100%" height="100%"></iframe>
+                    <iframe src="https://store.steampowered.com/widget/{{$game['steam_appid']}}/{{$packages}}" frameborder="0" width="100%" height="200px"></iframe>
                 @endforeach
             </div>
             @endif
@@ -234,109 +234,131 @@
                 @endif
 			</div>
 		</div>
-		@if(!empty($reviews))
+
+		@if(!$reviews->isEmpty())
 			<div class="row my-5">
 				<div class="col-md-12">
 					@foreach ($reviews as $review)
-<div class="card mt-3" style="background-color: #282e39">
-    <div class="card-body ">
-        <div class="row mb-3 mt-md-0">
-            <div class="col-md-1 d-none d-md-block">
-                <img src="{{$review['steam'][0]['avatar']}}" class="img img-rounded img-fluid" />
-            </div>
-            <div class="col-md-11">
-                <p>
-                    <a class="float-left" href="#"><strong>{{$review['steam'][0]['name']}}</strong></a>
-					@switch ($review['stars'])
-						@case(1)
-							<span class="float-right"><i class="text-warning far fa-star"></i></span>
-							<span class="float-right"><i class="text-warning far fa-star"></i></span>
-							<span class="float-right"><i class="text-warning far fa-star"></i></span>
-							<span class="float-right"><i class="text-warning far fa-star"></i></span>
-							<span class="float-right"><i class="text-warning fas fa-star"></i></span>
-							@break
+						<div class="card mt-3" style="background-color: #282e39">
+						    <div class="card-body ">
+						        <div class="row mb-3 mt-md-0">
+						            <div class="col-md-1 d-none d-md-block">
+						                <img src="{{$review['steam'][0]['avatar']}}" class="img img-rounded img-fluid" />
+						            </div>
+						            <div class="col-md-11">
+						                <p>
+						                    <a class="float-left" href="#"><strong>{{$review['steam'][0]['name']}}</strong></a>
+						                    <span class="float-left ml-1">
+						                    	<small class="text-muted">- 
+							                    	@if(isset($review['created_at']))
+							                    		{{$review['created_at']->format('d/m/Y')}}
+							                    	@elseif(isset($review['ago']))
+							                    		{{$review['ago']}}
+							                    	@endif
+						                    	</small>
+						                    </span>
+											@switch ($review['stars'])
+												@case(1)
+													<span class="float-right"><i class="text-warning far fa-star"></i></span>
+													<span class="float-right"><i class="text-warning far fa-star"></i></span>
+													<span class="float-right"><i class="text-warning far fa-star"></i></span>
+													<span class="float-right"><i class="text-warning far fa-star"></i></span>
+													<span class="float-right"><i class="text-warning fas fa-star"></i></span>
+													@break
 
-						@case(2)
-							<span class="float-right"><i class="text-warning far fa-star"></i></span>
-							<span class="float-right"><i class="text-warning far fa-star"></i></span>
-							<span class="float-right"><i class="text-warning far fa-star"></i></span>
-							<span class="float-right"><i class="text-warning fas fa-star"></i></span>
-							<span class="float-right"><i class="text-warning fas fa-star"></i></span>
-							@break
+												@case(2)
+													<span class="float-right"><i class="text-warning far fa-star"></i></span>
+													<span class="float-right"><i class="text-warning far fa-star"></i></span>
+													<span class="float-right"><i class="text-warning far fa-star"></i></span>
+													<span class="float-right"><i class="text-warning fas fa-star"></i></span>
+													<span class="float-right"><i class="text-warning fas fa-star"></i></span>
+													@break
 
-						@case(3)
-							<span class="float-right"><i class="text-warning far fa-star"></i></span>
-							<span class="float-right"><i class="text-warning far fa-star"></i></span>
-							<span class="float-right"><i class="text-warning fas fa-star"></i></span>
-							<span class="float-right"><i class="text-warning fas fa-star"></i></span>
-							<span class="float-right"><i class="text-warning fas fa-star"></i></span>
-							@break
+												@case(3)
+													<span class="float-right"><i class="text-warning far fa-star"></i></span>
+													<span class="float-right"><i class="text-warning far fa-star"></i></span>
+													<span class="float-right"><i class="text-warning fas fa-star"></i></span>
+													<span class="float-right"><i class="text-warning fas fa-star"></i></span>
+													<span class="float-right"><i class="text-warning fas fa-star"></i></span>
+													@break
 
-						@case(4)
-							<span class="float-right"><i class="text-warning far fa-star"></i></span>
-							<span class="float-right"><i class="text-warning fas fa-star"></i></span>
-							<span class="float-right"><i class="text-warning fas fa-star"></i></span>
-							<span class="float-right"><i class="text-warning fas fa-star"></i></span>
-							<span class="float-right"><i class="text-warning fas fa-star"></i></span>
-							@break
+												@case(4)
+													<span class="float-right"><i class="text-warning far fa-star"></i></span>
+													<span class="float-right"><i class="text-warning fas fa-star"></i></span>
+													<span class="float-right"><i class="text-warning fas fa-star"></i></span>
+													<span class="float-right"><i class="text-warning fas fa-star"></i></span>
+													<span class="float-right"><i class="text-warning fas fa-star"></i></span>
+													@break
 
-						@case(5)
-							<span class="float-right"><i class="text-warning fas fa-star"></i></span>
-							<span class="float-right"><i class="text-warning fas fa-star"></i></span>
-							<span class="float-right"><i class="text-warning fas fa-star"></i></span>
-							<span class="float-right"><i class="text-warning fas fa-star"></i></span>
-							<span class="float-right"><i class="text-warning fas fa-star"></i></span>
-							@break
-						
-						@default:
-							<span class="float-right"><i class="text-warning far fa-star"></i></span>
-							<span class="float-right"><i class="text-warning far fa-star"></i></span>
-							<span class="float-right"><i class="text-warning far fa-star"></i></span>
-							<span class="float-right"><i class="text-warning far fa-star"></i></span>
-							<span class="float-right"><i class="text-warning far fa-star"></i></span>
-							@break
-					@endswitch
-                </p>
-                <div class="clearfix"></div>
-                <p>
-                    {{ $review['review'] }}
-                </p>
-                <p>
-                    <a class="float-right btn btn-outline-primary"> <i class="fa fa-reply"></i>Reply</a>
-                </p>
-            </div>
-        </div>
-
-
-
-
+												@case(5)
+													<span class="float-right"><i class="text-warning fas fa-star"></i></span>
+													<span class="float-right"><i class="text-warning fas fa-star"></i></span>
+													<span class="float-right"><i class="text-warning fas fa-star"></i></span>
+													<span class="float-right"><i class="text-warning fas fa-star"></i></span>
+													<span class="float-right"><i class="text-warning fas fa-star"></i></span>
+													@break
+												
+												@default:
+													<span class="float-right"><i class="text-warning far fa-star"></i></span>
+													<span class="float-right"><i class="text-warning far fa-star"></i></span>
+													<span class="float-right"><i class="text-warning far fa-star"></i></span>
+													<span class="float-right"><i class="text-warning far fa-star"></i></span>
+													<span class="float-right"><i class="text-warning far fa-star"></i></span>
+													@break
+											@endswitch
+						                </p>
+						                <div class="clearfix"></div>
+						                <p>
+						                    {{ $review['review'] }}
+						                </p>
+						                @auth
+							                <p>
+							                    <a class="float-right btn btn-outline-primary"> <i class="fa fa-reply"></i>Reply</a>
+							                </p>
+						                @endif
+						            </div>
+						        </div>
 
 
 
-        <!-- <div class="card card-inner" style="background-color: #282e39">
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-md-1 d-none d-md-block">
-                        <img src="https://image.ibb.co/jw55Ex/def_face.jpg" class="img img-rounded img-fluid" />
-                    </div>
-                    <div class="col-md-11">
-                        <p>
-                            <a href="https://maniruzzaman-akash.blogspot.com/p/contact.html"><strong>Maniruzzaman Akash</strong></a>
-                        </p>
-                        <p>
-                            Lorem Ipsum is simply dummy text of the pr make but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem
-                            Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-                        </p>
-                        <p>
-                            <a class="float-right btn btn-outline-primary"> <i class="fa fa-reply"></i>Reply</a>
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div> -->
-    </div>
-</div>
+
+
+
+
+						        <!-- <div class="card card-inner" style="background-color: #282e39">
+						            <div class="card-body">
+						                <div class="row">
+						                    <div class="col-md-1 d-none d-md-block">
+						                        <img src="https://image.ibb.co/jw55Ex/def_face.jpg" class="img img-rounded img-fluid" />
+						                    </div>
+						                    <div class="col-md-11">
+						                        <p>
+						                            <a href="https://maniruzzaman-akash.blogspot.com/p/contact.html"><strong>Maniruzzaman Akash</strong></a>
+						                        </p>
+						                        <p>
+						                            Lorem Ipsum is simply dummy text of the pr make but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem
+						                            Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+						                        </p>
+						                        <p>
+						                            <a class="float-right btn btn-outline-primary"> <i class="fa fa-reply"></i>Reply</a>
+						                        </p>
+						                    </div>
+						                </div>
+						            </div>
+						        </div> -->
+						    </div>
+						</div>
 					@endforeach
+				</div>
+			</div>
+		@else
+			<div class="row my-5">
+				<div class="col-md-12">
+					<div class="card mt-3" style="background-color: #282e39">
+					    <div class="card-body text-center">
+					        <h5>No reviews placed yet.</h5>
+					    </div>
+					</div>
 				</div>
 			</div>
 		@endif
@@ -348,10 +370,13 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content" style="background-color: #282e39">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLongTitle">Leave review</h5>
-                    <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+                	<img src="{{asset('img/SteamStats_Logo_Transparent.png')}}" alt="Logo" style="width: 200px">
+                    <!-- <h5 class="modal-title" id="exampleModalLongTitle">Leave review</h5> -->
+                    <div style="height: 63px;" class="d-flex justify-content-center">
+                    	<button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+	                        <span aria-hidden="true">&times;</span>
+	                    </button>
+                    </div>
                 </div>
                 <div class="modal-body">
                     @if ($errors->any())
@@ -394,7 +419,7 @@
                         </div>
 
                         <input type="text" name="appid" value="{{ $game['steam_appid'] }}" hidden="true">
-                        <button type="submit" class="btn btn-primary float-right">Submit</button>
+                        <button type="submit" class="btn btn-success float-right">Submit</button>
                     </form>
                 </div>
             </div>

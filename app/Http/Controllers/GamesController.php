@@ -14,6 +14,8 @@ use App\Models\Review as reviewModel;
 use App\Models\User as userModel;
 use PhpParser\Node\Stmt\DeclareDeclare;
 
+use App\Helper\Helper;
+
 class GamesController extends Controller
 {
     /**
@@ -144,6 +146,10 @@ class GamesController extends Controller
             foreach ($reviews as $review) {
                 $review['steam'] = userModel::where('steamid', $review['steamid'])->get();
                 unset($review['steamid']);
+                if (date('d/m/Y') == $review['created_at']->format('d/m/Y')) {
+                    $review['ago'] = Helper::time_elapsed_string($review['created_at']);
+                    unset($review['created_at']);
+                }
             }
 
             return view('games.game_page')->with('game', $game['data'])->with('reviews', $reviews);
