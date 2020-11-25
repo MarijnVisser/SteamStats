@@ -23,6 +23,7 @@ class Game extends Model
         'appid',
         'name',
         'price',
+        'price_formatted',
         'image'
     ];
 

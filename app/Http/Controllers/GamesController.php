@@ -27,11 +27,18 @@ class GamesController extends Controller
     {
 
         $games = DB::table('games')
-            ->select('appid','name')
-            ->orderBy('appid', 'asc')
+            ->select('appid','name', 'price', 'image')
+            ->orderBy('price', 'desc')
+            ->where('price', 'like', '%€%')
             ->paginate(15);
 
-        return view('games.games')->with('games', $games);
+        $genres = DB::table('genres')
+            ->select('*')
+            ->get();
+
+        return view('games.games')
+            ->with('games', $games)
+            ->with('genres', $genres);
     }
 
     /**
@@ -96,19 +103,22 @@ class GamesController extends Controller
 
                 if(!empty($gameInfo)){
                     if($gameInfo['data']['release_date']['coming_soon'] == true){
-                        $price = "Coming Soon";
+                        $priceFormatted = "Coming Soon";
+                        $price = NULL;
                     }
                     elseif($gameInfo['data']['is_free'] == true){
-                        $price = "Free to Play";
+                        $priceFormatted = "Free to Play";
+                        $price = NULL;
                     }
                     elseif(!empty($gameInfo['data']['price_overview'])){
-                        $price = $gameInfo['data']['price_overview']['final_formatted'];
+                        $priceFormatted = $gameInfo['data']['price_overview']['final_formatted'];
+                        $price = $gameInfo['data']['price_overview']['final']; 
                     }
 
                     if($gameInfo['success'] == true){
                         if($gameInfo['data']['type'] == 'game'){
 
-                            gameModel::updateOrCreate(['appid' => $game['appid']],['appid' => $game['appid'],'name' => $game['name'],'price' => $price, 'image' => $gameInfo['data']['header_image']]);
+                            gameModel::updateOrCreate(['appid' => $game['appid']],['appid' => $game['appid'],'name' => $game['name'], 'price' => $price, 'price_formatted' => $priceFormatted, 'image' => $gameInfo['data']['header_image']]);
 
                             if(!empty($gameInfo['data']['genres'])){
                                 foreach($gameInfo['data']['genres'] as $genre){
