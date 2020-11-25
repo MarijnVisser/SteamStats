@@ -1,6 +1,4 @@
 @extends('layouts.app')
-
-
 @section('content')
 
 <script>
@@ -22,8 +20,6 @@
 
     }
 </script>
-
-<h1>Profile</h1>
 <!-- <button onclick="showLevel(currentPlayerLevel)">kkr mooie button</button> -->
 
 <?php
@@ -39,7 +35,7 @@ $gameID = $gamedata['data']['gameid'] ?? '';
     <img src="https://steamcdn-a.akamaihd.net/steamcommunity/public/images/{{$gamedata['profileBackground']['image_large']}}" style="position: absolute;top:0;width: 100%;height: 100%;z-index: -1; -webkit-mask-image:-webkit-gradient(linear, left top, left bottom, from(rgba(0,0,0,1)), to(rgba(0,0,0,0)));mask-image: linear-gradient(to bottom, rgba(0,0,0,1), rgba(0,0,0,0));">
 @endif
     <div class="container pt-3">
-        <div class="row bg-secondary">
+        <div class="row profileBackground">
             <div class="col-md-3 py-3">
                 <img class="img-fluid w-100" src="{{$gamedata['data']['avatarfull']}}">
             </div>
@@ -56,19 +52,19 @@ $gameID = $gamedata['data']['gameid'] ?? '';
                 <p class="userPageInfo">{{ $gamedata['playerLevel']['player_xp_needed_to_level_up'] . " / ".  $gamedata['playerLevel']['player_xp_needed_current_level'] . " XP to next level "}}</p>
                 <p class="userPageInfo">Country: {{$gamedata['data']['loccountrycode']}}</p>
             </div>
-            <div class="col-md-4 pt-3">
-                <p class="userPageInfo border border-dark">Vac ban: @if($gamedata['banInfo']['VACBanned'] == false) None @else {{$gamedata['banInfo']['NumberOfVACBans']}} Ban(s) ({{ $gamedata['banInfo']['DaysSinceLastBan'] }} Days ago) @endif</p>
-                <p class="userPageInfo border border-dark">Community ban: @if($gamedata['banInfo']['CommunityBanned'] == false) None @else Banned @endif</p>
-                <p class="userPageInfo border border-dark">Game bans: @if($gamedata['banInfo']['NumberOfGameBans'] == false) None @else {{$gamedata['banInfo']['NumberOfGameBans']}} @endif</p>
-                <p class="userPageInfo border border-dark">Trade ban: @if($gamedata['banInfo']['EconomyBan'] == 'none') None @else {{$gamedata['banInfo']['EconomyBan']}} @endif</p>
-                <p class="userPageInfo border border-dark">Account age: {{ date('y') - gmdate('y', $timeCreated) }} years</p>
-                <p class="userPageInfo border border-dark">Steamid: {{$gamedata['data']['steamid']}}</p>
+            <div class="col-md-4 pt-2">
+                <p class="userPageInfo border border-dark p-1">Vac ban: @if($gamedata['banInfo']['VACBanned'] == false) None @else {{$gamedata['banInfo']['NumberOfVACBans']}} Ban(s) ({{ $gamedata['banInfo']['DaysSinceLastBan'] }} Days ago) @endif</p>
+                <p class="userPageInfo border border-dark p-1">Community ban: @if($gamedata['banInfo']['CommunityBanned'] == false) None @else Banned @endif</p>
+                <p class="userPageInfo border border-dark p-1">Game bans: @if($gamedata['banInfo']['NumberOfGameBans'] == false) None @else {{$gamedata['banInfo']['NumberOfGameBans']}} @endif</p>
+                <p class="userPageInfo border border-dark p-1">Trade ban: @if($gamedata['banInfo']['EconomyBan'] == 'none') None @else {{$gamedata['banInfo']['EconomyBan']}} @endif</p>
+                <p class="userPageInfo border border-dark p-1">Account age: {{ date('y') - gmdate('y', $timeCreated) }} years</p>
+                <p class="userPageInfo border border-dark p-1">Steamid: {{$gamedata['data']['steamid']}}</p>
             </div>
         </div>
         @if(!empty($gamedata['recentlyPlayedGames']))
-            <div class="card-group row">
+            <div class="card-group row mt-1">
                 @foreach ($gamedata['recentlyPlayedGames'] as $recentlyPlayedGame)
-                    <div class="card profileCards col-md-3 p-0">
+                    <div class="card profileCards col-md-3 p-0 m-1">
                         @if(!empty($recentlyPlayedGame['img_logo_url']))
                             <img class="card-img-top"
                                  src="http://media.steampowered.com/steamcommunity/public/images/apps/{{ $recentlyPlayedGame['appid'] }}/{{ $recentlyPlayedGame['img_logo_url'] }}.jpg">

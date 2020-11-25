@@ -10915,7 +10915,7 @@ a.text-dark:focus {
 }
 
 .profileCards{
-  background-color: gray;
+  background-color: #5e5e5e;
 }
 
 .noImageFound{
@@ -10925,3 +10925,8 @@ a.text-dark:focus {
 .wrapContainer{
   height: 1000px;
 }
+
+.profileBackground{
+  background-color: #5e5e5e;
+}
+

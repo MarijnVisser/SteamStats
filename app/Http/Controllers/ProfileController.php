@@ -38,6 +38,10 @@ class ProfileController extends Controller
         $profileBackground = new profile;
         $profileBackground = $profileBackground->getProfileBackground();
 
+        $resolvedurl = new profile;
+        $resolvedurl = $resolvedurl->resolveCustomURL();
+
+
 
         $gamedata = [];
 
