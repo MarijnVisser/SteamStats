@@ -94,9 +94,7 @@ class GamesController extends Controller
             ->select('*')
             ->get();
 
-        return View('games.games')
-            ->with('games',$games)
-            ->with('genres', $genres);
+        return View('games.games')->with('games',$games)->with('genres', $genres);;
     }
 
     /**
@@ -146,7 +144,7 @@ class GamesController extends Controller
                     }
                     elseif(!empty($gameInfo['data']['price_overview'])){
                         $priceFormatted = $gameInfo['data']['price_overview']['final_formatted'];
-                        $price = $gameInfo['data']['price_overview']['final']; 
+                        $price = $gameInfo['data']['price_overview']['final'];
                     }
 
                     if($gameInfo['success'] == true){

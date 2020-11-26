@@ -47,7 +47,7 @@
                     </thead>
                     <tbody>
                         @foreach ($games as $game)
-                            <tr>   
+                            <tr>
                                 <td><img src="{{$game->image}}" alt="{{$game->name}}" style="width: 100px"></td>
                                 <td>{{$game->appid}}</td>
                                 <td><a href="{{route('game', ['id' => $game->appid])}}">{{$game->name}}</a></td>
