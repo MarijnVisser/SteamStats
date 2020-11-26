@@ -26,9 +26,9 @@ class GamesController extends Controller
     public function index()
     {
 
-        $games = DB::table('games')
-            ->select('appid','name', 'price_formatted', 'image')
-            ->orderBy('price', 'desc')
+        $games = gameModel::select('appid','name', 'price', 'price_formatted', 'image')
+            ->whereNotNull('price')
+            ->sortable()
             ->paginate(15);
 
         $genres = DB::table('genres')
@@ -38,6 +38,34 @@ class GamesController extends Controller
         return view('games.games')
             ->with('games', $games)
             ->with('genres', $genres);
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+      * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function sortGenre(Request $request){
+
+        $inputs = $request->input();
+// dd($inputs);
+        
+        $games = DB::table('games')->select('games.*')
+                    ->join('game_genre', 'games.id', '=', 'game_genre.game_id')
+                    ->join('genres', 'game_genre.genre_id', '=', 'genres.id')
+                    ->whereIn('genres.id', $inputs)
+                    ->distinct('games.id')
+                    ->paginate(10);   
+        
+        $genres = DB::table('genres')
+            ->select('*')
+            ->get();
+
+        return view('games.games', compact($games))
+            ->with('games', $games)
+            ->with('genres', $genres);
+
     }
 
     /**
@@ -96,7 +124,7 @@ class GamesController extends Controller
 
             sleep(0.1);
 
-            $id = strval($game['appid']);
+            $id = $game['appid'];
 
             $gameExists = gameModel::where('appid', $id)->first();
 
@@ -122,14 +150,14 @@ class GamesController extends Controller
                     if($gameInfo['success'] == true){
                         if($gameInfo['data']['type'] == 'game'){
 
-                            gameModel::updateOrCreate(['appid' => $game['appid']],['appid' => $game['appid'],'name' => $game['name'], 'price' => $price, 'price_formatted' => $priceFormatted, 'image' => $gameInfo['data']['header_image']]);
+                           $newGame = gameModel::updateOrCreate(['appid' => $game['appid']],['appid' => $game['appid'],'name' => $game['name'], 'price' => $price, 'price_formatted' => $priceFormatted, 'image' => $gameInfo['data']['header_image']]);
 
                             if(!empty($gameInfo['data']['genres'])){
                                 foreach($gameInfo['data']['genres'] as $genre){
 
                                     genreModel::firstOrCreate(['id' => $genre['id']], ['name' => $genre['description']]);
 
-                                    DB::table('genres_games')->insert(['game_id' => $game['appid'], 'genre_id' => $genre['id']]);
+                                    DB::table('game_genre')->insert(['game_id' => $newGame->id, 'genre_id' => $genre['id']]);
                                 }
                             }
                         }
@@ -150,9 +178,6 @@ class GamesController extends Controller
         $game = new gameModel();
         $game->id = $request->id;
         $game = $game->getGame($game['id']);
-
-//        dd($game);
-
 
         if(!empty($game['data'])) {
             $reviews = reviewModel::where('appid', $game['data']['steam_appid'])->orderBy('id', 'DESC')->get();
