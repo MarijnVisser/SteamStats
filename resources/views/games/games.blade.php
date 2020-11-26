@@ -24,11 +24,14 @@
     <div class="row mt-3">
         <div class="col-md-3 h-100 p-3 mr-1" style="background-color: #21262f">
             <label for="genres"><h4 class="p-0 m-0">Genres:</h4></label>
-            <form action="">
+            <form action="/sort_genre" method="get" role="sortGenre">
+                <?php $var = 1; ?>
                 @foreach ($genres as $genre)
-                    <input type="checkbox" name="{{$genre->name}}" value="{{$genre->name}}">
+            <input type="checkbox" name="genre{{$var}}" value="{{$genre->id}}">
                     <label for="{{$genre->name}}">{{$genre->name}}</label><br>
+                    <?php $var +=1 ;?>
                 @endforeach
+                <button type="submit" value="submit" class="btn btn-dark">submit</button>
             </form> 
         </div>
         <div class="col-md-8 ml-5">
@@ -36,10 +39,10 @@
                 <table class="table" style="color: rgb(255, 255, 255)">
                     <thead>
                         <tr>
-                            <th></th>
-                            <th>Appid</th>
-                            <th>Name</th>
-                            <th>Price</th>
+                        <th>{{count($games)}}</th>
+                            <th>@sortablelink('appid', 'Appid')</th>
+                            <th>@sortablelink('name', 'Name')</th>
+                            <th>@sortablelink('price', 'Price')</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -56,7 +59,10 @@
             </div>
             <div class="row">
                 <div class="col-md-12 d-flex justify-content-center">
-                    {{$games->links('vendor.pagination.bootstrap-4')}}
+                {{$games->appends($_GET)->links('vendor.pagination.bootstrap-4')}}
+                    {{-- {{ $games->links('vendor.pagination.bootstrap-4')}} --}}
+                    {{-- {{ $users->appends(request()->query())->links() }} --}}
+                    {{-- {{$games->links()}} --}}
                 </div>
             </div>
         </div>
