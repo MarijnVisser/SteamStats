@@ -29,7 +29,7 @@
                     <input type="checkbox" name="{{$genre->name}}" value="{{$genre->name}}">
                     <label for="{{$genre->name}}">{{$genre->name}}</label><br>
                 @endforeach
-            </form> 
+            </form>
         </div>
         <div class="col-md-8 ml-5">
             <div class="row">
@@ -44,7 +44,7 @@
                     </thead>
                     <tbody>
                         @foreach ($games as $game)
-                            <tr>   
+                            <tr>
                                 <td><img src="{{$game->image}}" alt="{{$game->name}}" style="width: 100px"></td>
                                 <td>{{$game->appid}}</td>
                                 <td><a href="{{route('game', ['id' => $game->appid])}}">{{$game->name}}</a></td>

@@ -61,7 +61,12 @@ class GamesController extends Controller
         else{
             $games = gameModel::paginate(15);
         }
-        return View('games.games')->with('games',$games);
+
+        $genres = DB::table('genres')
+            ->select('*')
+            ->get();
+
+        return View('games.games')->with('games',$games)->with('genres', $genres);;
     }
 
     /**
@@ -111,7 +116,7 @@ class GamesController extends Controller
                     }
                     elseif(!empty($gameInfo['data']['price_overview'])){
                         $priceFormatted = $gameInfo['data']['price_overview']['final_formatted'];
-                        $price = $gameInfo['data']['price_overview']['final']; 
+                        $price = $gameInfo['data']['price_overview']['final'];
                     }
 
                     if($gameInfo['success'] == true){
