@@ -5,12 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Http;
+use Kyslik\ColumnSortable\Sortable;
 
 class Game extends Model
 {
     use HasFactory;
+    use Sortable;
 
-    public function Genre()
+    public function genres()
     {
         return $this->belongsToMany('App\Models\Genre');
     }
@@ -20,6 +22,7 @@ class Game extends Model
     protected $guarded = [];
 
     protected $fillable = [
+        'id',
         'appid',
         'name',
         'price',
@@ -27,7 +30,12 @@ class Game extends Model
         'image'
     ];
 
-    public $incrementing = false;
+    protected $sortable  = [
+        'appid',
+        'name',
+        'price'
+
+    ];
 
     public function getGames(){
 

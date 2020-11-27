@@ -14,7 +14,8 @@ class Games extends Migration
     public function up()
     {
         Schema::create('games', function (Blueprint $table) {
-            $table->id('appid');
+            $table->id();
+            $table->bigInteger('appid');
             $table->string('name', 255);
             $table->integer('price')->nullable();
             $table->string('price_formatted')->nullable();
