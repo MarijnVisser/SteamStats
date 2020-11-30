@@ -44,7 +44,7 @@ class GamesController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-      * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request  $request
      * @return Application|Factory|View|Response
      */
     public function sortGenre(Request $request){
@@ -53,11 +53,11 @@ class GamesController extends Controller
 // dd($inputs);
 
         $games = DB::table('games')->select('games.*')
-                    ->join('game_genre', 'games.id', '=', 'game_genre.game_id')
-                    ->join('genres', 'game_genre.genre_id', '=', 'genres.id')
-                    ->whereIn('genres.id', $inputs)
-                    ->distinct('games.id')
-                    ->paginate(10);
+            ->join('game_genre', 'games.id', '=', 'game_genre.game_id')
+            ->join('genres', 'game_genre.genre_id', '=', 'genres.id')
+            ->whereIn('genres.id', $inputs)
+            ->distinct('games.id')
+            ->paginate(10);
 
         $genres = DB::table('genres')
             ->select('*')
@@ -72,7 +72,7 @@ class GamesController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-      * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request  $request
      * @return Response
      */
     public function search(Request $request)
@@ -83,8 +83,8 @@ class GamesController extends Controller
                 $query->where('appid', 'like', $search)
                     ->orWhere('name', 'like', '%'.$search.'%');
             })
-            ->orderBy('name')
-            ->paginate(15);
+                ->orderBy('name')
+                ->paginate(15);
             $games->appends(['q' => $search]);
         }
         else{
@@ -151,7 +151,7 @@ class GamesController extends Controller
                     if($gameInfo['success'] == true){
                         if($gameInfo['data']['type'] == 'game'){
 
-                           $newGame = gameModel::updateOrCreate(['appid' => $game['appid']],['appid' => $game['appid'],'name' => $game['name'], 'price' => $price, 'price_formatted' => $priceFormatted, 'image' => $gameInfo['data']['header_image']]);
+                            $newGame = gameModel::updateOrCreate(['appid' => $game['appid']],['appid' => $game['appid'],'name' => $game['name'], 'price' => $price, 'price_formatted' => $priceFormatted, 'image' => $gameInfo['data']['header_image']]);
 
                             if(!empty($gameInfo['data']['genres'])){
                                 foreach($gameInfo['data']['genres'] as $genre){
