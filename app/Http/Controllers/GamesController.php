@@ -9,13 +9,17 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
+
 use App\Models\Game as gameModel;
 use App\Models\Genre as genreModel;
 use App\Models\Review as reviewModel;
 use App\Models\User as userModel;
-use PhpParser\Node\Stmt\DeclareDeclare;
+
+use Illuminate\Pagination\LengthAwarePaginator;
+
 
 use App\Helper\Helper;
+use Symfony\Component\Console\Input\Input;
 
 class GamesController extends Controller
 {
@@ -50,20 +54,26 @@ class GamesController extends Controller
     public function sortGenre(Request $request){
 
         $inputs = $request->input();
-        
+     
         $gamesOnGenre = gameModel::select('games.*')
                     ->join('game_genre', 'games.id', '=', 'game_genre.game_id')
                     ->join('genres', 'game_genre.genre_id', '=', 'genres.id')
-                    ->whereIn('genres.id', $inputs)
-                    ->whereNotNull('price')
+                    ->Where(function ($query) use($inputs) {
+                        foreach($inputs as $key => $input){
+                            if($key != 'page'){
+                                $query->orwhere('genres.id', $input);
+                            }  
+                        }      
+                   })
                     ->distinct('games.id')
-                    ->paginate(10);                  
-        
+                    ->sortable()
+                    ->paginate(15);    
+
         $genres = DB::table('genres')
             ->select('*')
             ->get();
 
-        return view('games.games', compact($gamesOnGenre))
+        return view('games.games')
             ->with('gamesOnGenre', $gamesOnGenre)
             ->with('genres', $genres);
 
