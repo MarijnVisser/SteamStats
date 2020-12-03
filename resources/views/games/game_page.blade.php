@@ -53,26 +53,26 @@
 						<tr>
 							<td>Publisher</td>
 							<td>
-                                <?php
-                                    if(!empty($game['publishers'])){
-                                        foreach($game['publishers'] as $publisher)
-                                            echo $publisher,", ";
-                                    } else
-                                        echo "None";
-                                ?>
-                            </td>
+                  <?php
+                      if(!empty($game['publishers'])){
+                          foreach($game['publishers'] as $publisher)
+                              echo $publisher,", ";
+                      } else
+                          echo "None";
+                  ?>
+              </td>
 						</tr>
 						<tr>
 							<td>Developer</td>
 							<td>
-                                <?php
-                                    if(!empty($game['developers'])){
-                                            foreach($game['developers'] as $developer)
-                                                echo $developer,", ";
-                                    } else
-                                        echo "None";
-                                ?>
-                            </td>
+                  <?php
+                      if(!empty($game['developers'])){
+                              foreach($game['developers'] as $developer)
+                                  echo $developer,", ";
+                      } else
+                          echo "None";
+                  ?>
+              </td>
 						</tr>
 						<tr>
 							<td>Supported Systems</td>
@@ -81,14 +81,14 @@
 						<tr>
 							<td>Genre</td>
 							<td>
-                                <?php
-                                if(!empty($game['genres'])){
-                                    foreach($game['genres'] as $genre)
-                                        echo $genre['description'],", ";
-                                } else
-                                    echo "None";
-                                ?>
-                            </td>
+                  <?php
+                  if(!empty($game['genres'])){
+                      foreach($game['genres'] as $genre)
+                          echo $genre['description'],", ";
+                  } else
+                      echo "None";
+                  ?>
+              </td>
 						</tr>
 						<tr>
 							<td>Last Change Number</td>
@@ -121,7 +121,7 @@
 						</div>
 					</div>
                     @else
-                    <div class="col-md-5">
+                    <div class="col-lg-5">
                         <div class="alert alert-dark text-center" role="alert">
                             <h6 class="mb-0 text-dark"><a href="https://www.metacritic.com/game/pc/{{$metacriticUrl}}" class="text-dark" target="_blank">Metascore</a></h6>
                             <span class="small text-black"><i>No score</i></span>
@@ -129,7 +129,7 @@
                     </div>
                     @endif
 
-					<div class="col-md-7">
+					<div class="col-lg-7">
 						<div class="alert alert-dark text-center" role="alert" style="border:none;">
 							<h6 class="mb-0 text-green">Total recommendations</h6>
                             @if(!empty($game['recommendations']['total']))
@@ -187,8 +187,8 @@
         </div>
         <hr class="my-5">
 		<div class="row">
-            <h4>Requirements</h4>
-			<div class="col-md-12">
+			<div class="col-md-{{ isset($stars) ? '6' : '12' }}">
+				<h4>Requirements</h4>
                 <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
                     <li class="nav-item">
                         <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">Windows</a>
@@ -216,6 +216,79 @@
                         @endif
                 </div>
 			</div>
+
+      @if(isset($stars))
+        <div class="col-md-6">
+            <div class="user_rating">
+                <span class="heading">User Rating</span>
+                <i class="text-warning {{ $stars['average'] >= 1 ? 'fas fa-star' : 'far fa-star' }} fa-2x"></i>
+                <i class="text-warning {{ $stars['average'] >= 2 ? 'fas fa-star' : ($stars['average'] == '1.5' ? 'fas fa-star-half-alt' : 'far fa-star') }} fa-2x"></i>
+                <i class="text-warning {{ $stars['average'] >= 3 ? 'fas fa-star' : ($stars['average'] == '2.5' ? 'fas fa-star-half-alt' : 'far fa-star') }} fa-2x"></i>
+                <i class="text-warning {{ $stars['average'] >= 4 ? 'fas fa-star' : ($stars['average'] == '3.5' ? 'fas fa-star-half-alt' : 'far fa-star') }} fa-2x"></i>
+                <i class="text-warning {{ $stars['average'] == 5 ? 'fas fa-star' : ($stars['average'] == '4.5' ? 'fas fa-star-half-alt' : 'far fa-star') }} fa-2x"></i>
+                <p>{{$stars['average']}} stars average based on {{$stars['total']}} reviews.</p>
+
+                <div class="row w-100 mx-auto">
+                    <div class="side">
+                        <div>5 star</div>
+                    </div>
+                    <div class="middle">
+                        <div class="bar-container">
+                            <div class="bar-5" style="width: {{$stars['starPercentage']['5']}};"></div>
+                        </div>
+                    </div>
+                    <div class="side right">
+                        <div>{{$stars['5']}}</div>
+                    </div>
+                    <div class="side">
+                        <div>4 star</div>
+                    </div>
+                    <div class="middle">
+                        <div class="bar-container">
+                            <div class="bar-4" style="width: {{$stars['starPercentage']['4']}};"></div>
+                        </div>
+                    </div>
+                    <div class="side right">
+                        <div>{{$stars['4']}}</div>
+                    </div>
+                    <div class="side">
+                        <div>3 star</div>
+                    </div>
+                    <div class="middle">
+                        <div class="bar-container">
+                            <div class="bar-3" style="width: {{$stars['starPercentage']['3']}};"></div>
+                        </div>
+                    </div>
+                    <div class="side right">
+                        <div>{{$stars['3']}}</div>
+                    </div>
+                    <div class="side">
+                        <div>2 star</div>
+                    </div>
+                    <div class="middle">
+                        <div class="bar-container">
+                            <div class="bar-2" style="width: {{$stars['starPercentage']['2']}};"></div>
+                        </div>
+                    </div>
+                    <div class="side right">
+                        <div>{{$stars['2']}}</div>
+                    </div>
+                    <div class="side">
+                        <div>1 star</div>
+                    </div>
+                    <div class="middle">
+                        <div class="bar-container">
+                            <div class="bar-1" style="width: {{$stars['starPercentage']['1']}};"></div>
+                        </div>
+                    </div>
+                    <div class="side right">
+                        <div>{{$stars['1']}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+      @endif
+
 		</div>
 
 		<hr class="my-5">
@@ -257,55 +330,11 @@
 							                    	@endif
 						                    	</small>
 						                    </span>
-											@switch ($review['stars'])
-												@case(1)
-													<span class="float-right"><i class="text-warning far fa-star"></i></span>
-													<span class="float-right"><i class="text-warning far fa-star"></i></span>
-													<span class="float-right"><i class="text-warning far fa-star"></i></span>
-													<span class="float-right"><i class="text-warning far fa-star"></i></span>
-													<span class="float-right"><i class="text-warning fas fa-star"></i></span>
-													@break
-
-												@case(2)
-													<span class="float-right"><i class="text-warning far fa-star"></i></span>
-													<span class="float-right"><i class="text-warning far fa-star"></i></span>
-													<span class="float-right"><i class="text-warning far fa-star"></i></span>
-													<span class="float-right"><i class="text-warning fas fa-star"></i></span>
-													<span class="float-right"><i class="text-warning fas fa-star"></i></span>
-													@break
-
-												@case(3)
-													<span class="float-right"><i class="text-warning far fa-star"></i></span>
-													<span class="float-right"><i class="text-warning far fa-star"></i></span>
-													<span class="float-right"><i class="text-warning fas fa-star"></i></span>
-													<span class="float-right"><i class="text-warning fas fa-star"></i></span>
-													<span class="float-right"><i class="text-warning fas fa-star"></i></span>
-													@break
-
-												@case(4)
-													<span class="float-right"><i class="text-warning far fa-star"></i></span>
-													<span class="float-right"><i class="text-warning fas fa-star"></i></span>
-													<span class="float-right"><i class="text-warning fas fa-star"></i></span>
-													<span class="float-right"><i class="text-warning fas fa-star"></i></span>
-													<span class="float-right"><i class="text-warning fas fa-star"></i></span>
-													@break
-
-												@case(5)
-													<span class="float-right"><i class="text-warning fas fa-star"></i></span>
-													<span class="float-right"><i class="text-warning fas fa-star"></i></span>
-													<span class="float-right"><i class="text-warning fas fa-star"></i></span>
-													<span class="float-right"><i class="text-warning fas fa-star"></i></span>
-													<span class="float-right"><i class="text-warning fas fa-star"></i></span>
-													@break
-												
-												@default:
-													<span class="float-right"><i class="text-warning far fa-star"></i></span>
-													<span class="float-right"><i class="text-warning far fa-star"></i></span>
-													<span class="float-right"><i class="text-warning far fa-star"></i></span>
-													<span class="float-right"><i class="text-warning far fa-star"></i></span>
-													<span class="float-right"><i class="text-warning far fa-star"></i></span>
-													@break
-											@endswitch
+          											<span class="float-right"><i class="text-warning {{ $review['stars'] == 5 ? 'fas' : 'far' }} fa-star"></i></span>
+                                <span class="float-right"><i class="text-warning {{ $review['stars'] >= 4 ? 'fas' : 'far' }} fa-star"></i></span>
+                                <span class="float-right"><i class="text-warning {{ $review['stars'] >= 3 ? 'fas' : 'far' }} fa-star"></i></span>
+                                <span class="float-right"><i class="text-warning {{ $review['stars'] >= 2 ? 'fas' : 'far' }} fa-star"></i></span>
+                                <span class="float-right"><i class="text-warning {{ $review['stars'] >= 1 ? 'fas' : 'far' }} fa-star"></i></span>
 						                </p>
 						                <div class="clearfix"></div>
 						                <p>

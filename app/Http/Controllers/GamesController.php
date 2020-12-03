@@ -192,8 +192,26 @@ class GamesController extends Controller
 
         if(!empty($game['data'])) {
             $reviews = reviewModel::where('appid', $game['data']['steam_appid'])->orderBy('id', 'DESC')->get();
+            $stars = array();
+            $stars['5'] = 0;
+            $stars['4'] = 0;
+            $stars['3'] = 0;
+            $stars['2'] = 0;
+            $stars['1'] = 0;
 
             foreach ($reviews as $review) {
+                if ($review['stars'] == 5) {
+                    $stars['5']++;
+                } elseif ($review['stars'] == 4) {
+                    $stars['4']++;
+                } elseif ($review['stars'] == 3) {
+                    $stars['3']++;
+                } elseif ($review['stars'] == 2) {
+                    $stars['2']++;
+                } elseif ($review['stars'] == 1) {
+                    $stars['1']++;
+                }
+
                 $review['steam'] = userModel::where('steamid', $review['steamid'])->get();
                 unset($review['steamid']);
                 if (date('d/m/Y') == $review['created_at']->format('d/m/Y')) {
@@ -202,7 +220,14 @@ class GamesController extends Controller
                 }
             }
 
-            return view('games.game_page')->with('game', $game['data'])->with('reviews', $reviews);
+            if (!$reviews->isEmpty()) {
+                $stars['total'] = $stars['5'] + $stars['4'] + $stars['3'] + $stars['2'] + $stars['1'];
+                $stars['average'] = Helper::calculateAverageStars($stars);
+                $stars['starPercentage'] = Helper::calculateStarsPercentage($stars);
+                return view('games.game_page')->with('game', $game['data'])->with('reviews', $reviews)->with('stars', $stars);
+            } else {
+                return view('games.game_page')->with('game', $game['data'])->with('reviews', $reviews);
+            }
         }
         else
             return redirect()->back();

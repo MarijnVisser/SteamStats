@@ -27,8 +27,10 @@
             <form action="/sort_genre" method="get" role="sortGenre">
                 <?php $var = 1; ?>
                 @foreach ($genres as $genre)
-            <input type="checkbox" name="genre{{$var}}" value="{{$genre->id}}">
-                    <label for="{{$genre->name}}">{{$genre->name}}</label><br>
+                    <label>
+                        <input type="checkbox" name="genre{{$var}}" value="{{$genre->id}}">
+                        {{$genre->name}}
+                    </label><br>
                     <?php $var +=1 ;?>
                 @endforeach
                 <button type="submit" value="submit" class="btn btn-dark">submit</button>

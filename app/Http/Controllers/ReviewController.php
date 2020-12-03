@@ -20,10 +20,10 @@ class ReviewController extends Controller
     //     return view('admin.contacts.index', $data);
     // }
 
-    public function create()
-    {
-        return view('admin.contacts.create');
-    }
+    // public function create()
+    // {
+    //     return view('admin.contacts.create');
+    // }
 
     public function store(Request $request)
     {

@@ -33,6 +33,25 @@ class Helper
 	    if (!$full) $string = array_slice($string, 0, 1);
 	    return $string ? implode(', ', $string) . ' ago' : 'just now';
 	}
+
+	public static function calculateAverageStars($starArray)
+	{
+		$average = ($starArray['5']*5 + $starArray['4']*4 + $starArray['3']*3 + $starArray['2']*2 + $starArray['1']*1) / ($starArray['5'] + $starArray['4'] + $starArray['3'] + $starArray['2'] + $starArray['1']);
+		$average = floor($average * 2) / 2;
+		return $average;
+	}
+
+	public static function calculateStarsPercentage($starArray)
+	{
+		// SELECT * FROM `reviews` WHERE `appid` = 20 ORDER BY `reviews`.`stars` ASC
+		$total = $starArray['5'] + $starArray['4'] + $starArray['3'] + $starArray['2'] + $starArray['1'];
+		$starPercentage['1'] = ($starArray['1'] / $total) * 100 . '%';
+		$starPercentage['2'] = ($starArray['2'] / $total) * 100 . '%';
+		$starPercentage['3'] = ($starArray['3'] / $total) * 100 . '%';
+		$starPercentage['4'] = ($starArray['4'] / $total) * 100 . '%';
+		$starPercentage['5'] = ($starArray['5'] / $total) * 100 . '%';
+		return $starPercentage;
+	}
 }
 
 
