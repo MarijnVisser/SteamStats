@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Reply;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -23,6 +24,30 @@ use Symfony\Component\Console\Input\Input;
 
 class GamesController extends Controller
 {
+
+    private $categories;
+    private $genres;
+
+    public function __construct()
+    {
+        $genre = DB::table('genres')
+        ->select('*')
+        ->get();
+
+        $getCategories = new gameModel();
+        $getCategories = $getCategories->getFeaturedCategories();
+
+        $category = array();
+        $category['new_releases'] = $getCategories['new_releases'];
+        $category['top_sellers']  = $getCategories['top_sellers'];
+        $category['coming_soon']  = $getCategories['coming_soon'];
+        $category['specials']     = $getCategories['specials'];
+
+        $this->genres = $genre;
+        $this->categories = $category;
+
+    }
+    
     /**
      * Display a listing of the resource.
      *
@@ -36,53 +61,54 @@ class GamesController extends Controller
             ->sortable()
             ->paginate(15);
 
-        $genres = DB::table('genres')
-            ->select('*')
-            ->get();
-
+        $genres = $this->genres;
+        $categories = $this->categories;
+        
         return view('games.games')
             ->with('games', $games)
-            ->with('genres', $genres);
+            ->with('genres', $genres)
+            ->with('categories', $categories);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-      * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request  $request
      * @return Application|Factory|View|Response
      */
     public function sortGenre(Request $request){
 
         $inputs = $request->input();
-     
-        $gamesOnGenre = gameModel::select('games.*')
-                    ->join('game_genre', 'games.id', '=', 'game_genre.game_id')
-                    ->join('genres', 'game_genre.genre_id', '=', 'genres.id')
-                    ->Where(function ($query) use($inputs) {
-                        foreach($inputs as $key => $input){
-                            if($key != 'page'){
-                                $query->orwhere('genres.id', $input);
-                            }  
-                        }      
-                   })
-                    ->distinct('games.id')
-                    ->sortable()
-                    ->paginate(15);    
 
-        $genres = DB::table('genres')
-            ->select('*')
-            ->get();
+        $games = gameModel::select('games.*')
+            ->join('game_genre', 'games.id', '=', 'game_genre.game_id')
+            ->join('genres', 'game_genre.genre_id', '=', 'genres.id')
+            ->Where(function ($query) use($inputs) {
+                foreach($inputs as $key => $input){
+                    if($key != 'page'){
+                        $query->orwhere('genres.id', $input);
+                    }
+                }
+            })
+            ->distinct('games.id')
+            ->sortable()
+            ->paginate(15);
+
+            $genres = $this->genres;
+            $categories = $this->categories;
 
         return view('games.games')
-            ->with('gamesOnGenre', $gamesOnGenre)
-            ->with('genres', $genres);
+            ->with('games', $games)
+            ->with('genres', $genres)
+            ->with('categories', $categories);
 
     }
+
 
     /**
      * Remove the specified resource from storage.
      *
-      * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request  $request
      * @return Response
      */
     public function search(Request $request)
@@ -93,19 +119,21 @@ class GamesController extends Controller
                 $query->where('appid', 'like', $search)
                     ->orWhere('name', 'like', '%'.$search.'%');
             })
-            ->orderBy('name')
-            ->paginate(15);
+                ->orderBy('name')
+                ->paginate(15);
             $games->appends(['q' => $search]);
         }
         else{
             $games = gameModel::paginate(15);
         }
 
-        $genres = DB::table('genres')
-            ->select('*')
-            ->get();
+        $genres = $this->genres;
+        $categories = $this->categories;
 
-        return View('games.games')->with('games',$games)->with('genres', $genres);;
+        return view('games.games')
+            ->with('games', $games)
+            ->with('genres', $genres)
+            ->with('categories', $categories);
     }
 
     /**
@@ -161,7 +189,7 @@ class GamesController extends Controller
                     if($gameInfo['success'] == true){
                         if($gameInfo['data']['type'] == 'game'){
 
-                           $newGame = gameModel::updateOrCreate(['appid' => $game['appid']],['appid' => $game['appid'],'name' => $game['name'], 'price' => $price, 'price_formatted' => $priceFormatted, 'image' => $gameInfo['data']['header_image']]);
+                            $newGame = gameModel::updateOrCreate(['appid' => $game['appid']],['appid' => $game['appid'],'name' => $game['name'], 'price' => $price, 'price_formatted' => $priceFormatted, 'image' => $gameInfo['data']['header_image']]);
 
                             if(!empty($gameInfo['data']['genres'])){
                                 foreach($gameInfo['data']['genres'] as $genre){
@@ -193,16 +221,57 @@ class GamesController extends Controller
         if(!empty($game['data'])) {
             $reviews = reviewModel::where('appid', $game['data']['steam_appid'])->orderBy('id', 'DESC')->get();
 
+            $stars = array();
+            $stars['5'] = 0;
+            $stars['4'] = 0;
+            $stars['3'] = 0;
+            $stars['2'] = 0;
+            $stars['1'] = 0;
+
             foreach ($reviews as $review) {
+                if ($review['stars'] == 5) {
+                    $stars['5']++;
+                } elseif ($review['stars'] == 4) {
+                    $stars['4']++;
+                } elseif ($review['stars'] == 3) {
+                    $stars['3']++;
+                } elseif ($review['stars'] == 2) {
+                    $stars['2']++;
+                } elseif ($review['stars'] == 1) {
+                    $stars['1']++;
+                }
+
+                if(Reply::where('review_id', $review['id'])->exists()){
+                    $review['replies'] = Reply::where('review_id', $review['id'])->get();
+                }
+
+
                 $review['steam'] = userModel::where('steamid', $review['steamid'])->get();
                 unset($review['steamid']);
                 if (date('d/m/Y') == $review['created_at']->format('d/m/Y')) {
                     $review['ago'] = Helper::time_elapsed_string($review['created_at']);
                     unset($review['created_at']);
                 }
+
+                if (isset($review['replies'])){
+                    foreach ($review['replies'] as $reply){
+                        $reply['steam'] = userModel::where('steamid', $review['steamid'])->get();
+                        unset($reply['steamid']);
+
+                    }
+                }
             }
 
-            return view('games.game_page')->with('game', $game['data'])->with('reviews', $reviews);
+
+
+            if (!$reviews->isEmpty()) {
+                $stars['total'] = $stars['5'] + $stars['4'] + $stars['3'] + $stars['2'] + $stars['1'];
+                $stars['average'] = Helper::calculateAverageStars($stars);
+                $stars['starPercentage'] = Helper::calculateStarsPercentage($stars);
+                return view('games.game_page')->with('game', $game['data'])->with('reviews', $reviews)->with('stars', $stars);
+            } else {
+                return view('games.game_page')->with('game', $game['data'])->with('reviews', $reviews);
+            }
         }
         else
             return redirect()->back();

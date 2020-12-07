@@ -60,7 +60,7 @@ class Game extends Model
 
         $url = http::get("https://store.steampowered.com/api/featuredcategories")->json();
 
-        dd($url);
+        return $this->getFeaturedCategories = $url;
     }
 
 }

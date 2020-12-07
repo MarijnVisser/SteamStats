@@ -40,8 +40,12 @@ Route::get('/games', [GamesController::class, 'index']);
 
 Route::get('/sort_genre', [GamesController::class, 'sortGenre']);
 
+Route::get('/sort_categories', [GamesController::class, 'sortCategories']);
+
 Route::get('/search', [GamesController::class, 'search']);
 
 Route::get('/game/{id}', [GamesController::class, 'show'])->name('game');
 
 Route::post('/createreview', [ReviewController::class, 'store'])->name('createreview');
+
+Route::post('/createreply', [ReviewController::class, 'storeReply'])->name('createreply');
