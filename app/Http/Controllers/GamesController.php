@@ -24,6 +24,30 @@ use Symfony\Component\Console\Input\Input;
 
 class GamesController extends Controller
 {
+
+    private $categories;
+    private $genres;
+
+    public function __construct()
+    {
+        $genre = DB::table('genres')
+        ->select('*')
+        ->get();
+
+        $getCategories = new gameModel();
+        $getCategories = $getCategories->getFeaturedCategories();
+
+        $category = array();
+        $category['new_releases'] = $getCategories['new_releases'];
+        $category['top_sellers']  = $getCategories['top_sellers'];
+        $category['coming_soon']  = $getCategories['coming_soon'];
+        $category['specials']     = $getCategories['specials'];
+
+        $this->genres = $genre;
+        $this->categories = $category;
+
+    }
+    
     /**
      * Display a listing of the resource.
      *
@@ -37,13 +61,13 @@ class GamesController extends Controller
             ->sortable()
             ->paginate(15);
 
-        $genres = DB::table('genres')
-            ->select('*')
-            ->get();
-
+        $genres = $this->genres;
+        $categories = $this->categories;
+        
         return view('games.games')
             ->with('games', $games)
-            ->with('genres', $genres);
+            ->with('genres', $genres)
+            ->with('categories', $categories);
     }
 
     /**
@@ -56,7 +80,7 @@ class GamesController extends Controller
 
         $inputs = $request->input();
 
-        $gamesOnGenre = gameModel::select('games.*')
+        $games = gameModel::select('games.*')
             ->join('game_genre', 'games.id', '=', 'game_genre.game_id')
             ->join('genres', 'game_genre.genre_id', '=', 'genres.id')
             ->Where(function ($query) use($inputs) {
@@ -70,15 +94,16 @@ class GamesController extends Controller
             ->sortable()
             ->paginate(15);
 
-        $genres = DB::table('genres')
-            ->select('*')
-            ->get();
+            $genres = $this->genres;
+            $categories = $this->categories;
 
         return view('games.games')
-            ->with('gamesOnGenre', $gamesOnGenre)
-            ->with('genres', $genres);
+            ->with('games', $games)
+            ->with('genres', $genres)
+            ->with('categories', $categories);
 
     }
+
 
     /**
      * Remove the specified resource from storage.
@@ -102,11 +127,13 @@ class GamesController extends Controller
             $games = gameModel::paginate(15);
         }
 
-        $genres = DB::table('genres')
-            ->select('*')
-            ->get();
+        $genres = $this->genres;
+        $categories = $this->categories;
 
-        return View('games.games')->with('games',$games)->with('genres', $genres);;
+        return view('games.games')
+            ->with('games', $games)
+            ->with('genres', $genres)
+            ->with('categories', $categories);
     }
 
     /**

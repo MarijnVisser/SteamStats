@@ -136,15 +136,15 @@
 				<p class="text-white">{{ strip_tags($game['short_description']) }}</p>
 			</div>
 		</div>
-        <div class="row">
-            @if(!empty($game['packages']))
+        <div class="row"> 
             <div class="col-md-8 ">
-                <h4>Packages</h4>
-                @foreach($game['packages'] as $packages)
-                    <iframe src="https://store.steampowered.com/widget/{{$game['steam_appid']}}/{{$packages}}" frameborder="0" width="100%" height="200px"></iframe>
-                @endforeach
+                @if(!empty($game['packages']))
+                    <h4>Packages</h4>
+                    @foreach($game['packages'] as $packages)
+                        <iframe src="https://store.steampowered.com/widget/{{$game['steam_appid']}}/{{$packages}}" frameborder="0" width="100%" height="200px"></iframe>
+                    @endforeach
+                @endif
             </div>
-            @endif
             <div class="col-md-4 mt-5 mt-md-0">
                 <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
                     <div class="carousel-inner" style="">
