@@ -76,7 +76,7 @@ class Profile extends Model
 
     public function resolveCustomURL(){
         $this->customid = "colorfulcat";
-        $resolvedurl = Http::get("https://api.steampowered.com/ISteamUser/ResolveVanityURL/v1/?key=122A8E9CFFA3C7CDE537F464AF8ACCC4&vanityurl=".$this->customid)->json();
+        $resolvedurl = Http::get("https://api.steampowered.com/ISteamUser/ResolveVanityURL/v1/?key=3FE725B04637FA6637A3BA1684CFEEF9&vanityurl=".$this->customid)->json();
 
         return $resolvedurl;
     }
