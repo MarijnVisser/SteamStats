@@ -28,8 +28,17 @@
 	</div>
 @endif
 
-
-
+<?php
+//    $replies = [
+//        'test',
+//        'test',
+//        'test',
+//        'test',
+//        'test',
+//        'test',
+//    ]
+//?>
+{{--@dd($replies)--}}
 
 	<div class="container mt-5">
 		<div class="row mb-3">
@@ -290,20 +299,20 @@
       @endif
 
 		</div>
-
 		<hr class="my-5">
-
 		<div class="row">
-			<div class="col-md-10">
+			<div class="col-md-9">
 				<h2>Reviews</h2>
 			</div>
-			<div class="col-md-2">
+			<div class="col-md-3">
 				@auth
-					<button type="button" class="btn btn-primary w-100" data-toggle="modal" data-target="#reviewmodal">
+					<button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#reviewmodal">
 					    Leave review
 					</button>
 				@else
-                    <a href='{{ url('/auth/steam') }}'><img src='https://steamcommunity-a.akamaihd.net/public/images/signinthroughsteam/sits_02.png'></a>
+                    <a href='{{ url('/auth/steam') }}'><button type="button" class="btn btn-primary float-right">
+                            Log in to Leave review
+                        </button></a>
                 @endif
 			</div>
 		</div>
@@ -322,7 +331,7 @@
 						                <p>
 						                    <a class="float-left" href="#"><strong>{{$review['steam'][0]['name']}}</strong></a>
 						                    <span class="float-left ml-1">
-						                    	<small class="text-muted">- 
+						                    	<small class="text-muted">-
 							                    	@if(isset($review['created_at']))
 							                    		{{$review['created_at']->format('d/m/Y')}}
 							                    	@elseif(isset($review['ago']))
@@ -330,54 +339,108 @@
 							                    	@endif
 						                    	</small>
 						                    </span>
-          											<span class="float-right"><i class="text-warning {{ $review['stars'] == 5 ? 'fas' : 'far' }} fa-star"></i></span>
-                                <span class="float-right"><i class="text-warning {{ $review['stars'] >= 4 ? 'fas' : 'far' }} fa-star"></i></span>
-                                <span class="float-right"><i class="text-warning {{ $review['stars'] >= 3 ? 'fas' : 'far' }} fa-star"></i></span>
-                                <span class="float-right"><i class="text-warning {{ $review['stars'] >= 2 ? 'fas' : 'far' }} fa-star"></i></span>
-                                <span class="float-right"><i class="text-warning {{ $review['stars'] >= 1 ? 'fas' : 'far' }} fa-star"></i></span>
+                                            <span class="float-right"><i class="text-warning {{ $review['stars'] == 5 ? 'fas' : 'far' }} fa-star"></i></span>
+                                            <span class="float-right"><i class="text-warning {{ $review['stars'] >= 4 ? 'fas' : 'far' }} fa-star"></i></span>
+                                            <span class="float-right"><i class="text-warning {{ $review['stars'] >= 3 ? 'fas' : 'far' }} fa-star"></i></span>
+                                            <span class="float-right"><i class="text-warning {{ $review['stars'] >= 2 ? 'fas' : 'far' }} fa-star"></i></span>
+                                            <span class="float-right"><i class="text-warning {{ $review['stars'] >= 1 ? 'fas' : 'far' }} fa-star"></i></span>
 						                </p>
 						                <div class="clearfix"></div>
 						                <p>
 						                    {{ $review['review'] }}
 						                </p>
-						                @auth
 							                <p>
-							                    <a class="float-right btn btn-outline-primary"> <i class="fa fa-reply"></i>Reply</a>
+                                                @auth
+                                                        <button type="button" class="float-right btn text-primary btn-outline-primary" data-toggle="modal" data-target="#replymodal{{$review['id']}}">
+                                                            <i class="fa fa-reply"></i>Reply
+                                                        </button>
+                                                    </a>
+                                                @else
+                                                    <a href='{{ url('/auth/steam') }}'><button type="button" class="float-right btn btn-outline-primary">
+                                                            Log in to Leave reply
+                                                        </button></a>
+                                                @endif
 							                </p>
-						                @endif
 						            </div>
 						        </div>
+{{--                                @dd($reviews)--}}
+                                @if(isset($review['replies']))
+                                    @foreach($review['replies'] as $reply)
+                                    {{-- Reply to the reviews --}}
+                                    <div class="card card-inner" style="background-color: #282e39">
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="col-md-1 d-none d-md-block">
+                                                    <img src="{{$review['steam'][0]['avatar']}}" class="img img-rounded img-fluid" />
+                                                </div>
+                                                <div class="col-md-11">
+                                                    <p>
+                                                        <a href="https://maniruzzaman-akash.blogspot.com/p/contact.html"><strong>{{$review['steam'][0]['name']}}</strong></a>
+                                                    </p>
+                                                    <p>
+                                                        {{ $reply['reply'] }}
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    @endforeach
+                                @endif
+                                @auth
+                            <!-- Reply Modal -->
+                                <div class="modal fade" id="replymodal{{$review['id']}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                        <div class="modal-content" style="background-color: #282e39">
+                                            <div class="modal-header">
+                                                <img src="{{asset('img/SteamStats_Logo_Transparent.png')}}" alt="Logo" style="width: 200px">
+                                                <!-- <h5 class="modal-title" id="exampleModalLongTitle">Leave review</h5> -->
+                                                <div style="height: 63px;" class="d-flex justify-content-center">
+                                                    <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <div class="modal-body">
+                                                @if ($errors->any())
+                                                    <div class="alert alert-danger">
+                                                        <ul>
+                                                            @foreach ($errors->all() as $error)
+                                                                <li>{{ $error }}</li>
+                                                            @endforeach
+                                                        </ul>
+                                                    </div>
+                                                @endif
+                                                <form action="{{ route('createreply') }}" method="post">
 
+                                                    {{ csrf_field() }}
 
+                                                    <div class="form-group">
+                                                        <div class="row">
+                                                            <div class="col-2">
+                                                                <label>Avatar<img src="{{ Auth::user()->avatar }}" class="img-fluid"></label>
+                                                            </div>
+                                                            <div class="col-10">
+                                                                <label class="w-100">Username<input type="text" class="form-control" placeholder="Steam name" name="steamname" value="{{ Auth::user()->name }}" readonly="true">
+                                                                    <input type="text" class="form-control" placeholder="Steam ID" name="steamid" value="{{ Auth::user()->steamid }}" hidden="true"></label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label>Reply</label>
+                                                        <textarea class="form-control" name="reply" rows="5"></textarea>
+                                                    </div>
 
-
-
-
-
-						        <!-- <div class="card card-inner" style="background-color: #282e39">
-						            <div class="card-body">
-						                <div class="row">
-						                    <div class="col-md-1 d-none d-md-block">
-						                        <img src="https://image.ibb.co/jw55Ex/def_face.jpg" class="img img-rounded img-fluid" />
-						                    </div>
-						                    <div class="col-md-11">
-						                        <p>
-						                            <a href="https://maniruzzaman-akash.blogspot.com/p/contact.html"><strong>Maniruzzaman Akash</strong></a>
-						                        </p>
-						                        <p>
-						                            Lorem Ipsum is simply dummy text of the pr make but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem
-						                            Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-						                        </p>
-						                        <p>
-						                            <a class="float-right btn btn-outline-primary"> <i class="fa fa-reply"></i>Reply</a>
-						                        </p>
-						                    </div>
-						                </div>
-						            </div>
-						        </div> -->
+                                                    <input type="text" name="review_id" value="{{ $review['id'] }}" hidden="true">
+                                                    <button type="submit" class="btn btn-success float-right">Submit</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                @endif
 						    </div>
 						</div>
-					@endforeach
+                    @endforeach
 				</div>
 			</div>
 		@else
@@ -394,7 +457,7 @@
 	</div>
 
 @auth
-    <!-- Modal -->
+    <!-- Review Modal -->
     <div class="modal fade" id="reviewmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content" style="background-color: #282e39">
@@ -454,6 +517,8 @@
             </div>
         </div>
     </div>
+
+
 @endif
 @endsection
 

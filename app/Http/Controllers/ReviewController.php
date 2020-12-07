@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Reply;
 use App\Models\Review;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
 
 
@@ -41,6 +43,25 @@ class ReviewController extends Controller
         }
     }
 
+    public function storeReply(Request $request)
+    {
+        $request->validate([
+            'reply'=>'required',
+            'steamid'=>'required'
+        ]);
+
+
+//        DB::table('game_genre')->insert(['review_id' => $newGame->id, 'reply_id' => $genre['id']]);
+
+        if($request->steamid == Auth::user()->steamid){
+            Reply::create(request()->except(['_token']));
+            return redirect()->back()->with('success','Reply successfully submitted! Thank you!');
+        } else {
+            return redirect()->back()->with('error_steam_id',"Steam-ID doesn't match your Steam-ID. Login and try again.");
+        }
+
+    }
+
     // public function show($id)
     // {
     //    $data =  Review::find($id);
@@ -63,7 +84,7 @@ class ReviewController extends Controller
 
     //     Review::where('id',$id)->update($request->all());
     //     return redirect()->back()->with('success','Update Successfully');
-        
+
     // }
 
     // public function destroy($id)
