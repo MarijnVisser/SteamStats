@@ -39,30 +39,43 @@
                 <table class="table" style="color: rgb(255, 255, 255)">
                     <thead>
                         <tr>
-                        <th>{{count($games)}}</th>
+                        <th></th>
                             <th>@sortablelink('appid', 'Appid')</th>
                             <th>@sortablelink('name', 'Name')</th>
                             <th>@sortablelink('price', 'Price')</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($games as $game)
-                            <tr>
-                                <td><img src="{{$game->image}}" alt="{{$game->name}}" style="width: 100px"></td>
-                                <td>{{$game->appid}}</td>
-                                <td><a href="{{route('game', ['id' => $game->appid])}}">{{$game->name}}</a></td>
-                                <td>{{$game->price_formatted}}</td>
-                            </tr>
-                        @endforeach
+                        @if (isset($games))
+                            @foreach ($games as $game)
+                                <tr>
+                                    <td><img src="{{$game->image}}" alt="{{$game->name}}" style="width: 100px"></td>
+                                    <td>{{$game->appid}}</td>
+                                    <td><a href="{{route('game', ['id' => $game->appid])}}">{{$game->name}}</a></td>
+                                    <td>{{$game->price_formatted}}</td>
+                                </tr>
+                            @endforeach
+                        @else
+                            @foreach ($gamesOnGenre as $game)
+                                <tr>
+                                    <td><img src="{{$game->image}}" alt="{{$game->name}}" style="width: 100px"></td>
+                                    <td>{{$game->appid}}</td>
+                                    <td><a href="{{route('game', ['id' => $game->appid])}}">{{$game->name}}</a></td>
+                                    <td>{{$game->price_formatted}}</td>
+                                </tr>
+                            @endforeach
+                        @endif
+                        
                     </tbody>
                 </table>
             </div>
             <div class="row">
                 <div class="col-md-12 d-flex justify-content-center">
-                {{$games->appends($_GET)->links('vendor.pagination.bootstrap-4')}}
-                    {{-- {{ $games->links('vendor.pagination.bootstrap-4')}} --}}
-                    {{-- {{ $users->appends(request()->query())->links() }} --}}
-                    {{-- {{$games->links()}} --}}
+                    @if (isset($games))
+                        {{$games->appends($_GET)->links('vendor.pagination.bootstrap-4')}}
+                    @else
+                        {{$gamesOnGenre->appends($_GET)->links('vendor.pagination.bootstrap-4')}}     
+                    @endif
                 </div>
             </div>
         </div>

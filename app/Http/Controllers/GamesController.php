@@ -50,12 +50,12 @@ class GamesController extends Controller
     public function sortGenre(Request $request){
 
         $inputs = $request->input();
-// dd($inputs);
 
-        $games = DB::table('games')->select('games.*')
+        $gamesOnGenre = gameModel::select('games.*')
             ->join('game_genre', 'games.id', '=', 'game_genre.game_id')
             ->join('genres', 'game_genre.genre_id', '=', 'genres.id')
             ->whereIn('genres.id', $inputs)
+            ->whereNotNull('price')
             ->distinct('games.id')
             ->paginate(10);
 
@@ -63,8 +63,8 @@ class GamesController extends Controller
             ->select('*')
             ->get();
 
-        return view('games.games', compact($games))
-            ->with('games', $games)
+        return view('games.games', compact($gamesOnGenre))
+            ->with('gamesOnGenre', $gamesOnGenre)
             ->with('genres', $genres);
 
     }
