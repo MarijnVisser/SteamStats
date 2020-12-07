@@ -28,19 +28,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c4b62f6b-3370-43cf-b138-5a7dda03b453" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/app/Models/Reply.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/database/migrations/2020_12_07_081004_create_reviewsreplies_table.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Helper/Helper.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Helper/Helper.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/GamesController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/GamesController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/ReviewController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/ReviewController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/Review.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Review.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2020_11_24_093645_create_reviews_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_11_24_093645_create_reviews_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/Profile.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Profile.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/css/app.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/app.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/games/game_page.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/games/game_page.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/games/games.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/games/games.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/profile.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/profile.blade.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -234,6 +225,7 @@
       <workItem from="1606811120776" duration="1213000" />
       <workItem from="1607007825257" duration="682000" />
       <workItem from="1607328147520" duration="7183000" />
+      <workItem from="1607365580606" duration="1648000" />
     </task>
     <servers />
   </component>
@@ -250,6 +242,7 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
@@ -267,6 +260,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="637" y="201" key="#Options/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1606337215721" />
+    <state x="2334" y="174" width="1092" height="729" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1607348607379">
+      <screen x="1920" y="0" width="1920" height="1040" />
+    </state>
+    <state x="2334" y="174" width="1092" height="729" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1607348607379" />
     <state x="2610" y="274" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1607331457856">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
@@ -317,11 +314,11 @@
     </state>
     <state x="677" y="291" key="refactoring.ChangeSignatureDialog/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1606730917840" />
     <state x="2597" y="291" key="refactoring.ChangeSignatureDialog/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1605778888337" />
-    <state x="616" y="240" width="672" height="677" key="run.anything.popup" timestamp="1606729899157">
+    <state x="616" y="240" width="672" height="677" key="run.anything.popup" timestamp="1607352548707">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="438" y="168" key="run.anything.popup/0.0.1366.728@0.0.1366.728" timestamp="1605617106094" />
-    <state x="616" y="240" width="672" height="677" key="run.anything.popup/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1606729899157" />
+    <state x="616" y="240" width="672" height="677" key="run.anything.popup/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1607352548707" />
     <state x="2536" y="240" key="run.anything.popup/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1605528768055" />
     <state x="2543" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1607333202186">
       <screen x="1920" y="0" width="1920" height="1040" />
