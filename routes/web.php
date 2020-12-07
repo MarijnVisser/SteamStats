@@ -45,3 +45,5 @@ Route::get('/search', [GamesController::class, 'search']);
 Route::get('/game/{id}', [GamesController::class, 'show'])->name('game');
 
 Route::post('/createreview', [ReviewController::class, 'store'])->name('createreview');
+
+Route::post('/createreply', [ReviewController::class, 'storeReply'])->name('createreply');

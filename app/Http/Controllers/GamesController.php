@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Reply;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -9,13 +10,17 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
+
 use App\Models\Game as gameModel;
 use App\Models\Genre as genreModel;
 use App\Models\Review as reviewModel;
 use App\Models\User as userModel;
-use PhpParser\Node\Stmt\DeclareDeclare;
+
+use Illuminate\Pagination\LengthAwarePaginator;
+
 
 use App\Helper\Helper;
+use Symfony\Component\Console\Input\Input;
 
 class GamesController extends Controller
 {
@@ -54,16 +59,22 @@ class GamesController extends Controller
         $gamesOnGenre = gameModel::select('games.*')
             ->join('game_genre', 'games.id', '=', 'game_genre.game_id')
             ->join('genres', 'game_genre.genre_id', '=', 'genres.id')
-            ->whereIn('genres.id', $inputs)
-            ->whereNotNull('price')
+            ->Where(function ($query) use($inputs) {
+                foreach($inputs as $key => $input){
+                    if($key != 'page'){
+                        $query->orwhere('genres.id', $input);
+                    }
+                }
+            })
             ->distinct('games.id')
-            ->paginate(10);
+            ->sortable()
+            ->paginate(15);
 
         $genres = DB::table('genres')
             ->select('*')
             ->get();
 
-        return view('games.games', compact($gamesOnGenre))
+        return view('games.games')
             ->with('gamesOnGenre', $gamesOnGenre)
             ->with('genres', $genres);
 
@@ -183,16 +194,57 @@ class GamesController extends Controller
         if(!empty($game['data'])) {
             $reviews = reviewModel::where('appid', $game['data']['steam_appid'])->orderBy('id', 'DESC')->get();
 
+            $stars = array();
+            $stars['5'] = 0;
+            $stars['4'] = 0;
+            $stars['3'] = 0;
+            $stars['2'] = 0;
+            $stars['1'] = 0;
+
             foreach ($reviews as $review) {
+                if ($review['stars'] == 5) {
+                    $stars['5']++;
+                } elseif ($review['stars'] == 4) {
+                    $stars['4']++;
+                } elseif ($review['stars'] == 3) {
+                    $stars['3']++;
+                } elseif ($review['stars'] == 2) {
+                    $stars['2']++;
+                } elseif ($review['stars'] == 1) {
+                    $stars['1']++;
+                }
+
+                if(Reply::where('review_id', $review['id'])->exists()){
+                    $review['replies'] = Reply::where('review_id', $review['id'])->get();
+                }
+
+
                 $review['steam'] = userModel::where('steamid', $review['steamid'])->get();
                 unset($review['steamid']);
                 if (date('d/m/Y') == $review['created_at']->format('d/m/Y')) {
                     $review['ago'] = Helper::time_elapsed_string($review['created_at']);
                     unset($review['created_at']);
                 }
+
+                if (isset($review['replies'])){
+                    foreach ($review['replies'] as $reply){
+                        $reply['steam'] = userModel::where('steamid', $review['steamid'])->get();
+                        unset($reply['steamid']);
+
+                    }
+                }
             }
 
-            return view('games.game_page')->with('game', $game['data'])->with('reviews', $reviews);
+
+
+            if (!$reviews->isEmpty()) {
+                $stars['total'] = $stars['5'] + $stars['4'] + $stars['3'] + $stars['2'] + $stars['1'];
+                $stars['average'] = Helper::calculateAverageStars($stars);
+                $stars['starPercentage'] = Helper::calculateStarsPercentage($stars);
+                return view('games.game_page')->with('game', $game['data'])->with('reviews', $reviews)->with('stars', $stars);
+            } else {
+                return view('games.game_page')->with('game', $game['data'])->with('reviews', $reviews);
+            }
         }
         else
             return redirect()->back();

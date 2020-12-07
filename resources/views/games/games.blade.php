@@ -27,8 +27,10 @@
             <form action="/sort_genre" method="get" role="sortGenre">
                 <?php $var = 1; ?>
                 @foreach ($genres as $genre)
-            <input type="checkbox" name="genre{{$var}}" value="{{$genre->id}}">
-                    <label for="{{$genre->name}}">{{$genre->name}}</label><br>
+                    <label>
+                        <input type="checkbox" name="genre{{$var}}" value="{{$genre->id}}">
+                        {{$genre->name}}
+                    </label><br>
                     <?php $var +=1 ;?>
                 @endforeach
                 <button type="submit" value="submit" class="btn btn-dark">submit</button>
@@ -58,10 +60,10 @@
                         @else
                             @foreach ($gamesOnGenre as $game)
                                 <tr>
-                                    <td><img src="{{$game->image}}" alt="{{$game->name}}" style="width: 100px"></td>
-                                    <td>{{$game->appid}}</td>
-                                    <td><a href="{{route('game', ['id' => $game->appid])}}">{{$game->name}}</a></td>
-                                    <td>{{$game->price_formatted}}</td>
+                                    <td><img src="{{$game['image']}}" alt="{{$game['name']}}" style="width: 100px"></td>
+                                    <td>{{$game['appid']}}</td>
+                                    <td><a href="{{route('game', ['id' => $game['appid']])}}">{{$game['name']}}</a></td>
+                                    <td>{{$game['price_formatted']}}</td>
                                 </tr>
                             @endforeach
                         @endif
@@ -71,10 +73,10 @@
             </div>
             <div class="row">
                 <div class="col-md-12 d-flex justify-content-center">
-                    @if (isset($games))
-                        {{$games->appends($_GET)->links('vendor.pagination.bootstrap-4')}}
-                    @else
-                        {{$gamesOnGenre->appends($_GET)->links('vendor.pagination.bootstrap-4')}}     
+                    @if (isset($gamesOnGenre))
+                        {{$gamesOnGenre->appends(Request::except('page'))->links('vendor.pagination.bootstrap-4')}}
+                    @else   
+                        {{$games->appends(Request::except('page'))->links('vendor.pagination.bootstrap-4')}}  
                     @endif
                 </div>
             </div>
