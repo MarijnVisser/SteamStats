@@ -25,11 +25,9 @@
         <div class="col-md-3 h-100 p-3 mr-1" style="background-color: #21262f">
             <label for="genres"><h4 class="p-0 m-0">Genres:</h4></label>
             <form action="/sort_genre" method="get" role="sortGenre">
-                <?php $var = 1; ?>
                 @foreach ($genres as $genre)
-            <input type="checkbox" name="genre{{$var}}" value="{{$genre->id}}">
+                    <input type="checkbox" name="genre_{{$genre->id}}" value="{{$genre->id}}">
                     <label for="{{$genre->name}}">{{$genre->name}}</label><br>
-                    <?php $var +=1 ;?>
                 @endforeach
                 <button type="submit" value="submit" class="btn btn-dark">submit</button>
             </form> 
@@ -78,6 +76,25 @@
                     @endif
                 </div>
             </div>
+        </div>
+        <div class="col-md-2">
+            <label for="Categories"><h4 class="p-0 m-0">Categories:</h4></label>
+            <form action="/sort_categories" method="get" role="categories">
+
+                <input type="checkbox" name="" value="">
+                <label for=""></label><br>
+
+                <input type="checkbox" name="" value="">
+                <label for=""></label><br>
+
+                <input type="checkbox" name="" value="">
+                <label for=""></label><br>
+
+                <input type="checkbox" name="" value="">
+                <label for=""></label><br>
+                    
+                <button type="submit" value="submit" class="btn btn-dark">submit</button>
+            </form>
         </div>
     </div>
 </div>

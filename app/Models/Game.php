@@ -56,4 +56,11 @@ class Game extends Model
         }
     }
 
+    public function getFeaturedCategories(){
+
+        $url = http::get("https://store.steampowered.com/api/featuredcategories")->json();
+
+        dd($url);
+    }
+
 }
