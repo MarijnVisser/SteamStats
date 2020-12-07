@@ -10903,6 +10903,72 @@ a.text-dark:focus {
   }
 }
 
+/* user rating */
+
+.user_rating .heading {
+  font-size: 25px;
+  margin-right: 25px;
+}
+
+.user_rating .fa {
+  font-size: 25px;
+}
+
+.user_rating .checked {
+  color: orange;
+}
+
+/* Three column layout */
+.user_rating .side {
+  float: left;
+  width: 15%;
+  margin-top:10px;
+}
+
+.user_rating .middle {
+  margin-top:10px;
+  float: left;
+  width: 70%;
+}
+
+/* Place text to the right */
+.user_rating .right {
+  text-align: right;
+}
+
+/* Clear floats after the columns */
+.user_rating .row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* The bar container */
+.user_rating .bar-container {
+  width: 100%;
+  background-color: #f1f1f1;
+  text-align: center;
+  color: white;
+}
+
+/* Individual bars */
+.user_rating .bar-5 {height: 18px; background-color: #4CAF50;}
+.user_rating .bar-4 {height: 18px; background-color: #2196F3;}
+.user_rating .bar-3 {height: 18px; background-color: #00bcd4;}
+.user_rating .bar-2 {height: 18px; background-color: #ff9800;}
+.user_rating .bar-1 {height: 18px; background-color: #f44336;}
+
+/* Responsive layout - make the columns stack on top of each other instead of next to each other */
+@media (max-width: 400px) {
+  .user_rating .side, .user_rating .middle {
+    width: 100%;
+  }
+  .user_rating .right {
+    display: none;
+  }
+}
+/* user rating end*/
+
 #profilelink{
   color: inherit;
   font-size: 40px;
@@ -10950,4 +11016,33 @@ a.text-dark:focus {
   position: absolute;
   top: 19px;
   left: 34px;
+}
+
+.pagination > li > a
+{
+    background-color:  #21262f;
+    color:  rgb(255, 255, 255);
+}
+
+.pagination > li > a:focus,
+.pagination > li > a:hover,
+.pagination > li > span:focus,
+.pagination > li > span:hover
+{
+    color: #5a5a5a;
+    background-color: #eee;
+    border-color: #ddd;
+}
+
+.pagination > .page-item.active > span
+{
+    color: white;
+    background-color: #3c4349;
+    border: solid 1px #ddd !Important;
+}
+
+.pagination > .active > a:hover
+{
+    background-color: #5A4181 !Important;
+    border: solid 1px #5A4181;
 }
