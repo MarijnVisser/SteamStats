@@ -11018,13 +11018,14 @@ a.text-dark:focus {
     position: absolute;
     top: 0;
     z-index: 2;
+    max-width: 180px;
 }
 
 .avatar {
-    position: absolute;
-    top: 18px;
-    left: 28px;
-    width: 150px;
+    position: relative;
+    top: 10px;
+    left: 15px;
+    max-width: 150px;
 }
 
 .pagination > li > a {
