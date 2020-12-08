@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\GamesController;
 use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\StatController;
 use Illuminate\Support\Facades\Route;
 use Symfony\Component\Console\Input\Input;
 use App\Models\Game;
@@ -20,9 +21,8 @@ use Illuminate\View\Middleware\ShareErrorsFromSession;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
+Route::get('/', [StatController::class, 'index']);
 
 Route::get('/auth/steam', [AuthController::class, 'redirectToSteam']);
 
