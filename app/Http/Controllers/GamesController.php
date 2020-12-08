@@ -248,18 +248,18 @@ class GamesController extends Controller
 
                 $review['steam'] = userModel::where('steamid', $review['steamid'])->get();
                 unset($review['steamid']);
-                if (date('d/m/Y') == $review['created_at']->format('d/m/Y')) {
-                    $review['ago'] = Helper::time_elapsed_string($review['created_at']);
-                    unset($review['created_at']);
+                if (date('d/m/Y') == $review['updated_at']->format('d/m/Y')) {
+                    $review['ago'] = Helper::time_elapsed_string($review['updated_at']);
+                    unset($review['updated_at']);
                 }
 
                 if (isset($review['replies'])){
                     foreach ($review['replies'] as $reply){
                         $reply['steam'] = userModel::where('steamid', $reply['steamid'])->get();
                         unset($reply['steamid']);
-                        if (date('d/m/Y') == $reply['created_at']->format('d/m/Y')) {
-                            $reply['ago'] = Helper::time_elapsed_string($reply['created_at']);
-                            unset($reply['created_at']);
+                        if (date('d/m/Y') == $reply['updated_at']->format('d/m/Y')) {
+                            $reply['ago'] = Helper::time_elapsed_string($reply['updated_at']);
+                            unset($reply['updated_at']);
                         }
                     }
                 }

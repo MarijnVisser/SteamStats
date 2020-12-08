@@ -313,11 +313,11 @@
 						            </div>
 						            <div class="col-md-11">
 						                <p>
-						                    <a class="float-left" href="#"><strong>{{$review['steam'][0]['name']}}</strong></a>
+						                    <a class="float-left" href="/user/{{ $review['steam'][0]['steamid'] }}"><strong>{{$review['steam'][0]['name']}}</strong></a>
 						                    <span class="float-left ml-1">
 						                    	<small class="text-muted">-
-							                    	@if(isset($review['created_at']))
-							                    		{{$review['created_at']->format('d/m/Y')}}
+							                    	@if(isset($review['updated_at']))
+							                    		{{$review['updated_at']->format('d/m/Y')}}
 							                    	@elseif(isset($review['ago']))
 							                    		{{$review['ago']}}
 							                    	@endif
@@ -333,18 +333,25 @@
 						                <p>
 						                    {{ $review['review'] }}
 						                </p>
-							                <p>
-                                                @auth
-                                                        <button type="button" class="float-right btn text-primary btn-outline-primary" data-toggle="modal" data-target="#replymodal{{$review['id']}}">
-                                                            <i class="fa fa-reply"></i>Reply
-                                                        </button>
+						                <p>
+                                            @auth
+                                                <button type="button" class="float-right btn btn-outline-primary" data-toggle="modal" data-target="#replymodal{{$review['id']}}">
+                                                    <i class="fa fa-reply"></i> Reply
+                                                </button>
+                                                @if($review['steam'][0]['steamid'] == Auth::user()->steamid)
+                                                    <a class="btn btn-outline-danger float-right mr-2" href="/deleteReview/{{ $review['id'] }}">
+                                                        <i class="text-white fas fa-trash-alt"></i>
                                                     </a>
-                                                @else
-                                                    <a href='{{ url('/auth/steam') }}'><button type="button" class="float-right btn btn-outline-primary">
-                                                            Log in to Leave reply
-                                                        </button></a>
+                                                    <a class="btn btn-outline-success float-right mr-2" href="/editReview/{{ $review['id'] }}">
+                                                        <i class="text-white far fa-edit"></i>
+                                                    </a>
                                                 @endif
-							                </p>
+                                            @else
+                                                <a href='{{ url('/auth/steam') }}'><button type="button" class="float-right btn btn-outline-primary">
+                                                        Log in to Leave reply
+                                                    </button></a>
+                                            @endif
+						                </p>
 						            </div>
 						        </div>
 
@@ -359,7 +366,7 @@
                                                 </div>
                                                 <div class="col-md-11">
                                                     <p>
-                                                        <a class="float-left" href="#"><strong>{{$reply['steam'][0]['name']}}</strong></a>
+                                                        <a class="float-left" href="/user/{{ $reply['steam'][0]['steamid'] }}"><strong>{{$reply['steam'][0]['name']}}</strong></a>
                                                         <span class="float-left ml-1">
                                                             <small class="text-muted">-
                                                                 @if(isset($reply['created_at']))
@@ -374,6 +381,16 @@
                                                     <p>
                                                         {{ $reply['reply'] }}
                                                     </p>
+                                                    @if($reply['steam'][0]['steamid'] == Auth::user()->steamid)
+                                                        <p>
+                                                            <a class="btn btn-outline-danger float-right mr-2" href="#">
+                                                                <i class="text-white fas fa-trash-alt"></i>
+                                                            </a>
+                                                            <a class="btn btn-outline-success float-right mr-2" href="#">
+                                                                <i class="text-white far fa-edit"></i>
+                                                            </a>
+                                                        </p>
+                                                    @endif
                                                 </div>
                                             </div>
                                         </div>
