@@ -22,6 +22,7 @@ class ProfileController extends Controller
 
     public function index(Request $request)
     {
+
         $id = $request->id;
         $data = new Profile;
         $data = $data->getProfileSummary($id);
@@ -99,9 +100,66 @@ class ProfileController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function show($id)
+    public function show(Request $request)
     {
-        //
+//        dd($request);
+//
+//        $id = $request->id;
+//        $resolvedurl = new profile;
+//        $resolvedurl = $resolvedurl->resolveCustomURL($id);
+//
+//        if(isset($resolvedurl['response']['steamid'])){
+//            $id = $resolvedurl['response']['steamid'];
+//            dd($id);
+//        } else{
+//            $id = $request->id;
+//            dd($id);
+//        }
+
+        $data = new Profile;
+        $data = $data->getProfileSummary($id);
+
+
+        $banInfo = new profile;
+        $banInfo = $banInfo->getBanInfo($id);
+
+        $recentlyPlayedGames = new profile;
+        $recentlyPlayedGames = $recentlyPlayedGames->getRecentlyPlayedGames($id);
+
+        $playerLevel = new profile;
+        $playerLevel = $playerLevel->getPlayerLevel($id);
+
+        $profileBackground = new profile;
+        $profileBackground = $profileBackground->getProfileBackground($id);
+
+        $customFrame = new profile;
+        $customFrame = $customFrame->getAvatarFrame($id);
+
+
+
+
+        $gamedata = [];
+
+        if (!empty($data['response'])) {
+            $gamedata['data'] = $data['response']['players'][0];
+        }
+        if (!empty($banInfo)) {
+            $gamedata['banInfo'] = $banInfo['players'][0];
+        }
+        if (!empty($recentlyPlayedGames['response']['games'])) {
+            $gamedata['recentlyPlayedGames'] = $recentlyPlayedGames['response']['games'];
+        }
+        if (!empty($playerLevel['response'])) {
+            $gamedata['playerLevel'] = $playerLevel['response'];
+        }
+        if (!empty($profileBackground['response'])) {
+            $gamedata['profileBackground'] = $profileBackground['response']['profile_background'];
+        }
+        if(!empty($customFrame['response'])) {
+            $gamedata['customAvatarFrame'] = $customFrame['response']['avatar_frame'];
+        }
+
+        return view('profile', ['gamedata'=>$gamedata]);
     }
 
     /**

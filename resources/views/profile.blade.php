@@ -46,8 +46,9 @@ $gameID = $gamedata['data']['gameid'] ?? '';
                     </div>
                     <div class="col-md-5 pt-lg-4">
                         <a href="{{$gamedata['data']['profileurl']}}" class="text-white" target="_blank"><h3 id="profilelink" class="m-0">{{$gamedata['data']['personaname']}}</h3></a>
-                        <p class="m-0 text-white pb-5">Country: <img src="https://steamcommunity-a.akamaihd.net/public/images/countryflags/{{strtolower($gamedata['data']['loccountrycode'])}}.gif"><span class="text-light"> {{ $gamedata['data']['loccountrycode']}}</span></p>
-
+                        @if(!empty($gamedata['data']['loccountrycode']))
+                            <p class="m-0 text-white pb-5">Country: <img src="https://steamcommunity-a.akamaihd.net/public/images/countryflags/{{strtolower($gamedata['data']['loccountrycode'])}}.gif"><span class="text-light"> {{ $gamedata['data']['loccountrycode']}}</span></p>
+                        @endif
                         @if(!empty($gameInfo))
                             <p class="m-0 text-white">Currently playing: <a href="/game/{{$gamedata['data']['gameid']}}" class="text-white">{{$gamedata['data']['gameextrainfo']}}</a> <i class="fab fa-steam-symbol"></i></p>
                             <p class="m-0 text-white" hidden>Game id: {{$gamedata['data']['gameid']}}</p>
@@ -56,6 +57,18 @@ $gameID = $gamedata['data']['gameid'] ?? '';
                         @endif
                     </div>
                     <br>
+                    <div class="col-lg-12 mt-5">
+                        <h4>Search player</h4>
+                        <form action="/user/" method="get" class="form-row">
+                            <input class="form-control btn-outline-primary bg-transparent mb-2" type="text" name="id" placeholder="Enter your steam id">
+{{--                            <input type="text" name="email"><br>--}}
+                            <input type="submit" class="form-control btn-outline-primary bg-transparent">
+                        </form>
+
+                    </div>
+
+
+
                     @if(!empty($gamedata['recentlyPlayedGames']))
                     <table class="table borderless text-white mt-5">
                         <thead>
@@ -93,13 +106,13 @@ $gameID = $gamedata['data']['gameid'] ?? '';
                 <div class="pl-3 py-5" style="background-color: #1b1e21">
                     <h4 class=text-white">Level: <span id="divLevel" class="">{{ $gamedata['playerLevel']['player_level'] }}</span></h4>
                     <p class="text-white mr-3 p-3" title="Member since {{ gmdate('m-d-Y', $timeCreated) }}" style="background-color: #15191a">{{ date('y') - gmdate('y', $timeCreated) }} years of service</p>
+                    <a class="btn btn-dark" href="https://store.steampowered.com/wishlist/profiles/{{$gamedata['data']['steamid']}}/wishlistdata/?p=0">View wishlist</a> <!-- Make into wishlist -->
                 </div>
                 <div class="pt-3 px-3 mt-5" style="background-color: #1b1e21">
                     <p class="p-0 m-0">Vac ban: @if($gamedata['banInfo']['VACBanned'] == false) None @else {{$gamedata['banInfo']['NumberOfVACBans']}} Ban(s) ({{ $gamedata['banInfo']['DaysSinceLastBan'] }} Days ago) @endif</p>
                     <p class="p-0 m-0">Community ban: @if($gamedata['banInfo']['CommunityBanned'] == false) None @else Banned @endif</p><br>
                     <p class="p-0 m-0">Game bans: @if($gamedata['banInfo']['NumberOfGameBans'] == false) None @else {{$gamedata['banInfo']['NumberOfGameBans']}} @endif</p>
                     <p class="p-0 m-0">Trade ban: @if($gamedata['banInfo']['EconomyBan'] == 'none') None @else {{$gamedata['banInfo']['EconomyBan']}} @endif</p><br>
-                    <p class="p-0 m-0">Account age: {{ date('y') - gmdate('y', $timeCreated) }} years</p>
                     <p class="p-0 m-0">Steamid: {{$gamedata['data']['steamid']}}</p><br>
                 </div>
             </div>
