@@ -49,3 +49,11 @@ Route::get('/game/{id}', [GamesController::class, 'show'])->name('game');
 Route::post('/createreview', [ReviewController::class, 'store'])->name('createreview');
 
 Route::post('/createreply', [ReviewController::class, 'storeReply'])->name('createreply');
+
+Route::get('/editReview/{id}', [ReviewController::class, 'show'])->name('editreview');
+
+Route::post('/updateReview', [ReviewController::class, 'update'])->name('updatereview');
+
+Route::get('/deleteReview/{id}', [ReviewController::class, 'delete'])->name('deletereview');
+
+Route::post('/destroyReview', [ReviewController::class, 'destroy'])->name('destroyreview');
