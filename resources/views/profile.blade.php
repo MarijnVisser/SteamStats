@@ -44,23 +44,25 @@ $gameID = $gamedata['data']['gameid'] ?? '';
                         @endif
                         <img class="img-fluid avatar" src="{{$gamedata['data']['avatarfull']}}">
                     </div>
-                    <div class="col-md-5 pt-4">
+                    <div class="col-md-5 pt-lg-4">
                         <a href="{{$gamedata['data']['profileurl']}}" class="text-white" target="_blank"><h3 id="profilelink" class="m-0">{{$gamedata['data']['personaname']}}</h3></a>
-                        <p class="m-0 text-white">Country: <img src="https://steamcommunity-a.akamaihd.net/public/images/countryflags/{{strtolower($gamedata['data']['loccountrycode'])}}.gif"><span class="text-light"> {{ $gamedata['data']['loccountrycode']}}</span></p>
-                        <br><br><br>
+                        <p class="m-0 text-white pb-5">Country: <img src="https://steamcommunity-a.akamaihd.net/public/images/countryflags/{{strtolower($gamedata['data']['loccountrycode'])}}.gif"><span class="text-light"> {{ $gamedata['data']['loccountrycode']}}</span></p>
+
                         @if(!empty($gameInfo))
-                            <p class="m-0 text-white">Currently playing: {{$gamedata['data']['gameextrainfo']}} <i class="fab fa-steam-symbol"></i></p>
+                            <p class="m-0 text-white">Currently playing: <a href="/game/{{$gamedata['data']['gameid']}}" class="text-white">{{$gamedata['data']['gameextrainfo']}}</a> <i class="fab fa-steam-symbol"></i></p>
                             <p class="m-0 text-white" hidden>Game id: {{$gamedata['data']['gameid']}}</p>
                         @else
                             <p class="m-0 text-white">Currently not ingame</p>
                         @endif
                     </div>
                     <br>
+                    @if(!empty($gamedata['recentlyPlayedGames']))
                     <table class="table borderless text-white mt-5">
                         <thead>
                             <th class="border-bottom-0 mx-1">Recently played games</th>
                         </thead>
                         <tbody>
+
                         @foreach ($gamedata['recentlyPlayedGames'] as $recentlyPlayedGame)
                             <tr>
                                 @if(!empty($recentlyPlayedGame['img_logo_url']))
@@ -82,6 +84,7 @@ $gameID = $gamedata['data']['gameid'] ?? '';
                                 </td>
                             </tr>
                         @endforeach
+                            @endif
                         </tbody>
                     </table>
                 </div>
@@ -89,8 +92,7 @@ $gameID = $gamedata['data']['gameid'] ?? '';
             <div class="col-lg-4 pt-3 profileBackground">
                 <div class="pl-3 py-5" style="background-color: #1b1e21">
                     <h4 class=text-white">Level: <span id="divLevel" class="">{{ $gamedata['playerLevel']['player_level'] }}</span></h4>
-                    <p class="text-white" title="Member since {{ gmdate('m-d-Y', $timeCreated) }}">{{ date('y') - gmdate('y', $timeCreated) }} years of service</p>
-                    <a class="btn btn-dark" href="https://steamcommunity.com/id/{{$gamedata['data']['personaname']}}/edit/info">Edit Profile</a>
+                    <p class="text-white mr-3 p-3" title="Member since {{ gmdate('m-d-Y', $timeCreated) }}" style="background-color: #15191a">{{ date('y') - gmdate('y', $timeCreated) }} years of service</p>
                 </div>
                 <div class="pt-3 px-3 mt-5" style="background-color: #1b1e21">
                     <p class="p-0 m-0">Vac ban: @if($gamedata['banInfo']['VACBanned'] == false) None @else {{$gamedata['banInfo']['NumberOfVACBans']}} Ban(s) ({{ $gamedata['banInfo']['DaysSinceLastBan'] }} Days ago) @endif</p>
