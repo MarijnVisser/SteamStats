@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Stat;
 use Illuminate\Http\Request;
 
+use App\Models\Stat as statModel;
+
 class StatController extends Controller
 {
     /**
@@ -14,7 +16,10 @@ class StatController extends Controller
      */
     public function index()
     {
-        return view('welcome');
+        $games = new statModel;
+        $games = $games->getMostPlayedGames();
+
+        return view('welcome')->with("games", $games);
     }
 
     /**

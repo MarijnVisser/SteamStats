@@ -30,8 +30,6 @@ Route::get('/auth/steam/handle', [AuthController::class, 'handle']);
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
 Route::get('/profile', [ProfileController::class, 'index']);
 
 Route::get('/get_games', [GamesController::class, 'store']);
