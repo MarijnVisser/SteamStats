@@ -30,7 +30,9 @@ Route::get('/auth/steam/handle', [AuthController::class, 'handle']);
 
 Auth::routes();
 
-Route::get('/profile', [ProfileController::class, 'index']);
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::get('/user/{id}', [ProfileController::class, 'index']);
 
 Route::get('/get_games', [GamesController::class, 'store']);
 
@@ -47,3 +49,11 @@ Route::get('/game/{id}', [GamesController::class, 'show'])->name('game');
 Route::post('/createreview', [ReviewController::class, 'store'])->name('createreview');
 
 Route::post('/createreply', [ReviewController::class, 'storeReply'])->name('createreply');
+
+Route::get('/editReview/{id}', [ReviewController::class, 'show'])->name('editreview');
+
+Route::post('/updateReview', [ReviewController::class, 'update'])->name('updatereview');
+
+Route::get('/deleteReview/{id}', [ReviewController::class, 'delete'])->name('deletereview');
+
+Route::post('/destroyReview', [ReviewController::class, 'destroy'])->name('destroyreview');
