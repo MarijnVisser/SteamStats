@@ -20,29 +20,30 @@ class ProfileController extends Controller
      */
 
 
-    public function index()
+    public function index(Request $request)
     {
+        $id = $request->id;
         $data = new Profile;
-        $data = $data->getProfileSummary();
+        $data = $data->getProfileSummary($id);
 
 
         $banInfo = new profile;
-        $banInfo = $banInfo->getBanInfo();
+        $banInfo = $banInfo->getBanInfo($id);
 
         $recentlyPlayedGames = new profile;
-        $recentlyPlayedGames = $recentlyPlayedGames->getRecentlyPlayedGames();
+        $recentlyPlayedGames = $recentlyPlayedGames->getRecentlyPlayedGames($id);
 
         $playerLevel = new profile;
-        $playerLevel = $playerLevel->getPlayerLevel();
+        $playerLevel = $playerLevel->getPlayerLevel($id);
 
         $profileBackground = new profile;
-        $profileBackground = $profileBackground->getProfileBackground();
+        $profileBackground = $profileBackground->getProfileBackground($id);
 
         $resolvedurl = new profile;
-        $resolvedurl = $resolvedurl->resolveCustomURL();
+        $resolvedurl = $resolvedurl->resolveCustomURL($id);
 
         $customFrame = new profile;
-        $customFrame = $customFrame->getAvatarFrame();
+        $customFrame = $customFrame->getAvatarFrame($id);
 
 
 
@@ -55,7 +56,7 @@ class ProfileController extends Controller
         if (!empty($banInfo)) {
             $gamedata['banInfo'] = $banInfo['players'][0];
         }
-        if (!empty($recentlyPlayedGames['response'])) {
+        if (!empty($recentlyPlayedGames['response']['games'])) {
             $gamedata['recentlyPlayedGames'] = $recentlyPlayedGames['response']['games'];
         }
         if (!empty($playerLevel['response'])) {
