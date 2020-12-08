@@ -12,7 +12,6 @@
     <!-- Scripts -->
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="{{ asset('js/bootstrap/bootstrap.bundle.min.js')}}"></script>
-    <script src="{{ asset('js/steamLevelIcons/steamLevelIcons.js')}}"></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">

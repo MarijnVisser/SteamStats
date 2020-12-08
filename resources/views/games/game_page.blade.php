@@ -1,14 +1,10 @@
 @extends('layouts.app')
 
 @section('content')
-{{--    @dd($game)--}}
-{{--   !empty($recentlyPlayedGame['name']) ? $recentlyPlayedGame['name'] : "No name found" }}    --}}
 
 @if(!empty($game['background']))
     <img src="{{ $game['background'] }}" style="position: absolute;top:0;width: 100%;height: 100%;z-index: -1; -webkit-mask-image:-webkit-gradient(linear, left top, left bottom, from(rgba(0,0,0,1)), to(rgba(0,0,0,0)));mask-image: linear-gradient(to bottom, rgba(0,0,0,1), rgba(0,0,0,0));">
 @endif
-{{--    @dd($game)--}}
-
 
 @if ($errors->any())
     <script type="text/javascript">
@@ -27,18 +23,6 @@
 		{{session('error_steam_id')}}
 	</div>
 @endif
-
-<?php
-//    $replies = [
-//        'test',
-//        'test',
-//        'test',
-//        'test',
-//        'test',
-//        'test',
-//    ]
-//?>
-{{--@dd($replies)--}}
 
 	<div class="container mt-5">
 		<div class="row mb-3">
@@ -152,15 +136,15 @@
 				<p class="text-white">{{ strip_tags($game['short_description']) }}</p>
 			</div>
 		</div>
-        <div class="row">
-            @if(!empty($game['packages']))
+        <div class="row"> 
             <div class="col-md-8 ">
-                <h4>Packages</h4>
-                @foreach($game['packages'] as $packages)
-                    <iframe src="https://store.steampowered.com/widget/{{$game['steam_appid']}}/{{$packages}}" frameborder="0" width="100%" height="200px"></iframe>
-                @endforeach
+                @if(!empty($game['packages']))
+                    <h4>Packages</h4>
+                    @foreach($game['packages'] as $packages)
+                        <iframe src="https://store.steampowered.com/widget/{{$game['steam_appid']}}/{{$packages}}" frameborder="0" width="100%" height="200px"></iframe>
+                    @endforeach
+                @endif
             </div>
-            @endif
             <div class="col-md-4 mt-5 mt-md-0">
                 <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
                     <div class="carousel-inner" style="">
@@ -239,7 +223,7 @@
 
                 <div class="row w-100 mx-auto">
                     <div class="side">
-                        <div>5 star</div>
+                        <div>5 stars</div>
                     </div>
                     <div class="middle">
                         <div class="bar-container">
@@ -250,7 +234,7 @@
                         <div>{{$stars['5']}}</div>
                     </div>
                     <div class="side">
-                        <div>4 star</div>
+                        <div>4 stars</div>
                     </div>
                     <div class="middle">
                         <div class="bar-container">
@@ -261,7 +245,7 @@
                         <div>{{$stars['4']}}</div>
                     </div>
                     <div class="side">
-                        <div>3 star</div>
+                        <div>3 stars</div>
                     </div>
                     <div class="middle">
                         <div class="bar-container">
@@ -272,7 +256,7 @@
                         <div>{{$stars['3']}}</div>
                     </div>
                     <div class="side">
-                        <div>2 star</div>
+                        <div>2 stars</div>
                     </div>
                     <div class="middle">
                         <div class="bar-container">
@@ -363,20 +347,30 @@
 							                </p>
 						            </div>
 						        </div>
-{{--                                @dd($reviews)--}}
+
                                 @if(isset($review['replies']))
                                     @foreach($review['replies'] as $reply)
-                                    {{-- Reply to the reviews --}}
+
                                     <div class="card card-inner" style="background-color: #282e39">
                                         <div class="card-body">
                                             <div class="row">
                                                 <div class="col-md-1 d-none d-md-block">
-                                                    <img src="{{$review['steam'][0]['avatar']}}" class="img img-rounded img-fluid" />
+                                                    <img src="{{$reply['steam'][0]['avatar']}}" class="img img-rounded img-fluid" />
                                                 </div>
                                                 <div class="col-md-11">
                                                     <p>
-                                                        <a href="https://maniruzzaman-akash.blogspot.com/p/contact.html"><strong>{{$review['steam'][0]['name']}}</strong></a>
+                                                        <a class="float-left" href="#"><strong>{{$reply['steam'][0]['name']}}</strong></a>
+                                                        <span class="float-left ml-1">
+                                                            <small class="text-muted">-
+                                                                @if(isset($reply['created_at']))
+                                                                    {{$reply['created_at']->format('d/m/Y')}}
+                                                                @elseif(isset($reply['ago']))
+                                                                    {{$reply['ago']}}
+                                                                @endif
+                                                            </small>
+                                                        </span>
                                                     </p>
+                                                    <div class="clearfix"></div>
                                                     <p>
                                                         {{ $reply['reply'] }}
                                                     </p>
