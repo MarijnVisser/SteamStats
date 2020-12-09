@@ -63,14 +63,10 @@ $gameID = $gamedata['data']['gameid'] ?? '';
                     <div class="col-lg-12 mt-5">
                         <h4>Search player</h4>
                         <form action="/user/" method="get" class="form-row">
-                            <input class="form-control btn-outline-primary bg-transparent mb-2" type="text" name="id" placeholder="Enter your steam id">
-{{--                            <input type="text" name="email"><br>--}}
+                            <input class="form-control btn-outline-primary bg-transparent mb-2 text-white" type="text" name="id" placeholder="Enter your steam id">
                             <input type="submit" class="form-control btn-outline-primary bg-transparent">
                         </form>
-
                     </div>
-
-
 
                     @if(!empty($gamedata['recentlyPlayedGames']))
                     <table class="table borderless text-white mt-5 w-100">
@@ -78,7 +74,6 @@ $gameID = $gamedata['data']['gameid'] ?? '';
                             <th class="border-bottom-0 mx-1">Recently played games</th>
                         </thead>
                         <tbody>
-
                         @foreach ($gamedata['recentlyPlayedGames'] as $recentlyPlayedGame)
                             <tr>
                                 @if(!empty($recentlyPlayedGame['img_logo_url']))
@@ -133,11 +128,9 @@ $gameID = $gamedata['data']['gameid'] ?? '';
         <div class="row">
             <div class="col-lg-8 pl-0 pr-3">
                 <div class="profileBackground">
-
                 </div>
             </div>
             <div class="col-lg-4 p-5 profileBackground">
-
             </div>
         </div>
     </div>
