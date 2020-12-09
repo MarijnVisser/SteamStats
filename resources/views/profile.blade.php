@@ -27,7 +27,7 @@ $lastLogoff = $gamedata['data']['lastlogoff'] ?? '';
 $timeCreated = $gamedata['data']['timecreated'] ?? '';
 $gameInfo = $gamedata['data']['gameextrainfo'] ?? '';
 $gameID = $gamedata['data']['gameid'] ?? '';
-
+//dd($gamedata['ownedGames']);
 ?>
 
 
@@ -73,7 +73,7 @@ $gameID = $gamedata['data']['gameid'] ?? '';
 
 
                     @if(!empty($gamedata['recentlyPlayedGames']))
-                    <table class="table borderless text-white mt-5">
+                    <table class="table borderless text-white mt-5 w-100">
                         <thead>
                             <th class="border-bottom-0 mx-1">Recently played games</th>
                         </thead>
@@ -111,11 +111,22 @@ $gameID = $gamedata['data']['gameid'] ?? '';
                     <p class="text-white mr-3 p-3" title="Member since {{ gmdate('m-d-Y', $timeCreated) }}" style="background-color: #15191a">{{ date('y') - gmdate('y', $timeCreated) }} years of service</p>
                     <a class="btn btn-dark" href="https://store.steampowered.com/wishlist/profiles/{{$gamedata['data']['steamid']}}/wishlistdata/?p=0">View wishlist</a> <!-- Make into wishlist -->
                 </div>
-                <div class="pt-3 px-3 mt-5" style="background-color: #1b1e21">
-                    <p class="p-0 m-0">Vac ban: @if($gamedata['banInfo']['VACBanned'] == false) None @else {{$gamedata['banInfo']['NumberOfVACBans']}} Ban(s) ({{ $gamedata['banInfo']['DaysSinceLastBan'] }} Days ago) @endif</p>
-                    <p class="p-0 m-0">Community ban: @if($gamedata['banInfo']['CommunityBanned'] == false) None @else Banned @endif</p><br>
-                    <p class="p-0 m-0">Game bans: @if($gamedata['banInfo']['NumberOfGameBans'] == false) None @else {{$gamedata['banInfo']['NumberOfGameBans']}} @endif</p>
-                    <p class="p-0 m-0">Trade ban: @if($gamedata['banInfo']['EconomyBan'] == 'none') None @else {{$gamedata['banInfo']['EconomyBan']}} @endif</p><br>
+                <div class="py-3 px-3 mt-3" style="background-color: #1b1e21">
+                    <h4>Game stats:</h4>
+                    <div class="p-3" style="background-color: #15191a">
+                        <p class="p-0 m-0">Owned games: @if(isset($gamedata['ownedGames']['game_count'])) {{$gamedata['ownedGames']['game_count']}} @else No games @endif</p>
+                        <p class="p-0 m-0">Hours on record: @if(isset($gamedata['ownedGames']['game_count'])) {{$gamedata['hoursOnRecord']}}h @else N/A @endif</p>
+                        <p class="p-0 m-0">Average playtime: @if(isset($gamedata['ownedGames']['game_count'])) {{$gamedata['averagePlaytime']}}h @else N/A @endif</p>
+                    </div>
+                </div>
+                <div class="py-3 px-3 mt-3" style="background-color: #1b1e21">
+                    <h4>Ban information:</h4>
+                    <div class="p-3" style="background-color: #15191a">
+                        <p class="p-0 m-0">Vac ban: @if($gamedata['banInfo']['VACBanned'] == false) None @else {{$gamedata['banInfo']['NumberOfVACBans']}} Ban(s) ({{ $gamedata['banInfo']['DaysSinceLastBan'] }} Days ago) @endif</p>
+                        <p class="p-0 m-0">Community ban: @if($gamedata['banInfo']['CommunityBanned'] == false) None @else Banned @endif</p><br>
+                        <p class="p-0 m-0">Game bans: @if($gamedata['banInfo']['NumberOfGameBans'] == false) None @else {{$gamedata['banInfo']['NumberOfGameBans']}} @endif</p>
+                        <p class="p-0 m-0">Trade ban: @if($gamedata['banInfo']['EconomyBan'] == 'none') None @else {{$gamedata['banInfo']['EconomyBan']}} @endif</p>
+                    </div>
                 </div>
             </div>
         </div>
