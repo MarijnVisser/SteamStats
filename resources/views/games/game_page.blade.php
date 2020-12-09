@@ -136,7 +136,7 @@
 				<p class="text-white">{{ strip_tags($game['short_description']) }}</p>
 			</div>
 		</div>
-        <div class="row"> 
+        <div class="row">
             <div class="col-md-8 ">
                 @if(!empty($game['packages']))
                     <h4>Packages</h4>
@@ -316,11 +316,17 @@
 						                    <a class="float-left" href="/user/{{ $review['steam'][0]['steamid'] }}"><strong>{{$review['steam'][0]['name']}}</strong></a>
 						                    <span class="float-left ml-1">
 						                    	<small class="text-muted">-
-							                    	@if(isset($review['updated_at']))
-							                    		{{$review['updated_at']->format('d/m/Y')}}
-							                    	@elseif(isset($review['ago']))
-							                    		{{$review['ago']}}
-							                    	@endif
+                                                    @if(isset($review['ago']))
+                                                        {{$review['ago']}}
+                                                        @if($review['created_at'] != $review['updated_at'])
+                                                            {{ ' • edited' }}
+                                                        @endif
+                                                    @else
+                                                        {{$review['created_at']->format('d/m/Y')}}
+                                                        @if($review['created_at'] != $review['updated_at'])
+                                                            {{ ' • edited' }}
+                                                        @endif
+                                                    @endif
 						                    	</small>
 						                    </span>
                                             <span class="float-right"><i class="text-warning {{ $review['stars'] == 5 ? 'fas' : 'far' }} fa-star"></i></span>
@@ -369,10 +375,16 @@
                                                         <a class="float-left" href="/user/{{ $reply['steam'][0]['steamid'] }}"><strong>{{$reply['steam'][0]['name']}}</strong></a>
                                                         <span class="float-left ml-1">
                                                             <small class="text-muted">-
-                                                                @if(isset($reply['created_at']))
-                                                                    {{$reply['created_at']->format('d/m/Y')}}
-                                                                @elseif(isset($reply['ago']))
+                                                                @if(isset($reply['ago']))
                                                                     {{$reply['ago']}}
+                                                                    @if($reply['created_at'] != $reply['updated_at'])
+                                                                        {{ ' • edited' }}
+                                                                    @endif
+                                                                @else
+                                                                    {{$reply['created_at']->format('d/m/Y')}}
+                                                                    @if($reply['created_at'] != $reply['updated_at'])
+                                                                        {{ ' • edited' }}
+                                                                    @endif
                                                                 @endif
                                                             </small>
                                                         </span>
@@ -381,15 +393,17 @@
                                                     <p>
                                                         {{ $reply['reply'] }}
                                                     </p>
-                                                    @if($reply['steam'][0]['steamid'] == Auth::user()->steamid)
-                                                        <p>
-                                                            <a class="btn btn-outline-danger float-right mr-2" href="#">
-                                                                <i class="text-white fas fa-trash-alt"></i>
-                                                            </a>
-                                                            <a class="btn btn-outline-success float-right mr-2" href="#">
-                                                                <i class="text-white far fa-edit"></i>
-                                                            </a>
-                                                        </p>
+                                                    @auth
+                                                        @if($reply['steam'][0]['steamid'] == Auth::user()->steamid)
+                                                            <p>
+                                                                <a class="btn btn-outline-danger float-right mr-2" href="#">
+                                                                    <i class="text-white fas fa-trash-alt"></i>
+                                                                </a>
+                                                                <a class="btn btn-outline-success float-right mr-2" href="#">
+                                                                    <i class="text-white far fa-edit"></i>
+                                                                </a>
+                                                            </p>
+                                                        @endif
                                                     @endif
                                                 </div>
                                             </div>

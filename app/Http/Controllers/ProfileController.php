@@ -10,6 +10,7 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 use App\Models\Profile;
+use Illuminate\Support\Facades\Redirect;
 
 class ProfileController extends Controller
 {
@@ -98,16 +99,26 @@ class ProfileController extends Controller
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return Response
+     * @return \Illuminate\Contracts\Routing\UrlGenerator|string
      */
     public function show(Request $request)
     {
-//        dd($request);
 //
-//        $id = $request->id;
-//        $resolvedurl = new profile;
-//        $resolvedurl = $resolvedurl->resolveCustomURL($id);
-//
+        $id = $request->id;
+        $resolvedurl = new profile;
+        $resolvedurl = $resolvedurl->resolveCustomURL($id);
+
+        if(isset($resolvedurl['response']['steamid'])) {
+//            dd($resolvedurl['response']['steamid']);
+            $id = $resolvedurl['response']['steamid'];
+        }
+        elseif($resolvedurl['response']['message'] == "No match") {
+            $id = $request->id;
+        }else {
+            return Redirect::to('/');
+        }
+
+
 //        if(isset($resolvedurl['response']['steamid'])){
 //            $id = $resolvedurl['response']['steamid'];
 //            dd($id);
@@ -159,7 +170,8 @@ class ProfileController extends Controller
             $gamedata['customAvatarFrame'] = $customFrame['response']['avatar_frame'];
         }
 
-        return view('profile', ['gamedata'=>$gamedata]);
+        return Redirect::to('/user/'.$id);
+//        return view('profile', ['gamedata'=>$gamedata]);
     }
 
     /**
