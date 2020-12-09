@@ -47,7 +47,17 @@ class ProfileController extends Controller
         $customFrame = new profile;
         $customFrame = $customFrame->getAvatarFrame($id);
 
+        $ownedGames = new profile;
+        $ownedGames = $ownedGames->getOwnedGames($id);
 
+        $playtimeForever = 0;
+        if(isset($ownedGames['response']['games'])) {
+            foreach ($ownedGames['response']['games'] as $test) {
+                $playtimeForever = $playtimeForever + $test['playtime_forever'];
+            }
+            $hoursOnRecord = round($playtimeForever / 60,1);
+            $averagePlaytime = round($hoursOnRecord / $ownedGames['response']['game_count'],1);
+        }
 
 
         $gamedata = [];
@@ -69,6 +79,11 @@ class ProfileController extends Controller
         }
         if(!empty($customFrame['response'])) {
             $gamedata['customAvatarFrame'] = $customFrame['response']['avatar_frame'];
+        }
+        if(!empty(($ownedGames['response']))) {
+            $gamedata['ownedGames'] = $ownedGames['response'];
+            $gamedata['averagePlaytime'] = $averagePlaytime;
+            $gamedata['hoursOnRecord'] = $hoursOnRecord;
         }
 
         return view('profile', ['gamedata'=>$gamedata]);
@@ -103,7 +118,6 @@ class ProfileController extends Controller
      */
     public function show(Request $request)
     {
-//
         $id = $request->id;
         $resolvedurl = new profile;
         $resolvedurl = $resolvedurl->resolveCustomURL($id);
@@ -113,22 +127,6 @@ class ProfileController extends Controller
         } elseif(isset($resolvedurl['response']['message'])){
             $id = $request->id;
         }
-//        elseif(!isset($resolvedurl['response']['steamid']) && $resolvedurl['response']['message'] == "No match") {
-//
-//        }
-//        elseif($resolvedurl['response']['message'] == "No match") {
-////           dd($id = $request->id);
-//            $id = $request->id;
-//        }
-
-
-//        if(isset($resolvedurl['response']['steamid'])){
-//            $id = $resolvedurl['response']['steamid'];
-//            dd($id);
-//        } else{
-//            $id = $request->id;
-//            dd($id);
-//        }
 
         $data = new Profile;
         $data = $data->getProfileSummary($id);
@@ -147,6 +145,9 @@ class ProfileController extends Controller
 
         $customFrame = new profile;
         $customFrame = $customFrame->getAvatarFrame($id);
+
+        $ownedGames = new profile;
+        $ownedGames = $ownedGames->getOwnedGames($id);
 
 
 // PROFILE NOT FOUND OR PRIVATE
@@ -176,6 +177,9 @@ class ProfileController extends Controller
         }
         if(!empty($customFrame['response'])) {
             $gamedata['customAvatarFrame'] = $customFrame['response']['avatar_frame'];
+        }
+        if(!empty(($ownedGames['response']))) {
+            $gamedata['ownedGames'] = $ownedGames['response'];
         }
 
         return Redirect::to('/user/'.$id);
