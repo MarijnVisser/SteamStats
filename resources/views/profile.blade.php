@@ -48,7 +48,10 @@ $gameID = $gamedata['data']['gameid'] ?? '';
                         <a href="{{$gamedata['data']['profileurl']}}" class="text-white" target="_blank"><h3 id="profilelink" class="m-0">{{$gamedata['data']['personaname']}}</h3></a>
                         @if(!empty($gamedata['data']['loccountrycode']))
                             <p class="m-0 text-white pb-5">Country: <img src="https://steamcommunity-a.akamaihd.net/public/images/countryflags/{{strtolower($gamedata['data']['loccountrycode'])}}.gif"><span class="text-light"> {{ $gamedata['data']['loccountrycode']}}</span></p>
+                        @else
+                            <p class="m-0 text-white pb-5"><h3></h3></p>
                         @endif
+                             <p class="m-0 text-white">Steamid: {{$gamedata['data']['steamid']}}</p>
                         @if(!empty($gameInfo))
                             <p class="m-0 text-white">Currently playing: <a href="/game/{{$gamedata['data']['gameid']}}" class="text-white">{{$gamedata['data']['gameextrainfo']}}</a> <i class="fab fa-steam-symbol"></i></p>
                             <p class="m-0 text-white" hidden>Game id: {{$gamedata['data']['gameid']}}</p>
@@ -113,7 +116,6 @@ $gameID = $gamedata['data']['gameid'] ?? '';
                     <p class="p-0 m-0">Community ban: @if($gamedata['banInfo']['CommunityBanned'] == false) None @else Banned @endif</p><br>
                     <p class="p-0 m-0">Game bans: @if($gamedata['banInfo']['NumberOfGameBans'] == false) None @else {{$gamedata['banInfo']['NumberOfGameBans']}} @endif</p>
                     <p class="p-0 m-0">Trade ban: @if($gamedata['banInfo']['EconomyBan'] == 'none') None @else {{$gamedata['banInfo']['EconomyBan']}} @endif</p><br>
-                    <p class="p-0 m-0">Steamid: {{$gamedata['data']['steamid']}}</p><br>
                 </div>
             </div>
         </div>

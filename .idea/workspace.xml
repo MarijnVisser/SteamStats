@@ -28,12 +28,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c4b62f6b-3370-43cf-b138-5a7dda03b453" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/SteamStats.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/SteamStats.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/GamesController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/GamesController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/ProfileController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/ProfileController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/ReviewController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/ReviewController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/games/game_page.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/games/game_page.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/profile.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/profile.blade.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -229,7 +225,7 @@
       <workItem from="1607328147520" duration="7183000" />
       <workItem from="1607365580606" duration="1953000" />
       <workItem from="1607415402891" duration="14465000" />
-      <workItem from="1607507399980" duration="5580000" />
+      <workItem from="1607507399980" duration="6263000" />
     </task>
     <servers />
   </component>
