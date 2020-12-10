@@ -54,10 +54,11 @@ $gameID = $gamedata['data']['gameid'] ?? '';
                         <a href="{{$gamedata['data']['profileurl']}}" class="text-white" target="_blank"><h3 id="profilelink" class="m-0">{{$gamedata['data']['personaname']}}</h3></a>
                         @if(!empty($gamedata['data']['loccountrycode']))
                             <p class="m-0 text-white">Country: <img src="https://steamcommunity-a.akamaihd.net/public/images/countryflags/{{strtolower($gamedata['data']['loccountrycode'])}}.gif"><span class="text-light"> {{ $gamedata['data']['loccountrycode']}}</span></p>
+                            <p class="m-0 text-white pb-4">Status: {{$gamedata['data']['personastate']  == 1 ? "Online" : "Offline"  }}</p>
                         @else
+                            <p class="m-0 text-white pb-4">Status: {{$gamedata['data']['personastate']  == 1 ? "Online" : "Offline"  }}</p>
                             <p class="m-0 text-white"><h3></h3></p>
                         @endif
-                            <p class="m-0 text-white pb-4">Status: {{$gamedata['data']['personastate']  == 1 ? "Online" : "Offline"  }}</p>
                              <p class="m-0 text-white">Steamid: {{$gamedata['data']['steamid']}}</p>
                         @if(!empty($gameInfo))
                             <p class="m-0 text-white">Currently playing: <a href="/game/{{$gamedata['data']['gameid']}}" class="text-white">{{$gamedata['data']['gameextrainfo']}}</a> <i class="fab fa-steam-symbol"></i></p>
@@ -84,20 +85,20 @@ $gameID = $gamedata['data']['gameid'] ?? '';
                         @foreach ($gamedata['recentlyPlayedGames'] as $recentlyPlayedGame)
                             <tr>
                                 @if(!empty($recentlyPlayedGame['img_logo_url']))
-                                    <td class="py-1"><img class="card-img-top w-100"
-                                                          src="http://media.steampowered.com/steamcommunity/public/images/apps/{{ $recentlyPlayedGame['appid'] }}/{{ $recentlyPlayedGame['img_logo_url'] }}.jpg">
+                                    <td class="py-1 w-25"><img class="card-img-top"
+                                                          src="https://steamcdn-a.akamaihd.net/steam/apps/{{$recentlyPlayedGame['appid'] }}/header.jpg">
                                     </td>
                                 @else
                                     <img class="card-img-top noImageFound"
                                          src="https://piotrkowalski.pw/assets/camaleon_cms/image-not-found-4a963b95bf081c3ea02923dceaeb3f8085e1a654fc54840aac61a57a60903fef.png" class="p-0">
                                 @endif
-                                <th  class="px-0" style="width: 150px">
+                                <th  class="px-0 align-middle" style="width: 150px">
                                     <a href="/game/{{ $recentlyPlayedGame['appid']}}" class="text-white">{{ !empty($recentlyPlayedGame['name']) ? $recentlyPlayedGame['name'] : "No name found" }}</a>
                                 </th>
-                                <td>
+                                <td class="align-middle">
                                     Last 2 weeks: {{ round($recentlyPlayedGame['playtime_2weeks'] / 60, 1) . " Hours" }}
                                 </td>
-                                <td>
+                                <td class="align-middle">
                                     Overall playtime: {{ round($recentlyPlayedGame['playtime_forever'] / 60, 1) . " Hours" }}
                                 </td>
                             </tr>
