@@ -163,7 +163,7 @@ class ProfileController extends Controller
         if (!empty($data['response']['players'])) {
             $gamedata['data'] = $data['response']['players'][0];
         } else {
-            return redirect()->back()->with('error_user',"Steamid or VanityUrl is invalid. Please try again.");
+            return redirect()->back();
         }
         if (!empty($banInfo)) {
             $gamedata['banInfo'] = $banInfo['players'][0];
@@ -190,6 +190,11 @@ class ProfileController extends Controller
 
         return Redirect::to('/user/'.$id);
 //        return view('profile', ['gamedata'=>$gamedata]);
+    }
+
+    public function test(){
+
+        return view('user');
     }
 
     /**

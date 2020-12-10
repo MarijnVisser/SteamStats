@@ -70,8 +70,8 @@ $gameID = $gamedata['data']['gameid'] ?? '';
                     <br>
                     <div class="col-lg-12 mt-5">
                         <h4>Search player</h4>
-                        <form action="/user/" method="get" class="form-row">
-                            <input class="form-control btn-outline-primary bg-transparent mb-2 text-white" type="text" name="id" placeholder="Enter your steam id">
+                        <form action="/user" method="get" class="form-row">
+                            <input class="form-control btn-outline-primary bg-transparent mb-2 text-white" type="text" name="id" placeholder="Enter your steam id or VanityUrl">
                             <input type="submit" class="form-control btn-outline-primary bg-transparent">
                         </form>
                     </div>
