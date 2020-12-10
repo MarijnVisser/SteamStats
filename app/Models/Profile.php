@@ -72,10 +72,15 @@ class Profile extends Model
         return $customFrame;
     }
 
+    public function getOwnedGames($id) {
+        $this->steamid = $id;
+        $ownedGames = Http::get('https://api.steampowered.com/IPlayerService/GetOwnedGames/v1/?key=3FE725B04637FA6637A3BA1684CFEEF9&steamid='.$this->steamid)->json();
 
+        return $ownedGames;
+    }
 
     public function resolveCustomURL($id){
-        $this->customid = "colorfulcat";
+        $this->customid = $id;
         $resolvedurl = Http::get("https://api.steampowered.com/ISteamUser/ResolveVanityURL/v1/?key=3FE725B04637FA6637A3BA1684CFEEF9&vanityurl=".$this->customid)->json();
 
         return $resolvedurl;

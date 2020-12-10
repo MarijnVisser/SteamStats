@@ -33,6 +33,7 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::get('/user/{id}', [ProfileController::class, 'index']);
+Route::get('/user/', [ProfileController::class, 'show']);
 
 Route::get('/get_games', [GamesController::class, 'store']);
 

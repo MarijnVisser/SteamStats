@@ -44,8 +44,24 @@ class scrapeCommand extends Command
         $client = new Client();
 
         $crawler = $client->request('GET', 'https://store.steampowered.com/stats/');
-        $crawler->filter('td > .statsTopHi')->each(function ($node) {
-            print $node->text()."\n";
+        $data['allCurrentOnline'] = $crawler->filter('td > .statsTopHi')->each(function ($node) {
+            return $node->text();
         });
+
+        $crawler = $client->request('GET', 'https://store.steampowered.com/stats/');
+        $data['topGamesStats'] = $crawler->filter('tr > td > .currentServers')->each(function ($node) {
+            return $node->text();
+        });
+
+        $crawler = $client->request('GET', 'https://store.steampowered.com/stats/');
+        $data['topGamesNames'] = $crawler->filter('tr > td > .gameLink')->each(function ($node) {
+            return $node->text();
+        });
+
+
+
+        return $data;
+
+
     }
 }

@@ -70,12 +70,12 @@
                         <li class="dropdown">
                             <a href="" class='dropdown-toggle' data-toggle='dropdown' style="color:white"><img class='img-rounded' src='{{ Auth::user()->avatar }}' style="border: 1px solid white;border-radius: 10%; width: 35px;  vertical-align: middle;">&nbsp;<b style="color: white">{{ Auth::user()->name }}</b><b class='caret'></b></a>
                             <span class="dropdown-arrow" style="color: white;text-decoration: none"></span>
-                            <ul class="dropdown-menu" style="margin-top: 10px;z-index: 999">
-                                <li><a href="{{ url('/user/'.Auth::user()->steamid) }}" style="padding: .5rem 1.5rem;font-size: 14px;color: #4a5568">Profile</a></li>
+                            <ul class="dropdown-menu bg-dark p-3" style="margin-top: 10px;z-index: 999">
+                                <li><a class="text-white" href="{{ url('/user/'.Auth::user()->steamid) }}" style="padding: .5rem 1.5rem;font-size: 14px;color: #4a5568">Profile</a></li>
                                 <li>
                                     <form method="POST" action="{{ route('logout') }}" style="padding: .5rem 1.5rem;font-size: 14px;color: #4a5568">
                                         @csrf
-                                        <a href="{{ route('logout') }}"
+                                        <a class="text-white" href="{{ route('logout') }}"
                                            onclick="event.preventDefault();
 
                                                                 this.closest('form').submit();" style="padding: 0">

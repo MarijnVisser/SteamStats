@@ -18,6 +18,22 @@ class StatController extends Controller
     {
         $games = new statModel;
         $games = $games->getMostPlayedGames();
+        $games['currentPlayers'] = [];
+        $games['peakPlayers'] = [];
+
+
+        foreach ($games['topGamesStats'] as $key => $value) {
+            if ($key % 2 != 1) {
+                array_push($games['currentPlayers'], $value);
+            }
+
+            if ($key % 2 != 0) {
+                array_push($games['peakPlayers'], $value);
+            }
+        }
+        unset($games['topGamesStats']);
+    
+
 
         return view('welcome')->with("games", $games);
     }

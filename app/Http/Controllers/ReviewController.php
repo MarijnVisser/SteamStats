@@ -66,8 +66,12 @@ class ReviewController extends Controller
 
     }
 
-    public function show($id)
+    public function show(Request $request, $id)
     {
+
+        $test = session()->previousUrl();
+        $request->session()->put('testUrl', $test);
+
         $review =  Review::find($id);
 
 
@@ -82,10 +86,12 @@ class ReviewController extends Controller
        return view('review.edit')->with('review', $review);
     }
 
-    public function delete($id)
+    public function delete(Request $request, $id)
     {
         $review =  Review::find($id);
 
+        $test = session()->previousUrl();
+        $request->session()->put('testUrl', $test);
 
         $review['steam'] = userModel::where('steamid', $review['steamid'])->get();
         unset($review['steamid']);
@@ -100,7 +106,6 @@ class ReviewController extends Controller
 
     public function update(Request $request)
     {
-
         $redirectUrl = $request->session()->get('testUrl');
 
         $request->validate([

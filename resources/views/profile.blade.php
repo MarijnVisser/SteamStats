@@ -27,7 +27,7 @@ $lastLogoff = $gamedata['data']['lastlogoff'] ?? '';
 $timeCreated = $gamedata['data']['timecreated'] ?? '';
 $gameInfo = $gamedata['data']['gameextrainfo'] ?? '';
 $gameID = $gamedata['data']['gameid'] ?? '';
-
+//dd($gamedata['ownedGames']);
 ?>
 
 
@@ -46,8 +46,13 @@ $gameID = $gamedata['data']['gameid'] ?? '';
                     </div>
                     <div class="col-md-5 pt-lg-4">
                         <a href="{{$gamedata['data']['profileurl']}}" class="text-white" target="_blank"><h3 id="profilelink" class="m-0">{{$gamedata['data']['personaname']}}</h3></a>
-                        <p class="m-0 text-white pb-5">Country: <img src="https://steamcommunity-a.akamaihd.net/public/images/countryflags/{{strtolower($gamedata['data']['loccountrycode'])}}.gif"><span class="text-light"> {{ $gamedata['data']['loccountrycode']}}</span></p>
-
+                        @if(!empty($gamedata['data']['loccountrycode']))
+                            <p class="m-0 text-white">Country: <img src="https://steamcommunity-a.akamaihd.net/public/images/countryflags/{{strtolower($gamedata['data']['loccountrycode'])}}.gif"><span class="text-light"> {{ $gamedata['data']['loccountrycode']}}</span></p>
+                        @else
+                            <p class="m-0 text-white"><h3></h3></p>
+                        @endif
+                            <p class="m-0 text-white pb-4">Status: {{$gamedata['data']['personastate']  == 1 ? "Online" : "Offline"  }}</p>
+                             <p class="m-0 text-white">Steamid: {{$gamedata['data']['steamid']}}</p>
                         @if(!empty($gameInfo))
                             <p class="m-0 text-white">Currently playing: <a href="/game/{{$gamedata['data']['gameid']}}" class="text-white">{{$gamedata['data']['gameextrainfo']}}</a> <i class="fab fa-steam-symbol"></i></p>
                             <p class="m-0 text-white" hidden>Game id: {{$gamedata['data']['gameid']}}</p>
@@ -56,13 +61,20 @@ $gameID = $gamedata['data']['gameid'] ?? '';
                         @endif
                     </div>
                     <br>
+                    <div class="col-lg-12 mt-5">
+                        <h4>Search player</h4>
+                        <form action="/user/" method="get" class="form-row">
+                            <input class="form-control btn-outline-primary bg-transparent mb-2 text-white" type="text" name="id" placeholder="Enter your steam id">
+                            <input type="submit" class="form-control btn-outline-primary bg-transparent">
+                        </form>
+                    </div>
+
                     @if(!empty($gamedata['recentlyPlayedGames']))
-                    <table class="table borderless text-white mt-5">
+                    <table class="table borderless text-white mt-5 w-100">
                         <thead>
                             <th class="border-bottom-0 mx-1">Recently played games</th>
                         </thead>
                         <tbody>
-
                         @foreach ($gamedata['recentlyPlayedGames'] as $recentlyPlayedGame)
                             <tr>
                                 @if(!empty($recentlyPlayedGame['img_logo_url']))
@@ -93,25 +105,33 @@ $gameID = $gamedata['data']['gameid'] ?? '';
                 <div class="pl-3 py-5" style="background-color: #1b1e21">
                     <h4 class=text-white">Level: <span id="divLevel" class="">{{ $gamedata['playerLevel']['player_level'] }}</span></h4>
                     <p class="text-white mr-3 p-3" title="Member since {{ gmdate('m-d-Y', $timeCreated) }}" style="background-color: #15191a">{{ date('y') - gmdate('y', $timeCreated) }} years of service</p>
+                    <a class="btn btn-dark" href="https://store.steampowered.com/wishlist/profiles/{{$gamedata['data']['steamid']}}/wishlistdata/?p=0">View wishlist</a> <!-- Make into wishlist -->
                 </div>
-                <div class="pt-3 px-3 mt-5" style="background-color: #1b1e21">
-                    <p class="p-0 m-0">Vac ban: @if($gamedata['banInfo']['VACBanned'] == false) None @else {{$gamedata['banInfo']['NumberOfVACBans']}} Ban(s) ({{ $gamedata['banInfo']['DaysSinceLastBan'] }} Days ago) @endif</p>
-                    <p class="p-0 m-0">Community ban: @if($gamedata['banInfo']['CommunityBanned'] == false) None @else Banned @endif</p><br>
-                    <p class="p-0 m-0">Game bans: @if($gamedata['banInfo']['NumberOfGameBans'] == false) None @else {{$gamedata['banInfo']['NumberOfGameBans']}} @endif</p>
-                    <p class="p-0 m-0">Trade ban: @if($gamedata['banInfo']['EconomyBan'] == 'none') None @else {{$gamedata['banInfo']['EconomyBan']}} @endif</p><br>
-                    <p class="p-0 m-0">Account age: {{ date('y') - gmdate('y', $timeCreated) }} years</p>
-                    <p class="p-0 m-0">Steamid: {{$gamedata['data']['steamid']}}</p><br>
+                <div class="py-3 px-3 mt-3" style="background-color: #1b1e21">
+                    <h4>Game stats:</h4>
+                    <div class="p-3" style="background-color: #15191a">
+                        <p class="p-0 m-0">Owned games: @if(isset($gamedata['ownedGames']['game_count'])) {{$gamedata['ownedGames']['game_count']}} @else No games @endif</p>
+                        <p class="p-0 m-0">Hours on record: @if(isset($gamedata['ownedGames']['game_count'])) {{$gamedata['hoursOnRecord']}}h @else N/A @endif</p>
+                        <p class="p-0 m-0">Average playtime: @if(isset($gamedata['ownedGames']['game_count'])) {{$gamedata['averagePlaytime']}}h @else N/A @endif</p>
+                    </div>
+                </div>
+                <div class="py-3 px-3 mt-3" style="background-color: #1b1e21">
+                    <h4>Ban information:</h4>
+                    <div class="p-3" style="background-color: #15191a">
+                        <p class="p-0 m-0">Vac ban: @if($gamedata['banInfo']['VACBanned'] == false) None @else {{$gamedata['banInfo']['NumberOfVACBans']}} Ban(s) ({{ $gamedata['banInfo']['DaysSinceLastBan'] }} Days ago) @endif</p>
+                        <p class="p-0 m-0">Community ban: @if($gamedata['banInfo']['CommunityBanned'] == false) None @else Banned @endif</p><br>
+                        <p class="p-0 m-0">Game bans: @if($gamedata['banInfo']['NumberOfGameBans'] == false) None @else {{$gamedata['banInfo']['NumberOfGameBans']}} @endif</p>
+                        <p class="p-0 m-0">Trade ban: @if($gamedata['banInfo']['EconomyBan'] == 'none') None @else {{$gamedata['banInfo']['EconomyBan']}} @endif</p>
+                    </div>
                 </div>
             </div>
         </div>
         <div class="row">
             <div class="col-lg-8 pl-0 pr-3">
                 <div class="profileBackground">
-
                 </div>
             </div>
             <div class="col-lg-4 p-5 profileBackground">
-
             </div>
         </div>
     </div>
