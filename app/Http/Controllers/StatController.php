@@ -32,7 +32,7 @@ class StatController extends Controller
             }
         }
         unset($games['topGamesStats']);
-    
+
 
 
         return view('welcome')->with("games", $games);

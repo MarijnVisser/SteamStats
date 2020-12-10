@@ -58,10 +58,7 @@ class scrapeCommand extends Command
             return $node->text();
         });
 
-
-
         return $data;
-
 
     }
 }
