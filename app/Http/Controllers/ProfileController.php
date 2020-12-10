@@ -62,17 +62,23 @@ class ProfileController extends Controller
 
         $gamedata = [];
 
-        if (!empty($data['response'])) {
+        if (!empty($data['response']['players'])) {
             $gamedata['data'] = $data['response']['players'][0];
+        } else {
+            return redirect()->back();
         }
         if (!empty($banInfo)) {
             $gamedata['banInfo'] = $banInfo['players'][0];
+        } else {
+            return redirect()->back();
         }
         if (!empty($recentlyPlayedGames['response']['games'])) {
             $gamedata['recentlyPlayedGames'] = $recentlyPlayedGames['response']['games'];
         }
         if (!empty($playerLevel['response'])) {
             $gamedata['playerLevel'] = $playerLevel['response'];
+        } else {
+            return redirect()->back();
         }
         if (!empty($profileBackground['response'])) {
             $gamedata['profileBackground'] = $profileBackground['response']['profile_background'];
