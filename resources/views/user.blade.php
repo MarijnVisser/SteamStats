@@ -9,7 +9,7 @@
         </div>
     @endif
 
-    <div class="container">
+    <div class="container vh-100">
         <div class="col-md-12 mt-5">
             <h1 class="text-center">Search player</h1>
             <h3 class="text-center text-muted mb-5">Search steam information from any player</h3>
