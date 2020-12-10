@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\GamesController;
 use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\StatController;
 use App\Http\Controllers\ReplyController;
 use Illuminate\Support\Facades\Route;
 use Symfony\Component\Console\Input\Input;
@@ -21,9 +22,8 @@ use Illuminate\View\Middleware\ShareErrorsFromSession;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
+Route::get('/', [StatController::class, 'index']);
 
 Route::get('/auth/steam', [AuthController::class, 'redirectToSteam']);
 
@@ -60,7 +60,6 @@ Route::get('/deleteReview/{id}', [ReviewController::class, 'delete'])->name('del
 
 Route::post('/destroyReview', [ReviewController::class, 'destroy'])->name('destroyreview');
 
-// --
 
 Route::get('/editReply/{id}', [ReplyController::class, 'show'])->name('editreply');
 
