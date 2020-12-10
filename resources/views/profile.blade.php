@@ -84,7 +84,7 @@ $gameID = $gamedata['data']['gameid'] ?? '';
                         <tbody>
                         @foreach ($gamedata['recentlyPlayedGames'] as $recentlyPlayedGame)
                             <tr>
-                                @if(!empty($recentlyPlayedGame['img_logo_url']))
+                                @if(!empty($recentlyPlayedGame['img_logo_url']))                               
                                     <td class="py-1 w-25"><img class="card-img-top"
                                                           src="https://steamcdn-a.akamaihd.net/steam/apps/{{$recentlyPlayedGame['appid'] }}/header.jpg">
                                     </td>

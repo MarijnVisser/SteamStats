@@ -11056,3 +11056,34 @@ a.text-dark:focus {
 .borderless td, .borderless th {
     border: none;
 }
+
+.webFooter{
+    height: 240px;
+    background-color: rgb(24, 34, 59);
+    margin: 0;
+    padding: 20px;
+}
+
+.footerWrapper{
+    padding-left: 10px;
+    margin: 0;
+}
+
+.footerList{
+    padding: 0;
+}
+
+.footerList > li{
+    list-style-type: none;
+}
+
+.footerList > li > a{
+     color: inherit;
+     margin: 0;
+     font-size: 13px;
+}
+
+.footerText{
+    font-size: 10px;
+
+}

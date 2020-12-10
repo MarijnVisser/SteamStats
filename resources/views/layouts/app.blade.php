@@ -100,5 +100,18 @@
 {{-- don't touch me ! --}}
 <script src="{{ asset('js/main.js')}}"></script>
 </body>
-
+<footer class="webFooter">
+    <div class="footerWrapper">
+    <h5 class="footerTitle">SteamStats By:</h5>
+    <ul class="footerList">
+        <li><a href="https://steamcommunity.com/id/Pwinga">Pwinga</a></li>
+        <li><a href="https://steamcommunity.com/id/slaying6789">SlayingV</a></li>
+        <li><a href="https://steamcommunity.com/id/colorfulcat/">Colorful Cat</a></li>
+        <li><a href="https://steamcommunity.com/profiles/76561198344036137">NickyD</a></li>
+        <li><a href="https://steamcommunity.com/id/epicSgtCat">Pixie112</a></li>
+    </ul>
+    <p class="footerText">SteamStats is a community made website and therefore not affiliated with Valve or Steam.<br>
+    Powered by <a href="https://steamcommunity.com/dev">the Steam API</a>.</p>
+    </div>
+</footer>
 </html>
