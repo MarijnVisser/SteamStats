@@ -318,13 +318,13 @@
 						                    	<small class="text-muted">-
                                                     @if(isset($review['ago']))
                                                         {{$review['ago']}}
-                                                        @if($review['created_at'] != $review['updated_at'])
-                                                            {{ ' • edited' }}
+                                                        @if($review['created_at'] != $review['updated_at'] && isset($review['reviewAgo']))
+                                                            <span data-toggle="tooltip" data-placement="top" title="{{ $review['reviewAgo'] }}">{{ ' • edited' }}</span>
                                                         @endif
                                                     @else
                                                         {{$review['created_at']->format('d/m/Y')}}
-                                                        @if($review['created_at'] != $review['updated_at'])
-                                                            {{ ' • edited' }}
+                                                        @if($review['created_at'] != $review['updated_at'] && isset($review['reviewAgo']))
+                                                            <span data-toggle="tooltip" data-placement="top" title="{{ $review['reviewAgo'] }}">{{ ' • edited' }}</span>
                                                         @endif
                                                     @endif
 						                    	</small>
@@ -377,13 +377,13 @@
                                                             <small class="text-muted">-
                                                                 @if(isset($reply['ago']))
                                                                     {{$reply['ago']}}
-                                                                    @if($reply['created_at'] != $reply['updated_at'])
-                                                                        {{ ' • edited' }}
+                                                                    @if($reply['created_at'] != $reply['updated_at'] && isset($reply['replyAgo']))
+                                                                        <span data-toggle="tooltip" data-placement="top" title="{{ $reply['replyAgo'] }}">{{ ' • edited' }}</span>
                                                                     @endif
                                                                 @else
                                                                     {{$reply['created_at']->format('d/m/Y')}}
-                                                                    @if($reply['created_at'] != $reply['updated_at'])
-                                                                        {{ ' • edited' }}
+                                                                    @if($reply['created_at'] != $reply['updated_at'] && isset($reply['replyAgo']))
+                                                                        <span data-toggle="tooltip" data-placement="top" title="{{ $reply['replyAgo'] }}">{{ ' • edited' }}</span>
                                                                     @endif
                                                                 @endif
                                                             </small>
@@ -396,10 +396,10 @@
                                                     @auth
                                                         @if($reply['steam'][0]['steamid'] == Auth::user()->steamid)
                                                             <p>
-                                                                <a class="btn btn-outline-danger float-right mr-2" href="#">
+                                                                <a class="btn btn-outline-danger float-right mr-2" href="/deleteReply/{{ $reply['id'] }}">
                                                                     <i class="text-white fas fa-trash-alt"></i>
                                                                 </a>
-                                                                <a class="btn btn-outline-success float-right mr-2" href="#">
+                                                                <a class="btn btn-outline-success float-right mr-2" href="/editReply/{{ $reply['id'] }}">
                                                                     <i class="text-white far fa-edit"></i>
                                                                 </a>
                                                             </p>
