@@ -30,6 +30,12 @@ $gameID = $gamedata['data']['gameid'] ?? '';
 //dd($gamedata['ownedGames']);
 ?>
 
+@if(session('error_user'))
+    <div class="alert alert-danger text-center" role="alert">
+        {{session('error_user')}}
+    </div>
+@endif
+
 
 @if(!empty($gamedata['profileBackground']['image_large']))
     <img src="https://steamcdn-a.akamaihd.net/steamcommunity/public/images/{{$gamedata['profileBackground']['image_large']}}" style="position: absolute;top:0;width: 100%;height: 100%;z-index: -1; -webkit-mask-image:-webkit-gradient(linear, left top, left bottom, from(rgba(0,0,0,1)), to(rgba(0,0,0,0)));mask-image: linear-gradient(to bottom, rgba(0,0,0,1), rgba(0,0,0,0));">
@@ -105,7 +111,7 @@ $gameID = $gamedata['data']['gameid'] ?? '';
             <div class="col-lg-4 pt-3 profileBackground">
                 <div class="pl-3 py-5" style="background-color: #1b1e21">
                     <h4 class=text-white">Level: <span id="divLevel" class="">{{ $gamedata['playerLevel']['player_level'] }}</span></h4>
-                    <p class="text-white mr-3 p-3" title="Member since {{ gmdate('m-d-Y', $timeCreated) }}" style="background-color: #15191a">{{ date('y') - gmdate('y', $timeCreated) }} years of service</p>
+                    <p class="text-white mr-3 p-3" style="background-color: #15191a"><span data-toggle="tooltip" data-placement="right" title="Member since {{ gmdate('m-d-Y', $timeCreated) }}">{{ date('y') - gmdate('y', $timeCreated) }} years of service</span></p>
                     <a class="btn btn-dark" href="https://store.steampowered.com/wishlist/profiles/{{$gamedata['data']['steamid']}}/wishlistdata/?p=0">View wishlist</a> <!-- Make into wishlist -->
                 </div>
                 <div class="py-3 px-3 mt-3" style="background-color: #1b1e21">

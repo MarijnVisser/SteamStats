@@ -41,12 +41,16 @@ function LogoutFunction() {
 
 
 if ($(".alert-success")) {
-  $(".alert-success").delay(4000).slideUp(200, function() {
+  $(".alert-success").delay(5000).slideUp(200, function() {
       $(this).alert('close');
   });
 }
 if ($(".alert-danger")) {
-  $(".alert-danger").delay(4000).slideUp(200, function() {
+  $(".alert-danger").delay(5000).slideUp(200, function() {
       $(this).alert('close');
   });
 }
+
+$(document).ready(function() {
+    $("body").tooltip({ selector: '[data-toggle=tooltip]' });
+});
