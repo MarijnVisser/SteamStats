@@ -85,20 +85,20 @@ $gameID = $gamedata['data']['gameid'] ?? '';
                         @foreach ($gamedata['recentlyPlayedGames'] as $recentlyPlayedGame)
                             <tr>
                                 @if(!empty($recentlyPlayedGame['img_logo_url']))
-                                    <td class="py-1"><img class="card-img-top w-100"
-                                                          src="http://media.steampowered.com/steamcommunity/public/images/apps/{{ $recentlyPlayedGame['appid'] }}/{{ $recentlyPlayedGame['img_logo_url'] }}.jpg">
+                                    <td class="py-1 w-25"><img class="card-img-top"
+                                                          src="https://steamcdn-a.akamaihd.net/steam/apps/{{$recentlyPlayedGame['appid'] }}/header.jpg">
                                     </td>
                                 @else
                                     <img class="card-img-top noImageFound"
                                          src="https://piotrkowalski.pw/assets/camaleon_cms/image-not-found-4a963b95bf081c3ea02923dceaeb3f8085e1a654fc54840aac61a57a60903fef.png" class="p-0">
                                 @endif
-                                <th  class="px-0" style="width: 150px">
+                                <th  class="px-0 align-middle" style="width: 150px">
                                     <a href="/game/{{ $recentlyPlayedGame['appid']}}" class="text-white">{{ !empty($recentlyPlayedGame['name']) ? $recentlyPlayedGame['name'] : "No name found" }}</a>
                                 </th>
-                                <td>
+                                <td class="align-middle">
                                     Last 2 weeks: {{ round($recentlyPlayedGame['playtime_2weeks'] / 60, 1) . " Hours" }}
                                 </td>
-                                <td>
+                                <td class="align-middle">
                                     Overall playtime: {{ round($recentlyPlayedGame['playtime_forever'] / 60, 1) . " Hours" }}
                                 </td>
                             </tr>
