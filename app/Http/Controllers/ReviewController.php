@@ -43,65 +43,50 @@ class ReviewController extends Controller
             Review::create(request()->except(['_token']));
             return redirect()->back()->with('success','Review successfully submitted! Thank you!');
         } else {
-            return redirect()->back()->with('error_steam_id',"Steam-ID doesn't match your Steam-ID. Login and try again.");
+            return redirect()->back()->with('error_steam_id',"Steam-ID does not match authenticated user. Login and try again.");
         }
-    }
-
-    public function storeReply(Request $request)
-    {
-        $request->validate([
-            'reply'=>'required',
-            'steamid'=>'required'
-        ]);
-
-
-//        DB::table('game_genre')->insert(['review_id' => $newGame->id, 'reply_id' => $genre['id']]);
-
-        if($request->steamid == Auth::user()->steamid){
-            Reply::create(request()->except(['_token']));
-            return redirect()->back()->with('success','Reply successfully submitted! Thank you!');
-        } else {
-            return redirect()->back()->with('error_steam_id',"Steam-ID doesn't match your Steam-ID. Login and try again.");
-        }
-
     }
 
     public function show(Request $request, $id)
     {
-
-        $test = session()->previousUrl();
-        $request->session()->put('testUrl', $test);
-
         $review =  Review::find($id);
 
+        if ($review['steamid'] == Auth::user()->steamid) {
+            $test = session()->previousUrl();
+            $request->session()->put('testUrl', $test);
 
-        $review['steam'] = userModel::where('steamid', $review['steamid'])->get();
-        unset($review['steamid']);
-        if (date('d/m/Y') == $review['created_at']->format('d/m/Y')) {
-            $review['ago'] = Helper::time_elapsed_string($review['created_at']);
-            unset($review['created_at']);
+            $review['steam'] = userModel::where('steamid', $review['steamid'])->get();
+            unset($review['steamid']);
+            if (date('d/m/Y') == $review['created_at']->format('d/m/Y')) {
+                $review['ago'] = Helper::time_elapsed_string($review['created_at']);
+                unset($review['created_at']);
+            }
+
+            return view('review.edit')->with('review', $review);
+        } else {
+            return redirect()->back()->with('error_steam_id',"Steam-ID does not match authenticated user. Login and try again.");
         }
-
-
-       return view('review.edit')->with('review', $review);
     }
 
     public function delete(Request $request, $id)
     {
         $review =  Review::find($id);
 
-        $test = session()->previousUrl();
-        $request->session()->put('testUrl', $test);
+        if ($review['steamid'] == Auth::user()->steamid) {
+            $test = session()->previousUrl();
+            $request->session()->put('testUrl', $test);
 
-        $review['steam'] = userModel::where('steamid', $review['steamid'])->get();
-        unset($review['steamid']);
-        if (date('d/m/Y') == $review['created_at']->format('d/m/Y')) {
-            $review['ago'] = Helper::time_elapsed_string($review['created_at']);
-            unset($review['created_at']);
+            $review['steam'] = userModel::where('steamid', $review['steamid'])->get();
+            unset($review['steamid']);
+            if (date('d/m/Y') == $review['created_at']->format('d/m/Y')) {
+                $review['ago'] = Helper::time_elapsed_string($review['created_at']);
+                unset($review['created_at']);
+            }
+
+            return view('review.delete')->with('review', $review);
+        } else {
+            return redirect()->back()->with('error_steam_id',"Steam-ID does not match authenticated user. Login and try again.");
         }
-
-
-       return view('review.delete')->with('review', $review);
     }
 
     public function update(Request $request)
@@ -127,7 +112,7 @@ class ReviewController extends Controller
             Review::where('id',$id)->update($request->all());
             return redirect($redirectUrl)->with('success','Review successfully updated!');
         } else {
-            return redirect()->back()->with('error_steam_id',"Steam-ID doesn't match your Steam-ID. Login and try again.");
+            return redirect()->back()->with('error_steam_id',"Steam-ID does not match authenticated user. Login and try again.");
         }
     }
 
@@ -143,7 +128,7 @@ class ReviewController extends Controller
             replyModel::where('review_id',$review_id)->delete();
             return redirect($redirectUrl)->with('success','Review successfully deleted!');
         } else {
-            return redirect()->back()->with('error_steam_id',"Steam-ID doesn't match your Steam-ID. Login and try again.");
+            return redirect()->back()->with('error_steam_id',"Steam-ID does not match authenticated user. Login and try again.");
         }
     }
 
