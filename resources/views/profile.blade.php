@@ -48,10 +48,11 @@ $gameID = $gamedata['data']['gameid'] ?? '';
                         <a href="{{$gamedata['data']['profileurl']}}" class="text-white" target="_blank"><h3 id="profilelink" class="m-0">{{$gamedata['data']['personaname']}}</h3></a>
                         @if(!empty($gamedata['data']['loccountrycode']))
                             <p class="m-0 text-white">Country: <img src="https://steamcommunity-a.akamaihd.net/public/images/countryflags/{{strtolower($gamedata['data']['loccountrycode'])}}.gif"><span class="text-light"> {{ $gamedata['data']['loccountrycode']}}</span></p>
+                            <p class="m-0 text-white pb-4">Status: {{$gamedata['data']['personastate']  == 1 ? "Online" : "Offline"  }}</p>
                         @else
+                            <p class="m-0 text-white pb-4">Status: {{$gamedata['data']['personastate']  == 1 ? "Online" : "Offline"  }}</p>
                             <p class="m-0 text-white"><h3></h3></p>
                         @endif
-                            <p class="m-0 text-white pb-4">Status: {{$gamedata['data']['personastate']  == 1 ? "Online" : "Offline"  }}</p>
                              <p class="m-0 text-white">Steamid: {{$gamedata['data']['steamid']}}</p>
                         @if(!empty($gameInfo))
                             <p class="m-0 text-white">Currently playing: <a href="/game/{{$gamedata['data']['gameid']}}" class="text-white">{{$gamedata['data']['gameextrainfo']}}</a> <i class="fab fa-steam-symbol"></i></p>
