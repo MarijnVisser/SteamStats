@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\GamesController;
+use App\Http\Controllers\ReplyController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\StatController;
 use Illuminate\Support\Facades\Route;
@@ -51,7 +52,7 @@ Route::get('/game/{id}', [GamesController::class, 'show'])->name('game');
 
 Route::post('/createreview', [ReviewController::class, 'store'])->name('createreview');
 
-Route::post('/createreply', [ReviewController::class, 'storeReply'])->name('createreply');
+Route::post('/createreply', [ReplyController::class, 'storeReply'])->name('createreply');
 
 Route::get('/editReview/{id}', [ReviewController::class, 'show'])->name('editreview');
 

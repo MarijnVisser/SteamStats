@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Reply;
 
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -18,6 +19,10 @@ use App\Helper\Helper;
 class ReplyController extends Controller
 {
 
+    /**
+     * @param Request $request
+     * @return RedirectResponse
+     */
     public function storeReply(Request $request)
     {
         $request->validate([
@@ -37,7 +42,7 @@ class ReplyController extends Controller
     public function show(Request $request, $id)
     {
         $reply =  Reply::find($id);
-		
+
 		if ($reply['steamid'] == Auth::user()->steamid) {
 			$test = session()->previousUrl();
 	        $request->session()->put('testUrl', $test);
