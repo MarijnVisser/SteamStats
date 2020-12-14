@@ -61,3 +61,11 @@ Route::post('/updateReview', [ReviewController::class, 'update'])->name('updater
 Route::get('/deleteReview/{id}', [ReviewController::class, 'delete'])->name('deletereview');
 
 Route::post('/destroyReview', [ReviewController::class, 'destroy'])->name('destroyreview');
+
+Route::get('/editReply/{id}', [ReplyController::class, 'show'])->name('editreply');
+
+Route::post('/updateReply', [ReplyController::class, 'update'])->name('updatereply');
+
+Route::get('/deleteReply/{id}', [ReplyController::class, 'delete'])->name('deletereply');
+
+Route::post('/destroyReply', [ReplyController::class, 'destroy'])->name('destroyreply');
