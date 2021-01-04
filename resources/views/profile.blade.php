@@ -42,14 +42,25 @@ $gameID = $gamedata['data']['gameid'] ?? '';
 @endif
     <div class="container mt-5">
         <div class="row">
-            <div class="col-lg-8 ">
-                <div class="row h-100 mr-1 pt-3 profileBackground">
+            <div class="col-lg-12 mb-3 p-3 profileBackground rounded">
+                <h4 class="text-center">Search player</h4>
+                <form action="/user" method="get" class="form-row">
+                    <input class="form-control btn-outline-primary bg-transparent mb-2 text-white" type="text" name="id" placeholder="Enter your steam id or VanityUrl">
+                    <input type="submit" class="form-control btn-outline-primary bg-transparent">
+                </form>
+            </div>
+            <div class="col-lg-8">
+
+                {{--        Main page       --}}
+                <div class="row h-100 mr-1 pt-3 profileBackground rounded">
+                    {{--        Profile image            --}}
                     <div class="col-md-3 p-2">
                         @if(!empty($gamedata['customAvatarFrame']['image_small']))
                             <img class="img-fluid avatarBorder" src="https://steamcdn-a.akamaihd.net/steamcommunity/public/images/{{$gamedata['customAvatarFrame']['image_small']}}">
                         @endif
                         <img class="img-fluid avatar" src="{{$gamedata['data']['avatarfull']}}">
                     </div>
+                    {{--        Name & status            --}}
                     <div class="col-md-5 pt-lg-4">
                         <a href="{{$gamedata['data']['profileurl']}}" class="text-white" target="_blank"><h3 id="profilelink" class="m-0">{{$gamedata['data']['personaname']}}</h3></a>
                         @if(!empty($gamedata['data']['loccountrycode']))
@@ -68,14 +79,8 @@ $gameID = $gamedata['data']['gameid'] ?? '';
                         @endif
                     </div>
                     <br>
-                    <div class="col-lg-12 mt-5">
-                        <h4>Search player</h4>
-                        <form action="/user" method="get" class="form-row">
-                            <input class="form-control btn-outline-primary bg-transparent mb-2 text-white" type="text" name="id" placeholder="Enter your steam id or VanityUrl">
-                            <input type="submit" class="form-control btn-outline-primary bg-transparent">
-                        </form>
-                    </div>
 
+                    {{--        Recently played games            --}}
                     @if(!empty($gamedata['recentlyPlayedGames']))
                     <table class="table borderless text-white mt-5 w-100">
                         <thead>
@@ -84,7 +89,7 @@ $gameID = $gamedata['data']['gameid'] ?? '';
                         <tbody>
                         @foreach ($gamedata['recentlyPlayedGames'] as $recentlyPlayedGame)
                             <tr>
-                                @if(!empty($recentlyPlayedGame['img_logo_url']))                               
+                                @if(!empty($recentlyPlayedGame['img_logo_url']))
                                     <td class="py-1 w-25"><img class="card-img-top"
                                                           src="https://steamcdn-a.akamaihd.net/steam/apps/{{$recentlyPlayedGame['appid'] }}/header.jpg">
                                     </td>
@@ -108,12 +113,17 @@ $gameID = $gamedata['data']['gameid'] ?? '';
                     </table>
                 </div>
             </div>
-            <div class="col-lg-4 pt-3 profileBackground">
+
+            {{--      Right bar      --}}
+            <div class="col-lg-4 pt-3 profileBackground rounded">
+                {{--        Level        --}}
                 <div class="pl-3 py-5" style="background-color: #1b1e21">
                     <h4 class=text-white">Level: <span id="divLevel" class="">{{ $gamedata['playerLevel']['player_level'] }}</span></h4>
                     <p class="text-white mr-3 p-3" style="background-color: #15191a"><span data-toggle="tooltip" data-placement="right" title="Member since {{ gmdate('m-d-Y', $timeCreated) }}">{{ date('y') - gmdate('y', $timeCreated) }} years of service</span></p>
                     <a class="btn btn-dark" href="https://store.steampowered.com/wishlist/profiles/{{$gamedata['data']['steamid']}}/wishlistdata/?p=0">View wishlist</a> <!-- Make into wishlist -->
                 </div>
+
+                {{--        Game stats        --}}
                 <div class="py-3 px-3 mt-3" style="background-color: #1b1e21">
                     <h4>Game stats:</h4>
                     <div class="p-3" style="background-color: #15191a">
@@ -122,6 +132,7 @@ $gameID = $gamedata['data']['gameid'] ?? '';
                         <p class="p-0 m-0">Average playtime: @if(isset($gamedata['ownedGames']['game_count'])) {{$gamedata['averagePlaytime']}}h @else N/A @endif</p>
                     </div>
                 </div>
+                {{--        Ban information        --}}
                 <div class="py-3 px-3 mt-3" style="background-color: #1b1e21">
                     <h4>Ban information:</h4>
                     <div class="p-3" style="background-color: #15191a">
@@ -135,10 +146,10 @@ $gameID = $gamedata['data']['gameid'] ?? '';
         </div>
         <div class="row">
             <div class="col-lg-8 pl-0 pr-3">
-                <div class="profileBackground">
+                <div class="">
                 </div>
             </div>
-            <div class="col-lg-4 p-5 profileBackground">
+            <div class="col-lg-4 p-5 ">
             </div>
         </div>
     </div>
